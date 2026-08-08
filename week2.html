@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="el" xml:lang="el"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Προσαρμογή σε διαδραστική μορφή (Τμήμα Μαθηματικών, ΕΚΠΑ)">
+
+<title>141.CS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="week2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week2_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="week2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="week2_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="week2_files/libs/quarto-html/popper.min.js"></script>
+<script src="week2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week2_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week2_files/libs/bootstrap/bootstrap-6b20d6c14e7b09043b28a444278f5f98.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="week2_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="week2_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="week2_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="week2_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Πίνακας περιεχομένων</h2>
+   
+  <ul>
+  <li><a href="#αριθμητικοί-τελεστές-και-προτεραιότητα" id="toc-αριθμητικοί-τελεστές-και-προτεραιότητα" class="nav-link active" data-scroll-target="#αριθμητικοί-τελεστές-και-προτεραιότητα"><span class="header-section-number">1</span> Αριθμητικοί τελεστές και προτεραιότητα</a>
+  <ul class="collapse">
+  <li><a href="#συνηθισμένα-λάθη-διαίρεση-με-το-μηδέν-και-υπερχείλιση-overflow" id="toc-συνηθισμένα-λάθη-διαίρεση-με-το-μηδέν-και-υπερχείλιση-overflow" class="nav-link" data-scroll-target="#συνηθισμένα-λάθη-διαίρεση-με-το-μηδέν-και-υπερχείλιση-overflow"><span class="header-section-number">1.1</span> Συνηθισμένα λάθη: διαίρεση με το μηδέν και υπερχείλιση (overflow)</a></li>
+  </ul></li>
+  <li><a href="#συμβολοσειρές" id="toc-συμβολοσειρές" class="nav-link" data-scroll-target="#συμβολοσειρές"><span class="header-section-number">2</span> Συμβολοσειρές</a>
+  <ul class="collapse">
+  <li><a href="#συμβολοσειρές-ως-αλληλουχίες-χαρακτήρων" id="toc-συμβολοσειρές-ως-αλληλουχίες-χαρακτήρων" class="nav-link" data-scroll-target="#συμβολοσειρές-ως-αλληλουχίες-χαρακτήρων"><span class="header-section-number">2.1</span> Συμβολοσειρές ως αλληλουχίες χαρακτήρων</a></li>
+  <li><a href="#μέθοδοι-συμβολοσειρών" id="toc-μέθοδοι-συμβολοσειρών" class="nav-link" data-scroll-target="#μέθοδοι-συμβολοσειρών"><span class="header-section-number">2.2</span> Μέθοδοι συμβολοσειρών</a></li>
+  <li><a href="#κωδικοποίηση-χαρακτήρων-ord-και-chr" id="toc-κωδικοποίηση-χαρακτήρων-ord-και-chr" class="nav-link" data-scroll-target="#κωδικοποίηση-χαρακτήρων-ord-και-chr"><span class="header-section-number">2.3</span> Κωδικοποίηση χαρακτήρων: <code>ord</code> και <code>chr</code></a></li>
+  </ul></li>
+  <li><a href="#μαθηματικές-εφαρμογές" id="toc-μαθηματικές-εφαρμογές" class="nav-link" data-scroll-target="#μαθηματικές-εφαρμογές"><span class="header-section-number">3</span> Μαθηματικές Εφαρμογές</a>
+  <ul class="collapse">
+  <li><a href="#όγκος-σφαίρας-και-άλλων-στερεών" id="toc-όγκος-σφαίρας-και-άλλων-στερεών" class="nav-link" data-scroll-target="#όγκος-σφαίρας-και-άλλων-στερεών"><span class="header-section-number">3.1</span> Όγκος σφαίρας και άλλων στερεών</a></li>
+  <li><a href="#μετατροπή-fahrenheit-celsius" id="toc-μετατροπή-fahrenheit-celsius" class="nav-link" data-scroll-target="#μετατροπή-fahrenheit-celsius"><span class="header-section-number">3.2</span> Μετατροπή Fahrenheit ⇄ Celsius</a></li>
+  <li><a href="#ο-κρυπτογράφος-του-καίσαρα" id="toc-ο-κρυπτογράφος-του-καίσαρα" class="nav-link" data-scroll-target="#ο-κρυπτογράφος-του-καίσαρα"><span class="header-section-number">3.3</span> Ο κρυπτογράφος του Καίσαρα</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">141.CS</h1>
+<p class="subtitle lead">Εβδομάδα 2 · Πράξεις και Συμβολοσειρές</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Συγγραφέας</div>
+    <div class="quarto-title-meta-contents">
+             <p>Προσαρμογή σε διαδραστική μορφή (Τμήμα Μαθηματικών, ΕΚΠΑ) </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><em>(Οδηγίες χρήσης του διαδραστικού κώδικα: δείτε την <a href="main.html">αρχική σελίδα</a>.)</em></p>
+<section id="αριθμητικοί-τελεστές-και-προτεραιότητα" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Αριθμητικοί τελεστές και προτεραιότητα</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Τελεστής</th>
+<th style="text-align: left;">Πράξη</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>+</code></td>
+<td style="text-align: left;">Πρόσθεση</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>-</code></td>
+<td style="text-align: left;">Αφαίρεση</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>*</code></td>
+<td style="text-align: left;">Πολλαπλασιασμός</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>/</code></td>
+<td style="text-align: left;">Διαίρεση (πάντα επιστρέφει <code>float</code>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>//</code></td>
+<td style="text-align: left;">Ακέραια διαίρεση (στρογγυλοποίηση προς το <span class="math inline">\(-\infty\)</span>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>%</code></td>
+<td style="text-align: left;">Υπόλοιπο διαίρεσης</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>**</code></td>
+<td style="text-align: left;">Ύψωση σε δύναμη</td>
+</tr>
+</tbody>
+</table>
+<p>Η προτεραιότητα των πράξεων είναι: πρώτα οι παρενθέσεις, μετά η ύψωση σε δύναμη (<code>**</code>, δεξιά προς αριστερά), μετά πολλαπλασιασμός/διαίρεση/υπόλοιπο (<code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>, αριστερά προς δεξιά), και τέλος πρόσθεση/αφαίρεση:</p>
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
+</div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoMTUgKyA1IC8gMikgICAgICMgz4DPgc+Oz4TOsSDOtyDOtM65zrHOr8+BzrXPg863OiAxNSArIDIuNVxucHJpbnQoNSArIDEyIC8gMyAqIDIpICMgzrTOuc6xzq/Pgc61z4POtywgzrzOtc+Ezqwgz4DOv867zrvOsc+AzrvOsc+DzrnOsc+DzrzPjM+COiA1ICsgNC4wKjJcbnByaW50KDQgKiogMyAqKiAyKSAgICAjIM60zrXOvs65zqwgz4DPgc6/z4IgzrHPgc65z4PPhM61z4HOrDogNCoqKDMqKjIpID0gNCoqOVxucHJpbnQoMiArIDMgKiA0IC0gMSkgICMgz4DOv867zrvOsc+AzrvOsc+DzrnOsc+DzrzPjM+CIM+Az4HPjs+EzrE6IDIgKyAxMiAtIDFcbnByaW50KCgyICsgMykgKiAoNCAtIDEpKSAgICMgzr/OuSDPgM6xz4HOtc69zrjOrc+DzrXOuc+CIM6tz4fOv8+Fzr0gz4DOrM69z4TOsSDPgM+Bzr/PhM61z4HOsc65z4zPhM63z4TOsVxucHJpbnQoLTIgKiogMikgICAgICAgICAjIM+Az4HOv8+Dzr/Ph86uOiDOtyDPjc+Iz4nPg863IM+DzrUgzrTPjc69zrHOvM63IM+Az4HOv863zrPOtc6vz4TOsc65IM+Ezr/PhSDOvM6/zr3Osc60zrnOsc6vzr/PhSAnLScsIM6sz4HOsSAtKDIqKjIpID0gLTRcbnByaW50KDcgJSAzICsgMiAqIDUpICAgIyDPhc+Az4zOu86/zrnPgM6/IM66zrHOuSDPgM6/zrvOu86xz4DOu86xz4POuc6xz4POvM+Mz4Igz4DPgc65zr0gz4TOt869IM+Az4HPjM+DzrjOtc+DzrdcbnByaW50KDIwIC8vIDMgJSAyKSAgICAgIyDOsc66zq3Pgc6xzrnOsSDOtM65zrHOr8+BzrXPg863IM66zrHOuSDPhc+Az4zOu86/zrnPgM6/LCDOsc+BzrnPg8+EzrXPgc6sIM+Az4HOv8+CIM60zrXOvs65zqw6ICgyMCAvLyAzKSAlIDIifQ==
+</script>
+</div>
+<p>Τέλος, οι <strong>τελεστές επαυξημένης εκχώρησης</strong> (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>) συντομεύουν εκχωρήσεις που περιλαμβάνουν τη μεταβλητή που ενημερώνεται, π.χ. <code>a += x</code> είναι το ίδιο με <code>a = a + x</code>.</p>
+<section id="συνηθισμένα-λάθη-διαίρεση-με-το-μηδέν-και-υπερχείλιση-overflow" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="συνηθισμένα-λάθη-διαίρεση-με-το-μηδέν-και-υπερχείλιση-overflow"><span class="header-section-number">1.1</span> Συνηθισμένα λάθη: διαίρεση με το μηδέν και υπερχείλιση (overflow)</h2>
+<p>Η διαίρεση (<code>/</code>, <code>//</code>, <code>%</code>) με παρονομαστή <code>0</code> δεν επιστρέφει κάποια ειδική τιμή — προκαλεί σφάλμα <code>ZeroDivisionError</code>, που σταματάει αμέσως την εκτέλεση:</p>
+<div>
+<div id="pyodide-2" class="exercise-cell">
+
+</div>
+<script type="pyodide-2-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9IDEwXG55ID0gMFxucHJpbnQoeCAvIHkpICAgIyBaZXJvRGl2aXNpb25FcnJvcjogZGl2aXNpb24gYnkgemVybyJ9
+</script>
+</div>
+<p>Σε πολλές άλλες γλώσσες (π.χ. C, Java), οι ακέραιοι έχουν σταθερό μέγεθος σε bits, και μια πράξη που ξεπερνάει το μέγιστο δυνατό αποθηκεύσιμο μέγεθος προκαλεί <strong>υπερχείλιση (overflow)</strong> — συχνά αθόρυβα, δίνοντας ένα λάθος (και μάλιστα τυχαία αρνητικό!) αποτέλεσμα. Οι ακέραιοι (<code>int</code>) της Python όμως έχουν <strong>απεριόριστο μέγεθος</strong>: μεγαλώνουν όσο χρειάζεται, χωρίς να «σπάνε» ποτέ:</p>
+<div>
+<div id="pyodide-3" class="exercise-cell">
+
+</div>
+<script type="pyodide-3-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYmlnID0gMiAqKiAxMDAwXG5wcmludChiaWcpICAgICAgICAgICMgzrrOsc69zq3Ovc6xIM+Az4HPjM6yzrvOt868zrEsIM6xzr0gzrrOsc65IM61zq/Ovc6xzrkgz4TOtc+BzqzPg8+EzrnOv8+CIM6xz4HOuc64zrzPjM+CXG5wcmludChiaWcgPiAwKSAgICAgICAjIM+AzqzOvc+EzrEgz4PPic+Dz4TPjCDPgM+Bz4zPg863zrzOvyAtLSDOus6xzrzOr86xIFwizrHOuM+Mz4HPhc6yzrdcIiDPhc+AzrXPgc+HzrXOr867zrnPg863In0=
+</script>
+</div>
+<p>Οι δεκαδικοί αριθμοί (<code>float</code>) όμως <strong>δεν</strong> έχουν απεριόριστο μέγεθος: αναπαρίστανται με σταθερό αριθμό bits (διπλής ακρίβειας IEEE-754), οπότε ένα αποτέλεσμα υπερβολικά μεγάλο για να αναπαρασταθεί προκαλεί κι εδώ υπερχείλιση — μερικές φορές με σφάλμα, μερικές φορές αθόρυβα με την ειδική τιμή <code>inf</code> (άπειρο):</p>
+<div>
+<div id="pyodide-4" class="exercise-cell">
+
+</div>
+<script type="pyodide-4-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoMTAuMCAqKiA0MDApICAgIyBPdmVyZmxvd0Vycm9yOiDOsc+Azr/PhM6tzrvOtc+DzrzOsSDOtc66z4TPjM+CIM61z43Pgc6/z4XPgiDPhM+Jzr0gZmxvYXQifQ==
+</script>
+</div>
+<div>
+<div id="pyodide-5" class="exercise-cell">
+
+</div>
+<script type="pyodide-5-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaHVnZSA9IDFlMzA4ICAgICAgICAgICMgzq7OtM63IM66zr/Ovc+Ezqwgz4PPhM6/IM68zq3Os865z4PPhM6/IGZsb2F0XG5wcmludChodWdlICogMTApICAgICAgIyDOsc64z4zPgc+FzrLOtyDPhc+AzrXPgc+HzrXOr867zrnPg863OiDOtc+AzrnPg8+Ez4HOrc+GzrXOuSBpbmYsIM+Mz4fOuSDPg8+GzqzOu868zrEhIn0=
+</script>
+</div>
+</section>
+</section>
+<section id="συμβολοσειρές" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Συμβολοσειρές</h1>
+<section id="συμβολοσειρές-ως-αλληλουχίες-χαρακτήρων" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="συμβολοσειρές-ως-αλληλουχίες-χαρακτήρων"><span class="header-section-number">2.1</span> Συμβολοσειρές ως αλληλουχίες χαρακτήρων</h2>
+<p>Μια συμβολοσειρά (<code>str</code>) είναι μια αλληλουχία χαρακτήρων. Όπως και οι αριθμοί, μπορούμε να την αποθηκεύσουμε σε μεταβλητή και να προσπελάσουμε τμήματά της με <strong>δείκτες (index)</strong> και <strong>τεμαχισμό (slicing)</strong> — θα ξαναδούμε τους ίδιους μηχανισμούς σε λίστες σε λίγες εβδομάδες:</p>
+<div>
+<div id="pyodide-6" class="exercise-cell">
+
+</div>
+<script type="pyodide-6-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoidGV4dCA9ICdIZWxsbyB0aGVyZSdcblxucHJpbnQodGV4dFswXSwgdGV4dFs0XSkgICAjIM68zrXOvM6/zr3Pic68zq3Ovc6/zrkgz4fOsc+BzrHOus+Ezq7Pgc61z4IsIM68zrUgzrTOtc6vzrrPhM63XG5wcmludCh0ZXh0Wzo1XSkgICAgICAgICAgICAjIM+EzrXOvM6xz4fOuc+DzrzPjM+COiDOv865IM+Az4HPjs+Ezr/OuSA1IM+HzrHPgc6xzrrPhM6uz4HOtc+CXG5wcmludCh0ZXh0WzY6XSkgICAgICAgICAgICAjICd0aGVyZSdcbnByaW50KHRleHRbOjotMV0pICAgICAgICAgICMgzrHOvc+EzrnPg8+Ez4HOv8+Gzq4ifQ==
+</script>
+</div>
+<p>Σε αντίθεση όμως με τις λίστες, οι συμβολοσειρές είναι <strong>αμετάβλητες (immutable)</strong>: δεν μπορούμε να αλλάξουμε έναν χαρακτήρα με εκχώρηση — το <code>text[0] = 'x'</code> προκαλεί σφάλμα <code>TypeError</code>. Κάθε “τροποποίηση” (π.χ. με τον τελεστή <code>+</code>) στην πραγματικότητα δημιουργεί μια εντελώς <strong>νέα</strong> συμβολοσειρά.</p>
+<p>Ο τελεστής <code>in</code> ελέγχει αν μια συμβολοσειρά περιέχεται σε μια άλλη:</p>
+<div>
+<div id="pyodide-7" class="exercise-cell">
+
+</div>
+<script type="pyodide-7-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2VudGVuY2UgPSAnSGVsbG8gdGhlcmUnXG5wcmludCgndGhlcmUnIGluIHNlbnRlbmNlKSAgICAjIFRydWVcbnByaW50KCdUSEVSRScgaW4gc2VudGVuY2UpICAgICMgRmFsc2UgLS0gY2FzZSBzZW5zaXRpdmUifQ==
+</script>
+</div>
+</section>
+<section id="μέθοδοι-συμβολοσειρών" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="μέθοδοι-συμβολοσειρών"><span class="header-section-number">2.2</span> Μέθοδοι συμβολοσειρών</h2>
+<p>Η Python διαθέτει πλούσιο σύνολο μεθόδων για έλεγχο και επεξεργασία συμβολοσειρών. Για <strong>έλεγχο</strong> περιεχομένου: <code>isalpha()</code>, <code>isdigit()</code>, <code>isalnum()</code>, <code>isspace()</code>, <code>islower()</code>, <code>isupper()</code>. Για <strong>τροποποιημένα αντίγραφα</strong>: <code>lower()</code>, <code>upper()</code>, <code>strip()</code> (αφαιρεί κενούς χαρακτήρες από τις άκρες), <code>replace(παλιό, νέο)</code>. Για <strong>αναζήτηση</strong>: <code>find(υπο-συμβολοσειρά)</code>, <code>startswith(...)</code>, <code>endswith(...)</code>, και για <strong>διαχωρισμό σε λέξεις</strong>: <code>split()</code>.</p>
+<div>
+<div id="pyodide-8" class="exercise-cell">
+
+</div>
+<script type="pyodide-8-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmF3ID0gJyAgIM6azrHOu863zrzOrc+BzrEgzprPjM+DzrzOtSEgICAnXG5cbnByaW50KHJhdy5zdHJpcCgpKVxucHJpbnQocmF3LnN0cmlwKCkudXBwZXIoKSlcbnByaW50KHJhdy5zdHJpcCgpLmxvd2VyKCkuZmluZCgnzrrPjM+DzrzOtScpKVxucHJpbnQoJzE3LzEyLzIwMTUnLnNwbGl0KCcvJykpXG5wcmludCgnSGVsbG8gdGhlcmUnLnJlcGxhY2UoJ3RoZXJlJywgJ3dvcmxkJykpIn0=
+</script>
+</div>
+</section>
+<section id="κωδικοποίηση-χαρακτήρων-ord-και-chr" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="κωδικοποίηση-χαρακτήρων-ord-και-chr"><span class="header-section-number">2.3</span> Κωδικοποίηση χαρακτήρων: <code>ord</code> και <code>chr</code></h2>
+<p>Η Python αναπαριστά κάθε χαρακτήρα ως έναν ακέραιο κωδικό (Unicode). Η συνάρτηση <code>ord(χαρακτήρας)</code> επιστρέφει τον κωδικό ενός χαρακτήρα, και η <code>chr(κωδικός)</code> κάνει το αντίστροφο:</p>
+<div>
+<div id="pyodide-9" class="exercise-cell">
+
+</div>
+<script type="pyodide-9-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQob3JkKCdBJyksIG9yZCgnYScpLCBvcmQoJzAnKSlcbnByaW50KGNocig2NSksIGNocig5NyksIGNocig0OCkpIn0=
+</script>
+</div>
+<p>Αυτή η αντιστοιχία χαρακτήρα-κωδικού είναι και η βάση της <strong>λεξικογραφικής σύγκρισης</strong> συμβολοσειρών, που θα δούμε στην Εβδομάδα 3: το <code>'a' &lt; 'b'</code> ισχύει επειδή <code>ord('a') &lt; ord('b')</code>.</p>
+</section>
+</section>
+<section id="μαθηματικές-εφαρμογές" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Μαθηματικές Εφαρμογές</h1>
+<section id="όγκος-σφαίρας-και-άλλων-στερεών" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="όγκος-σφαίρας-και-άλλων-στερεών"><span class="header-section-number">3.1</span> Όγκος σφαίρας και άλλων στερεών</h2>
+<p>Με απλές αριθμητικές πράξεις μπορούμε να υπολογίσουμε τον όγκο βασικών στερεών σωμάτων, δεδομένης της ακτίνας <span class="math inline">\(r\)</span> (και, όπου χρειάζεται, του ύψους <span class="math inline">\(h\)</span>):</p>
+<p><span class="math display">\[
+V_{\text{σφαίρα}} = \frac{4}{3}\pi r^3, \qquad
+V_{\text{κύλινδρος}} = \pi r^2 h, \qquad
+V_{\text{κώνος}} = \frac{1}{3}\pi r^2 h.
+\]</span></p>
+<div>
+<div id="pyodide-10" class="exercise-cell">
+
+</div>
+<script type="pyodide-10-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcblxuciA9IDMuMCAgICAjIM6xzrrPhM6vzr3OsSwgz4POtSDOtc66zrHPhM6/z4PPhM6sIC0tIM6xzrvOu86szr7PhM61IM61zrvOtc+NzrjOtc+BzrFcbmggPSA4LjAgICAgIyDPjc+Izr/PgiAozrzPjM69zr8gzrPOuc6xIM66z43Ou865zr3OtM+Bzr8vzrrPjs69zr8pXG5cbnNwaGVyZV92b2x1bWUgPSAoNC8zKSAqIG1hdGgucGkgKiByKiozXG5jeWxpbmRlcl92b2x1bWUgPSBtYXRoLnBpICogcioqMiAqIGhcbmNvbmVfdm9sdW1lID0gKDEvMykgKiBtYXRoLnBpICogcioqMiAqIGhcblxucHJpbnQoZifOjM6zzrrOv8+CIM+Dz4bOsc6vz4HOsc+CIM6xzrrPhM6vzr3Osc+CIHtyfTogICAge3NwaGVyZV92b2x1bWU6LjJmfSBjbcKzJylcbnByaW50KGYnzozOs866zr/PgiDOus+FzrvOr869zrTPgc6/z4UgKHI9e3J9LCBoPXtofSk6IHtjeWxpbmRlcl92b2x1bWU6LjJmfSBjbcKzJylcbnByaW50KGYnzozOs866zr/PgiDOus+Ozr3Ov8+FIChyPXtyfSwgaD17aH0pOiAgICAge2NvbmVfdm9sdW1lOi4yZn0gY23CsycpIn0=
+</script>
+</div>
+<p>Παρατηρήστε ότι ο κώνος έχει πάντα το <span class="math inline">\(\frac{1}{3}\)</span> του όγκου του κυλίνδρου με ίδια βάση και ύψος — επαληθεύστε το στην έξοδο (<code>cone_volume</code> πρέπει να είναι ακριβώς <code>cylinder_volume / 3</code>).</p>
+</section>
+<section id="μετατροπή-fahrenheit-celsius" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="μετατροπή-fahrenheit-celsius"><span class="header-section-number">3.2</span> Μετατροπή Fahrenheit ⇄ Celsius</h2>
+<p>Οι κλίμακες Κελσίου (<span class="math inline">\(C\)</span>) και Φαρενάιτ (<span class="math inline">\(F\)</span>) συνδέονται με τον γραμμικό τύπο</p>
+<p><span class="math display">\[
+F = \frac{9}{5}C + 32 \quad \Longleftrightarrow \quad C = \frac{5}{9}(F - 32).
+\]</span></p>
+<div>
+<div id="pyodide-11" class="exercise-cell">
+
+</div>
+<script type="pyodide-11-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY2Vsc2l1cyA9IDI1LjAgICAjIM6xzrvOu86szr7PhM61IM+EzrcgzrjOtc+BzrzOv866z4HOsc+Dzq/OsSDPg861IM6azrXOu8+Dzq/Ov8+FXG5mYWhyZW5oZWl0ID0gY2Vsc2l1cyAqIDkvNSArIDMyXG5wcmludChmJ3tjZWxzaXVzfcKwQyA9IHtmYWhyZW5oZWl0fcKwRicpXG5cbmZhaHJlbmhlaXQyID0gOTguNiAgICMgzrrOsc65IM+Az4HOv8+CIM+EzrfOvSDOsc69z4TOr864zrXPhM63IM66zrHPhM61z43OuM+Fzr3Pg863XG5jZWxzaXVzMiA9IChmYWhyZW5oZWl0MiAtIDMyKSAqIDUvOVxucHJpbnQoZid7ZmFocmVuaGVpdDJ9wrBGID0ge2NlbHNpdXMyOi4yZn3CsEMnKSJ9
+</script>
+</div>
+<p>Δοκιμάστε το χαρακτηριστικό σημείο όπου οι δύο κλίμακες συμφωνούν: για <span class="math inline">\(C = -40\)</span>, βρείτε ότι και το <code>fahrenheit</code> βγαίνει <span class="math inline">\(-40\)</span>.</p>
+</section>
+<section id="ο-κρυπτογράφος-του-καίσαρα" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="ο-κρυπτογράφος-του-καίσαρα"><span class="header-section-number">3.3</span> Ο κρυπτογράφος του Καίσαρα</h2>
+<p>Ο <strong>κρυπτογράφος του Καίσαρα</strong> είναι μια από τις αρχαιότερες γνωστές μεθόδους κρυπτογράφησης: κάθε γράμμα του μηνύματος αντικαθίσταται από το γράμμα που βρίσκεται <span class="math inline">\(k\)</span> θέσεις μετά, στο κυκλικά επαναλαμβανόμενο αλφάβητο (μετά το <code>Z</code> ξαναγυρνάμε στο <code>A</code>). Αν αντιστοιχίσουμε στο <code>A</code> το <code>0</code>, στο <code>B</code> το <code>1</code>, …, στο <code>Z</code> το <code>25</code>, τότε η κρυπτογράφηση ενός γράμματος με αριθμό θέσης <span class="math inline">\(p\)</span> είναι μια πράξη <strong>αρθμητικής υπολοίπου (modular arithmetic)</strong>:</p>
+<p><span class="math display">\[
+E(p) = (p + k) \bmod 26.
+\]</span></p>
+<p>Χρησιμοποιώντας τις <code>ord</code> και <code>chr</code> μπορούμε να υλοποιήσουμε την κρυπτογράφηση και την αποκρυπτογράφηση απευθείας πάνω σε αλφαβητικούς χαρακτήρες, αφήνοντας κενά και σημεία στίξης αμετάβλητα. Ο κώδικας εξετάζει τους χαρακτήρες του μηνύματος έναν-έναν με έναν βρόχο <code>for</code> (θα τον μελετήσουμε αναλυτικά σε λίγες εβδομάδες — προς το παρόν αρκεί να ξέρετε ότι επαναλαμβάνει το εσωτερικό του block μία φορά για κάθε χαρακτήρα του <code>text</code>):</p>
+<div>
+<div id="pyodide-12" class="exercise-cell">
+
+</div>
+<script type="pyodide-12-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGNhZXNhcl9zaGlmdCh0ZXh0LCBrKTpcbiAgICByZXN1bHQgPSAnJ1xuICAgIGZvciBjaCBpbiB0ZXh0OlxuICAgICAgICBpZiBjaC5pc2FscGhhKCk6XG4gICAgICAgICAgICBiYXNlID0gb3JkKCdBJykgaWYgY2guaXN1cHBlcigpIGVsc2Ugb3JkKCdhJylcbiAgICAgICAgICAgIHNoaWZ0ZWQgPSAob3JkKGNoKSAtIGJhc2UgKyBrKSAlIDI2XG4gICAgICAgICAgICByZXN1bHQgKz0gY2hyKGJhc2UgKyBzaGlmdGVkKVxuICAgICAgICBlbHNlOlxuICAgICAgICAgICAgcmVzdWx0ICs9IGNoICAgIyDOus61zr3OrCwgz4POt868zrXOr86xIM+Dz4TOr86+zrfPgiDOui7Ou8+ALiDOvM6tzr3Ov8+Fzr0gz4nPgiDOrc+Hzr/Phc69XG4gICAgcmV0dXJuIHJlc3VsdFxuXG5tZXNzYWdlID0gJ01lZXQgbWUgYXQgZGF3bicgICAjIM6xzrvOu86szr7PhM61IM+Ezr8gzrzOrs69z4XOvM6xXG5rID0gMyAgICAgICAgICAgICAgICAgICAgICAgICAgIyDOsc67zrvOrM6+z4TOtSDPhM6/IM66zrvOtc65zrTOryDOv867zq/Pg864zrfPg863z4JcblxuZW5jcnlwdGVkID0gY2Flc2FyX3NoaWZ0KG1lc3NhZ2UsIGspXG5kZWNyeXB0ZWQgPSBjYWVzYXJfc2hpZnQoZW5jcnlwdGVkLCAtaykgICAjIM6xz4DOv866z4HPhc+Az4TOv86zz4HOrM+GzrfPg863OiDOv867zq/Pg864zrfPg863IM+Az4HOv8+CIM+EzrEgz4DOr8+Dz4lcblxucHJpbnQoJ86Rz4HPh865zrrPjCDOvM6uzr3Phc68zrE6ICcsIG1lc3NhZ2UpXG5wcmludCgnzprPgc+Fz4DPhM6/zrPPgc6xz4bOt868zq3Ovc6/OicsIGVuY3J5cHRlZClcbnByaW50KCfOkc+Azr/Ous+Bz4XPgM+Ezr/Os8+BzrHPhs63zrzOrc69zr86JywgZGVjcnlwdGVkKSJ9
+</script>
+</div>
+<p>Παρατηρήστε ότι η αποκρυπτογράφηση είναι απλώς μια κρυπτογράφηση με αντίθετο κλειδί, <code>-k</code>, χάρη στην αριθμητική υπολοίπου (το πηλίκο <code>%</code> στην Python δίνει πάντα μη αρνητικό αποτέλεσμα για θετικό διαιρέτη, οπότε η ολίσθηση “τυλίγεται” σωστά και προς τις δύο κατευθύνσεις). Δοκιμάστε <code>k = 13</code> — είναι ο γνωστός αλγόριθμος <strong>ROT13</strong>, όπου η κρυπτογράφηση είναι η δική της αντίστροφη συνάρτηση (<code>caesar_shift(caesar_shift(text, 13), 13) == text</code>)!</p>
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTEyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTExIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTExLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl85ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzkgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../..";
+window._ojs.paths.runtimeToRoot = "../../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Αντιγράφηκε!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Αντιγράφηκε!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="week2_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
