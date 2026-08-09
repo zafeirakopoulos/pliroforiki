@@ -30,6 +30,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="week11-slides_files/libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
   <link href="week11-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -147,6 +213,7 @@
 </section>
 <section id="ο-αλγόριθμος-του-ευκλείδη" class="slide level2">
 <h2>Ο αλγόριθμος του Ευκλείδη</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
@@ -155,10 +222,21 @@
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGdjZCh4LCB5KTpcbiAgICBpZiB5ID09IDA6XG4gICAgICAgIHJldHVybiB4XG4gICAgcmV0dXJuIGdjZCh5LCB4ICUgeSlcblxucHJpbnQoZ2NkKDQ4LCAxOCkpXG5wcmludChnY2QoMTA3MSwgNDYyKSkifQ==
 </script>
 </div>
+</div>
+<div class="fragment">
 <p><code>math.gcd()</code> υπάρχει έτοιμο — αλλά χρειαζόμαστε τη δική μας εκδοχή για <strong>παραλλαγές</strong>.</p>
+</div>
 </section>
 <section id="επεκτεταμένος-ευκλείδειος" class="slide level2">
 <h2>Επεκτεταμένος Ευκλείδειος</h2>
+<p>Υπολογίζει επιπλέον συντελεστές <span class="math inline">\(x,y\)</span> με <span class="math inline">\(ax+by=\gcd(a,b)\)</span>, βήμα-βήμα:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="1-2|3|4|5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="kw">def</span> extended_gcd(a, b):</span>
+<span id="cb1-2"><a href=""></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb1-3"><a href=""></a>        <span class="cf">return</span> a, <span class="dv">1</span>, <span class="dv">0</span></span>
+<span id="cb1-4"><a href=""></a>    g, x1, y1 <span class="op">=</span> extended_gcd(b, a <span class="op">%</span> b)</span>
+<span id="cb1-5"><a href=""></a>    x, y <span class="op">=</span> y1, x1 <span class="op">-</span> (a <span class="op">//</span> b) <span class="op">*</span> y1</span>
+<span id="cb1-6"><a href=""></a>    <span class="cf">return</span> g, x, y</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
@@ -167,10 +245,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGV4dGVuZGVkX2djZChhLCBiKTpcbiAgICBpZiBiID09IDA6XG4gICAgICAgIHJldHVybiBhLCAxLCAwXG4gICAgZywgeDEsIHkxID0gZXh0ZW5kZWRfZ2NkKGIsIGEgJSBiKVxuICAgIHgsIHkgPSB5MSwgeDEgLSAoYSAvLyBiKSAqIHkxXG4gICAgcmV0dXJuIGcsIHgsIHlcblxuYSwgYiA9IDI0MCwgNDZcbmcsIHgsIHkgPSBleHRlbmRlZF9nY2QoYSwgYilcbnByaW50KGYne2F9Knt4fSArIHtifSp7eX0gPSB7YSp4ICsgYip5fScpICAgIyA9IGdjZChhLGIpIn0=
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Υπολογίζει επιπλέον συντελεστές μαζί με τον ΜΚΔ.</p>
+</div>
 </section>
 <section id="ακριβής-συμβολικός-υπολογισμός" class="slide level2">
 <h2>Ακριβής (συμβολικός) υπολογισμός</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-3" class="exercise-cell">
 
@@ -179,10 +261,22 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcbmZyb20gZnJhY3Rpb25zIGltcG9ydCBGcmFjdGlvblxuXG5iaWcxLCBiaWcyID0gbWF0aC5mYWN0b3JpYWwoMzApLCBtYXRoLmZhY3RvcmlhbCgyNSlcbnByaW50KCfOnM6azpQ6JywgZ2NkKGJpZzEsIGJpZzIpKSAgICMgzrHPgM+MzrvPhc+EzrEgzrHOus+BzrnOss6tz4JcblxucHJpbnQoRnJhY3Rpb24oMSwgMykgKyBGcmFjdGlvbigxLCA2KSkgICAjIDEvMiAtLSDOsc66z4HOuc6yz47PglxucHJpbnQoMC4xICsgMC4yKSAgICAgICAgICAgICAgICAgICAgICAgICAgIyDOtyDOs869z4nPg8+Ezq4gzrHPhM6tzrvOtc65zrEgz4TOt8+CIGZsb2F0In0=
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Απεριόριστοι ακέραιοι + <code>Fraction</code>: καμία στρογγυλοποίηση, ποτέ.</p>
+</div>
 </section>
 <section id="συνεχή-κλάσματα-ευκλείδειος-αλγόριθμος" class="slide level2">
 <h2>Συνεχή κλάσματα ≈ Ευκλείδειος αλγόριθμος</h2>
+<p>Ίδιος βρόχος με τον <code>gcd</code>, απλώς καταγράφουμε το πηλίκο σε κάθε βήμα:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="1-2|3|4-5|6|7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="kw">def</span> continued_fraction(p, q):</span>
+<span id="cb2-2"><a href=""></a>    coeffs <span class="op">=</span> []</span>
+<span id="cb2-3"><a href=""></a>    <span class="cf">while</span> q <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb2-4"><a href=""></a>        a <span class="op">=</span> p <span class="op">//</span> q</span>
+<span id="cb2-5"><a href=""></a>        coeffs.append(a)</span>
+<span id="cb2-6"><a href=""></a>        p, q <span class="op">=</span> q, p <span class="op">-</span> a <span class="op">*</span> q     <span class="co"># ίδιο μοτίβο με τον gcd!</span></span>
+<span id="cb2-7"><a href=""></a>    <span class="cf">return</span> coeffs</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
 <div>
 <div id="pyodide-4" class="exercise-cell">
 
@@ -191,10 +285,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGNvbnRpbnVlZF9mcmFjdGlvbihwLCBxKTpcbiAgICBjb2VmZnMgPSBbXVxuICAgIHdoaWxlIHEgIT0gMDpcbiAgICAgICAgYSA9IHAgLy8gcVxuICAgICAgICBjb2VmZnMuYXBwZW5kKGEpXG4gICAgICAgIHAsIHEgPSBxLCBwIC0gYSAqIHEgICAgICMgzq/OtM65zr8gzrzOv8+Ezq/Oss6/IM68zrUgz4TOv869IGdjZCFcbiAgICByZXR1cm4gY29lZmZzXG5cbnByaW50KGNvbnRpbnVlZF9mcmFjdGlvbig0MTUsIDkzKSkgICAgICMgWzQsIDIsIDYsIDddIn0=
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Ίδιος αλγόριθμος, απλώς καταγράφουμε το πηλίκο σε κάθε βήμα.</p>
+</div>
 </section>
 <section id="οκνηρή-αποτίμηση-με-γεννήτριες" class="slide level2">
 <h2>Οκνηρή αποτίμηση με γεννήτριες</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-5" class="exercise-cell">
 
@@ -203,15 +301,18 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIHNxcnQyX2NvbnRpbnVlZF9mcmFjdGlvbigpOlxuICAgIHlpZWxkIDFcbiAgICB3aGlsZSBUcnVlOlxuICAgICAgICB5aWVsZCAyICAgIyBbMTsgMiwgMiwgMiwgLi4uXSAtLSDOrM+AzrXOuc+Bzr8sIM+AzrXPgc65zr/OtM65zrrPjFxuXG5nZW4gPSBzcXJ0Ml9jb250aW51ZWRfZnJhY3Rpb24oKVxucHJpbnQoW25leHQoZ2VuKSBmb3IgXyBpbiByYW5nZSgxMCldKSJ9
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Άπειρη ακολουθία → παράγουμε όρους <strong>κατ’ απαίτηση</strong>, μόνο όσους χρειαζόμαστε.</p>
+</div>
 </section>
 <section id="σύνοψη" class="slide level2">
 <h2>Σύνοψη</h2>
 <ul>
-<li>Αλγόριθμος Ευκλείδη, επεκτεταμένη εκδοχή</li>
-<li>Ακριβής (συμβολικός) υπολογισμός: απεριόριστοι ακέραιοι, <code>fractions</code></li>
-<li>Αλγόριθμος σχεδόν πανομοιότυπος με τον Ευκλείδειο — ίδια λογική, άλλη καταγραφή</li>
-<li>Οκνηρή αποτίμηση (lazy evaluation) με γεννήτριες</li>
+<li class="fragment">Αλγόριθμος Ευκλείδη, επεκτεταμένη εκδοχή</li>
+<li class="fragment">Ακριβής (συμβολικός) υπολογισμός: απεριόριστοι ακέραιοι, <code>fractions</code></li>
+<li class="fragment">Αλγόριθμος σχεδόν πανομοιότυπος με τον Ευκλείδειο — ίδια λογική, άλλη καταγραφή</li>
+<li class="fragment">Οκνηρή αποτίμηση (lazy evaluation) με γεννήτριες</li>
 </ul>
 </section>
 <section id="section" class="slide level2">

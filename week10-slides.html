@@ -30,6 +30,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="week10-slides_files/libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
   <link href="week10-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -147,6 +213,7 @@
 </section>
 <section id="προσέγγιση-του-π-monte-carlo" class="slide level2">
 <h2>Προσέγγιση του π: Monte Carlo</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
@@ -155,10 +222,14 @@
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IHJhbmRvbVxuXG5uID0gMjAwMDBcbmhpdHMgPSAwXG5mb3IgaSBpbiByYW5nZShuKTpcbiAgICB4ID0gcmFuZG9tLnVuaWZvcm0oLTEsIDEpXG4gICAgeSA9IHJhbmRvbS51bmlmb3JtKC0xLCAxKVxuICAgIGlmIHgqKjIgKyB5KioyIDw9IDE6XG4gICAgICAgIGhpdHMgKz0gMVxuXG5wcmludChmJ8+AIOKJiCB7NCAqIGhpdHMgLyBufScpIn0=
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Τυχαία δειγματοληψία → αριθμητική εκτίμηση. Σύγκλιση <span class="math inline">\(\sim 1/\sqrt{n}\)</span> (αργή).</p>
+</div>
 </section>
 <section id="γραφήματα-με-matplotlib" class="slide level2">
 <h2>Γραφήματα με <code>matplotlib</code></h2>
+<div class="fragment">
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
@@ -167,10 +238,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcbmltcG9ydCBtYXRwbG90bGliLnB5cGxvdCBhcyBwbHRcblxueCA9IFtpIC8gMjAgZm9yIGkgaW4gcmFuZ2UoMCwgMTI2KV1cbnkgPSBbbWF0aC5zaW4odikgZm9yIHYgaW4geF1cblxucGx0LnBsb3QoeCwgeSlcbnBsdC54bGFiZWwoJ3gnKTsgcGx0LnlsYWJlbCgnc2luKHgpJylcbnBsdC5zaG93KCkifQ==
 </script>
 </div>
+</div>
+<div class="fragment">
 <p><code>plt.plot</code>, <code>plt.scatter</code>, <code>plt.imshow</code> — με <code>xlabel</code>/<code>ylabel</code>/<code>title</code>/<code>legend</code>.</p>
+</div>
 </section>
 <section id="monte-carlo-οπτικά" class="slide level2">
 <h2>Monte Carlo, οπτικά</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-3" class="exercise-cell">
 
@@ -179,10 +254,12 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmFuZG9tLnNlZWQoMClcbnhzX2luLCB5c19pbiwgeHNfb3V0LCB5c19vdXQgPSBbXSwgW10sIFtdLCBbXVxuZm9yIGkgaW4gcmFuZ2UoMjAwMCk6XG4gICAgeCwgeSA9IHJhbmRvbS51bmlmb3JtKC0xLCAxKSwgcmFuZG9tLnVuaWZvcm0oLTEsIDEpXG4gICAgKHhzX2luIGlmIHgqKjIreSoqMiA8PSAxIGVsc2UgeHNfb3V0KS5hcHBlbmQoeClcbiAgICAoeXNfaW4gaWYgeCoqMit5KioyIDw9IDEgZWxzZSB5c19vdXQpLmFwcGVuZCh5KVxuXG5wbHQuc2NhdHRlcih4c19pbiwgeXNfaW4sIHM9NSwgbGFiZWw9J868zq3Pg86xJylcbnBsdC5zY2F0dGVyKHhzX291dCwgeXNfb3V0LCBzPTUsIGxhYmVsPSfOrc6+z4knKVxucGx0LmdjYSgpLnNldF9hc3BlY3QoJ2VxdWFsJylcbnBsdC5sZWdlbmQoKVxucGx0LnNob3coKSJ9
 </script>
 </div>
+</div>
 </section>
 <section id="η-μέθοδος-του-αρχιμήδη" class="slide level2">
 <h2>Η μέθοδος του Αρχιμήδη</h2>
 <p>Παγιδεύει το <span class="math inline">\(\pi\)</span> ανάμεσα σε περίμετρο εγγεγραμμένου/περιγεγραμμένου πολυγώνου:</p>
+<div class="fragment">
 <div>
 <div id="pyodide-4" class="exercise-cell">
 
@@ -191,9 +268,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmFu
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGFyY2hpbWVkZXNfcGkoZG91YmxpbmdzKTpcbiAgICBhLCBiLCBzaWRlcyA9IDIgKiBtYXRoLnNxcnQoMyksIDMuMCwgNlxuICAgIGZvciBfIGluIHJhbmdlKGRvdWJsaW5ncyk6XG4gICAgICAgIGEgPSAoMiAqIGEgKiBiKSAvIChhICsgYikgICAjIM6xz4HOvM6/zr3Ouc66z4zPgiDOvM6tz4POv8+CXG4gICAgICAgIGIgPSBtYXRoLnNxcnQoYSAqIGIpICAgICAgICAjIM6zzrXPic68zrXPhM+BzrnOus+Mz4IgzrzOrc+Dzr/PglxuICAgICAgICBzaWRlcyAqPSAyXG4gICAgcmV0dXJuIGEsIGIsIHNpZGVzXG5cbnVwcGVyLCBsb3dlciwgc2lkZXMgPSBhcmNoaW1lZGVzX3BpKDEwKVxucHJpbnQoZid7c2lkZXN9IM+AzrvOtc+Fz4HOrc+CLCDOtc+Nz4HOv8+COiB7dXBwZXIgLSBsb3dlcjouMmV9JykifQ==
 </script>
 </div>
+</div>
 </section>
 <section id="ρυθμός-σύγκλισης-αρχιμήδης" class="slide level2">
 <h2>Ρυθμός σύγκλισης: Αρχιμήδης</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-5" class="exercise-cell">
 
@@ -202,10 +281,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZG91YmxpbmdzX2xpc3QgPSBsaXN0KHJhbmdlKDEsIDE1KSlcbmdhcHMgPSBbYXJjaGltZWRlc19waShkKVswXSAtIGFyY2hpbWVkZXNfcGkoZClbMV0gZm9yIGQgaW4gZG91YmxpbmdzX2xpc3RdXG5cbnBsdC5wbG90KGRvdWJsaW5nc19saXN0LCBnYXBzLCBtYXJrZXI9J28nKVxucGx0LnlzY2FsZSgnbG9nJylcbnBsdC54bGFiZWwoJ860zrnPgM67zrHPg865zrHPg868zr/OrycpOyBwbHQueWxhYmVsKCfOtc+Nz4HOv8+CIChsb2cpJylcbnBsdC5zaG93KCkifQ==
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Ευθεία γραμμή σε λογαριθμική κλίμακα = <strong>εκθετική</strong> σύγκλιση.</p>
+</div>
 </section>
 <section id="float32-έναντι-float64" class="slide level2">
 <h2><code>float32</code> έναντι <code>float64</code></h2>
+<div class="fragment">
 <div>
 <div id="pyodide-6" class="exercise-cell">
 
@@ -214,10 +297,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZG91
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IHN0cnVjdFxuXG5kZWYgdG9fZmxvYXQzMih4KTpcbiAgICByZXR1cm4gc3RydWN0LnVucGFjaygnZicsIHN0cnVjdC5wYWNrKCdmJywgeCkpWzBdXG5cbnByaW50KG1hdGgucGkpXG5wcmludCh0b19mbG9hdDMyKG1hdGgucGkpKSJ9
 </script>
 </div>
+</div>
+<div class="fragment">
 <p><code>double</code>: 53 bits significand ≈ 15-17 δεκαδικά ψηφία. <code>single</code>: 24 bits ≈ 7.</p>
+</div>
 </section>
 <section id="σύγκριση-σφαλμάτων" class="slide level2">
 <h2>Σύγκριση σφαλμάτων</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-7" class="exercise-cell">
 
@@ -226,10 +313,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGFyY2hpbWVkZXNfcGlfcHJlY2lzaW9uKGRvdWJsaW5ncywgcm91bmRfZm4pOlxuICAgIGEsIGIgPSByb3VuZF9mbigyKm1hdGguc3FydCgzKSksIHJvdW5kX2ZuKDMuMClcbiAgICBmb3IgXyBpbiByYW5nZShkb3VibGluZ3MpOlxuICAgICAgICBhID0gcm91bmRfZm4oKDIqYSpiKS8oYStiKSlcbiAgICAgICAgYiA9IHJvdW5kX2ZuKG1hdGguc3FydChhKmIpKVxuICAgIHJldHVybiAoYSArIGIpIC8gMlxuXG5ybmcgPSBsaXN0KHJhbmdlKDEsIDQxKSlcbmVycjMyID0gW2FicyhhcmNoaW1lZGVzX3BpX3ByZWNpc2lvbihkLCB0b19mbG9hdDMyKSAtIG1hdGgucGkpIGZvciBkIGluIHJuZ11cbmVycjY0ID0gW2FicyhhcmNoaW1lZGVzX3BpX3ByZWNpc2lvbihkLCBsYW1iZGEgeDogeCkgLSBtYXRoLnBpKSBmb3IgZCBpbiBybmddXG5cbnBsdC5wbG90KHJuZywgZXJyMzIsIGxhYmVsPSdmbG9hdDMyJylcbnBsdC5wbG90KHJuZywgZXJyNjQsIGxhYmVsPSdmbG9hdDY0JylcbnBsdC55c2NhbGUoJ2xvZycpOyBwbHQubGVnZW5kKClcbnBsdC5zaG93KCkifQ==
 </script>
 </div>
+</div>
+<div class="fragment">
 <p><code>float32</code> “κολλάει” — <strong>απώλεια σημαντικών ψηφίων</strong> (catastrophic cancellation).</p>
+</div>
 </section>
 <section id="newton-raphson" class="slide level2">
 <h2>Newton-Raphson</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-8" class="exercise-cell">
 
@@ -238,10 +329,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIG5ld3RvbihmLCBmcHJpbWUsIHgwLCBlcHNpbG9uPTFlLTEyLCBtYXhfaXRlcj0xMDApOlxuICAgIHggPSB4MFxuICAgIGZvciBpIGluIHJhbmdlKG1heF9pdGVyKTpcbiAgICAgICAgZnggPSBmKHgpXG4gICAgICAgIGlmIGFicyhmeCkgPCBlcHNpbG9uOlxuICAgICAgICAgICAgcmV0dXJuIHgsIGlcbiAgICAgICAgeCA9IHggLSBmeCAvIGZwcmltZSh4KVxuICAgIHJldHVybiB4LCBtYXhfaXRlclxuXG5yb290LCBpdGVycyA9IG5ld3RvbihsYW1iZGEgeDogeCoqMyAtIDIsIGxhbWJkYSB4OiAzKngqKjIsIHgwPTEuMClcbnByaW50KGYnzqHOr862zrE6IHtyb290fSwgz4POtSB7aXRlcnN9IM61z4DOsc69zrHOu86uz4jOtc65z4InKSJ9
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Γενική μέθοδος: δουλεύει για <strong>οποιαδήποτε</strong> παραγωγίσιμη <span class="math inline">\(f\)</span>.</p>
+</div>
 </section>
 <section id="διχοτόμηση-bisection" class="slide level2">
 <h2>Διχοτόμηση (bisection)</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-9" class="exercise-cell">
 
@@ -250,10 +345,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGJpc2VjdGlvbihmLCBhLCBiLCBlcHNpbG9uPTFlLTEwLCBtYXhfaXRlcj0xMDApOlxuICAgIGZvciBpIGluIHJhbmdlKG1heF9pdGVyKTpcbiAgICAgICAgbWlkID0gKGEgKyBiKSAvIDJcbiAgICAgICAgaWYgYWJzKGYobWlkKSkgPCBlcHNpbG9uOlxuICAgICAgICAgICAgcmV0dXJuIG1pZCwgaVxuICAgICAgICBpZiBmKGEpICogZihtaWQpIDwgMDpcbiAgICAgICAgICAgIGIgPSBtaWRcbiAgICAgICAgZWxzZTpcbiAgICAgICAgICAgIGEgPSBtaWRcbiAgICByZXR1cm4gKGEgKyBiKSAvIDIsIG1heF9pdGVyXG5cbnJvb3QsIGl0ZXJzID0gYmlzZWN0aW9uKGxhbWJkYSB4OiB4KiozIC0gMiwgMCwgMilcbnByaW50KGYnzqHOr862zrE6IHtyb290fSwgz4POtSB7aXRlcnN9IM61z4DOsc69zrHOu86uz4jOtc65z4InKSJ9
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Δεν χρειάζεται παράγωγο· εγγυημένη σύγκλιση, αλλά πιο αργή (γραμμική).</p>
+</div>
 </section>
 <section id="σειρές-taylor" class="slide level2">
 <h2>Σειρές Taylor</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-10" class="exercise-cell">
 
@@ -262,10 +361,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGV4cF90YXlsb3IoeCwgbl90ZXJtcyk6XG4gICAgcmV0dXJuIHN1bSh4KiprIC8gbWF0aC5mYWN0b3JpYWwoaykgZm9yIGsgaW4gcmFuZ2Uobl90ZXJtcykpXG5cbnByaW50KGV4cF90YXlsb3IoMS4wLCAxNSksIG1hdGguZXhwKDEuMCkpIn0=
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Προσέγγιση συνάρτησης με <strong>πεπερασμένο άθροισμα όρων</strong>.</p>
+</div>
 </section>
 <section id="σύγκλιση-taylor-οπτικά" class="slide level2">
 <h2>Σύγκλιση Taylor, οπτικά</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-11" class="exercise-cell">
 
@@ -274,9 +377,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIHNpbl90YXlsb3IoeCwgbl90ZXJtcyk6XG4gICAgcmV0dXJuIHN1bSgoLTEpKiprICogeCoqKDIqaysxKSAvIG1hdGguZmFjdG9yaWFsKDIqaysxKSBmb3IgayBpbiByYW5nZShuX3Rlcm1zKSlcblxueHYgPSBbaS8yMCBmb3IgaSBpbiByYW5nZSgtMTI2LCAxMjcpXVxucGx0LnBsb3QoeHYsIFttYXRoLnNpbih2KSBmb3IgdiBpbiB4dl0sIGNvbG9yPSdibGFjaycsIGxhYmVsPSdzaW4oeCknKVxuZm9yIG4gaW4gWzEsIDIsIDMsIDVdOlxuICAgIHBsdC5wbG90KHh2LCBbc2luX3RheWxvcih2LCBuKSBmb3IgdiBpbiB4dl0sIGxhYmVsPWYne259IM+Mz4HOv865JylcbnBsdC55bGltKC0yLCAyKTsgcGx0LmxlZ2VuZCgpXG5wbHQuc2hvdygpIn0=
 </script>
 </div>
+</div>
 </section>
 <section id="monte-carlo-πρόβλημα-γενεθλίων" class="slide level2">
 <h2>Monte Carlo: πρόβλημα γενεθλίων</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-12" class="exercise-cell">
 
@@ -285,10 +390,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIHNpbXVsYXRlX2JpcnRoZGF5KGssIHRyaWFscywgZGF5cz0zNjUpOlxuICAgIGNvbGxpc2lvbnMgPSAwXG4gICAgZm9yIF8gaW4gcmFuZ2UodHJpYWxzKTpcbiAgICAgICAgYmlydGhkYXlzID0gW3JhbmRvbS5yYW5kaW50KDEsIGRheXMpIGZvciBfIGluIHJhbmdlKGspXVxuICAgICAgICBpZiBsZW4oc2V0KGJpcnRoZGF5cykpIDwgazpcbiAgICAgICAgICAgIGNvbGxpc2lvbnMgKz0gMVxuICAgIHJldHVybiBjb2xsaXNpb25zIC8gdHJpYWxzXG5cbnByaW50KHNpbXVsYXRlX2JpcnRoZGF5KDIzLCA1MDAwKSkgICAjIH4wLjUifQ==
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Σύγκριση προσομοίωσης με ακριβή, κλειστό τύπο.</p>
+</div>
 </section>
 <section id="monte-carlo-ολοκλήρωση" class="slide level2">
 <h2>Monte Carlo: ολοκλήρωση</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-13" class="exercise-cell">
 
@@ -297,10 +406,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIG1vbnRlX2NhcmxvX2ludGVncmFsKGYsIGEsIGIsIG4pOlxuICAgIHJldHVybiAoYiAtIGEpICogc3VtKGYocmFuZG9tLnVuaWZvcm0oYSwgYikpIGZvciBfIGluIHJhbmdlKG4pKSAvIG5cblxucHJpbnQobW9udGVfY2FybG9faW50ZWdyYWwobWF0aC5zaW4sIDAsIG1hdGgucGksIDEwMDAwMCkpICAgIyDOsc66z4HOuc6yzq3PgjogMiJ9
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Γενικεύεται εύκολα σε πολλές διαστάσεις.</p>
+</div>
 </section>
 <section id="monte-carlo-monty-hall" class="slide level2">
 <h2>Monte Carlo: Monty Hall</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-14" class="exercise-cell">
 
@@ -309,9 +422,19 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIG1vbnR5X2hhbGxfdHJpYWwoc3dpdGNoKTpcbiAgICBkb29ycyA9IFswLCAxLCAyXVxuICAgIGNhciA9IHJhbmRvbS5jaG9pY2UoZG9vcnMpXG4gICAgY2hvaWNlID0gcmFuZG9tLmNob2ljZShkb29ycylcbiAgICByZW1haW5pbmcgPSBbZCBmb3IgZCBpbiBkb29ycyBpZiBkICE9IGNob2ljZSBhbmQgZCAhPSBjYXJdXG4gICAgaG9zdF9vcGVucyA9IHJhbmRvbS5jaG9pY2UocmVtYWluaW5nKVxuICAgIGZpbmFsID0gW2QgZm9yIGQgaW4gZG9vcnMgaWYgZCAhPSBjaG9pY2UgYW5kIGQgIT0gaG9zdF9vcGVuc11bMF0gaWYgc3dpdGNoIGVsc2UgY2hvaWNlXG4gICAgcmV0dXJuIGZpbmFsID09IGNhclxuXG50cmlhbHMgPSAyMDAwMFxucHJpbnQoc3VtKG1vbnR5X2hhbGxfdHJpYWwoVHJ1ZSkgZm9yIF8gaW4gcmFuZ2UodHJpYWxzKSkgLyB0cmlhbHMpICAgIyB+MC42NjcifQ==
 </script>
 </div>
+</div>
 </section>
 <section id="μιγαδικοί-αριθμοί-mandelbrot" class="slide level2">
 <h2>Μιγαδικοί αριθμοί &amp; Mandelbrot</h2>
+<p><span class="math inline">\(z_0=0,\ z_{n+1}=z_n^2+c\)</span> — φραγμένο ή όχι; βήμα-βήμα:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="1-2|3-6|7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="kw">def</span> mandelbrot_escape(c, max_iter):</span>
+<span id="cb1-2"><a href=""></a>    z <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-3"><a href=""></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(max_iter):</span>
+<span id="cb1-4"><a href=""></a>        <span class="cf">if</span> <span class="bu">abs</span>(z) <span class="op">&gt;</span> <span class="dv">2</span>:</span>
+<span id="cb1-5"><a href=""></a>            <span class="cf">return</span> n</span>
+<span id="cb1-6"><a href=""></a>        z <span class="op">=</span> z <span class="op">*</span> z <span class="op">+</span> c</span>
+<span id="cb1-7"><a href=""></a>    <span class="cf">return</span> max_iter</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
 <div>
 <div id="pyodide-15" class="exercise-cell">
 
@@ -320,10 +443,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIG1hbmRlbGJyb3RfZXNjYXBlKGMsIG1heF9pdGVyKTpcbiAgICB6ID0gMFxuICAgIGZvciBuIGluIHJhbmdlKG1heF9pdGVyKTpcbiAgICAgICAgaWYgYWJzKHopID4gMjpcbiAgICAgICAgICAgIHJldHVybiBuXG4gICAgICAgIHogPSB6ICogeiArIGNcbiAgICByZXR1cm4gbWF4X2l0ZXJcblxucHJpbnQobWFuZGVsYnJvdF9lc2NhcGUoMiArIDJqLCAxMDApKSAgICMgzrTOuc6xz4bOtc+NzrPOtc65IM6zz4HOrs6zzr/Pgc6xIn0=
 </script>
 </div>
-<p><span class="math inline">\(z_0=0,\ z_{n+1}=z_n^2+c\)</span> — φραγμένο ή όχι;</p>
+</div>
 </section>
 <section id="οπτικοποίηση-mandelbrot" class="slide level2">
 <h2>Οπτικοποίηση Mandelbrot</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-16" class="exercise-cell">
 
@@ -332,18 +456,21 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIG1hbmRlbGJyb3RfZ3JpZCh3LCBoLCBtYXhfaXRlciwgeG1pbj0tMi41LCB4bWF4PTEuMCwgeW1pbj0tMS4yNSwgeW1heD0xLjI1KTpcbiAgICBncmlkID0gW11cbiAgICBmb3Igcm93IGluIHJhbmdlKGgpOlxuICAgICAgICB5ID0geW1pbiArICh5bWF4LXltaW4pKnJvdy8oaC0xKVxuICAgICAgICBncmlkLmFwcGVuZChbbWFuZGVsYnJvdF9lc2NhcGUoY29tcGxleCh4bWluKyh4bWF4LXhtaW4pKmNvbC8ody0xKSwgeSksIG1heF9pdGVyKVxuICAgICAgICAgICAgICAgICAgICAgZm9yIGNvbCBpbiByYW5nZSh3KV0pXG4gICAgcmV0dXJuIGdyaWRcblxucGx0Lmltc2hvdyhtYW5kZWxicm90X2dyaWQoMjUwLCAyNTAsIDUwKSwgY21hcD0naW5mZXJubycpXG5wbHQuc2hvdygpIn0=
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Αλγόριθμος <strong>χρόνου διαφυγής (escape-time)</strong> πάνω σε πλέγμα σημείων.</p>
+</div>
 </section>
 <section id="σύνοψη" class="slide level2">
 <h2>Σύνοψη</h2>
 <ul>
-<li>Προσομοίωση Monte Carlo · Γραφήματα με <code>matplotlib</code></li>
-<li>Επαναληπτικές μέθοδοι σύγκλισης (Αρχιμήδης)</li>
-<li><code>float32</code> έναντι <code>float64</code>, σφάλματα στρογγύλευσης</li>
-<li>Newton-Raphson, διχοτόμηση — εύρεση ρίζας συνάρτησης</li>
-<li>Προσέγγιση με πεπερασμένο άθροισμα όρων (Taylor)</li>
-<li>Monte Carlo σε προβλήματα πιθανότητας</li>
-<li>Αλγόριθμος χρόνου διαφυγής (Mandelbrot)</li>
+<li class="fragment">Προσομοίωση Monte Carlo · Γραφήματα με <code>matplotlib</code></li>
+<li class="fragment">Επαναληπτικές μέθοδοι σύγκλισης (Αρχιμήδης)</li>
+<li class="fragment"><code>float32</code> έναντι <code>float64</code>, σφάλματα στρογγύλευσης</li>
+<li class="fragment">Newton-Raphson, διχοτόμηση — εύρεση ρίζας συνάρτησης</li>
+<li class="fragment">Προσέγγιση με πεπερασμένο άθροισμα όρων (Taylor)</li>
+<li class="fragment">Monte Carlo σε προβλήματα πιθανότητας</li>
+<li class="fragment">Αλγόριθμος χρόνου διαφυγής (Mandelbrot)</li>
 </ul>
 </section>
 <section id="section" class="slide level2">

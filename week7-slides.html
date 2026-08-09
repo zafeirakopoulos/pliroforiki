@@ -147,6 +147,7 @@
 </section>
 <section id="modules-math-και-random" class="slide level2">
 <h2>Modules: <code>math</code> και <code>random</code></h2>
+<div class="fragment">
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
@@ -155,10 +156,14 @@
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcbnByaW50KG1hdGguc3FydCgyKSwgbWF0aC5mYWN0b3JpYWwoNSksIG1hdGgucGkpXG5cbmltcG9ydCByYW5kb21cbnByaW50KHJhbmRvbS5yYW5kaW50KDEsIDYpKSAgICAgICAjIM+Az4HOv8+Dzr/OvM6/zq/Pic+DzrcgzrbOsc+BzrnOv8+NXG5wcmludChyYW5kb20udW5pZm9ybSgtMSwgMSkpIn0=
 </script>
 </div>
+</div>
+<div class="fragment">
 <p><code>abs()</code>, <code>pow()</code>, <code>round()</code> είναι απευθείας διαθέσιμα (δεν χρειάζονται <code>import</code>).</p>
+</div>
 </section>
 <section id="τοπικές-καθολικές-μεταβλητές" class="slide level2">
 <h2>Τοπικές &amp; καθολικές μεταβλητές</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
@@ -167,10 +172,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9IDUwICAgIyDOus6xzrjOv867zrnOus6uXG5cbmRlZiBjaGFuZ2VfeCgpOlxuICAgIGdsb2JhbCB4XG4gICAgeCA9IDJcblxucHJpbnQoJ86gz4HOuc69OicsIHgpXG5jaGFuZ2VfeCgpXG5wcmludCgnzpzOtc+Ezqw6JywgeCkifQ==
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Χωρίς <code>global</code>, η <code>x = 2</code> θα δημιουργούσε <strong>νέα τοπική</strong> μεταβλητή.</p>
+</div>
 </section>
 <section id="global-μόνο-για-επανεκχώρηση" class="slide level2">
 <h2><code>global</code> μόνο για επανεκχώρηση</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-3" class="exercise-cell">
 
@@ -179,6 +188,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoidG90YWxzID0gW11cblxuZGVmIHJlY29yZCh4KTpcbiAgICB0b3RhbHMuYXBwZW5kKHgpICAgIyDOpM6hzp/OoM6fzqDOn86ZzpfOo86XIC0tIM60zrXOvSDPh8+BzrXOuc6szrbOtc+EzrHOuSAnZ2xvYmFsJ1xuXG5yZWNvcmQoMTApXG5yZWNvcmQoMjApXG5wcmludCh0b3RhbHMpIn0=
 </script>
 </div>
+</div>
+<div class="fragment">
 <div>
 <div id="pyodide-4" class="exercise-cell">
 
@@ -187,9 +198,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoidG90
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY291bnRlciA9IDBcblxuZGVmIGluY3JlbWVudCgpOlxuICAgIGNvdW50ZXIgKz0gMSAgICMgVW5ib3VuZExvY2FsRXJyb3I6IM64zrXPic+BzrXOr8+EzrHOuSDPhM6/z4DOuc66zq4gzrXOus+Hz47Pgc63z4POt1xuXG5pbmNyZW1lbnQoKSJ9
 </script>
 </div>
+</div>
 </section>
 <section id="επαναληπτική-αριθμητική-μέθοδος" class="slide level2">
 <h2>Επαναληπτική αριθμητική μέθοδος</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-5" class="exercise-cell">
 
@@ -198,14 +211,17 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY291
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIG5ld3Rvbl9zcXJ0KGEsIGVwc2lsb249MWUtMTApOlxuICAgIHggPSBhXG4gICAgc3RlcHMgPSAwXG4gICAgd2hpbGUgYWJzKHggLSBhL3gpID4gZXBzaWxvbiAqIHg6XG4gICAgICAgIHggPSAoeCArIGEveCkgLyAyXG4gICAgICAgIHN0ZXBzICs9IDFcbiAgICByZXR1cm4geCwgc3RlcHNcblxuYXBwcm94LCBzdGVwcyA9IG5ld3Rvbl9zcXJ0KDIuMClcbnByaW50KGYn4oiaMiDiiYgge2FwcHJveH0sIM+DzrUge3N0ZXBzfSDOtc+AzrHOvc6xzrvOrs+IzrXOuc+CJykifQ==
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Ξεκινάμε από μια εκτίμηση, τη βελτιώνουμε σταδιακά μέχρι σύγκλιση.</p>
+</div>
 </section>
 <section id="σύνοψη" class="slide level2">
 <h2>Σύνοψη</h2>
 <ul>
-<li>Modules πρότυπης βιβλιοθήκης (<code>math</code>, <code>random</code>), <code>import</code></li>
-<li>Τοπικές/καθολικές μεταβλητές, πότε χρειάζεται το <code>global</code></li>
-<li>Πρώτη επαναληπτική αριθμητική μέθοδος προσέγγισης</li>
+<li class="fragment">Modules πρότυπης βιβλιοθήκης (<code>math</code>, <code>random</code>), <code>import</code></li>
+<li class="fragment">Τοπικές/καθολικές μεταβλητές, πότε χρειάζεται το <code>global</code></li>
+<li class="fragment">Πρώτη επαναληπτική αριθμητική μέθοδος προσέγγισης</li>
 </ul>
 </section>
 <section id="section" class="slide level2">

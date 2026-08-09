@@ -30,6 +30,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="week13-slides_files/libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
   <link href="week13-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -147,6 +213,7 @@
 </section>
 <section id="δημιουργία-και-πρόσβαση" class="slide level2">
 <h2>Δημιουργία και πρόσβαση</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
@@ -155,6 +222,8 @@
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicGhvbmVib29rID0geydDaHJpcyc6ICc1NTUtMTExMScsICdLYXRlJzogJzU1NS0yMjIyJ31cblxucHJpbnQocGhvbmVib29rWydDaHJpcyddKSAgICMgz4DPgc+Mz4POss6xz4POtyDOvM61IM66zrvOtc65zrTOr1xucHJpbnQobGVuKHBob25lYm9vaykpIn0=
 </script>
 </div>
+</div>
+<div class="fragment">
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
@@ -163,9 +232,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicGhv
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQocGhvbmVib29rWydLYXRocnluJ10pICAgIyBLZXlFcnJvciEifQ==
 </script>
 </div>
+</div>
 </section>
 <section id="in-και-get" class="slide level2">
 <h2><code>in</code> και <code>get</code></h2>
+<div class="fragment">
 <div>
 <div id="pyodide-3" class="exercise-cell">
 
@@ -174,9 +245,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJp
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoJ0NocmlzJyBpbiBwaG9uZWJvb2spXG5wcmludChwaG9uZWJvb2suZ2V0KCdLYXRocnluJywgJ86UzrXOvSDOss+Bzq3OuM63zrrOtScpKSAgICMgz4fPic+Bzq/PgiDPg8+GzqzOu868zrEifQ==
 </script>
 </div>
+</div>
 </section>
 <section id="τροποποίηση" class="slide level2">
 <h2>Τροποποίηση</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-4" class="exercise-cell">
 
@@ -185,9 +258,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJp
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY29udGFjdHMgPSB7J0NocmlzJzogJzU1NS0xMTExJywgJ0thdGUnOiAnNTU1LTIyMjInfVxuY29udGFjdHNbJ0pvJ10gPSAnNTU1LTMzMzMnICAgICAgIyDPgM+Bzr/Pg864zq7Ous63XG5jb250YWN0c1snQ2hyaXMnXSA9ICc1NTUtOTk5OScgICAjIM61zr3Ot868zq3Pgc+Jz4POt1xuZGVsIGNvbnRhY3RzWydLYXRlJ10gICAgICAgICAgICAgICMgzrTOuc6xzrPPgc6xz4bOrlxucHJpbnQoY29udGFjdHMpIn0=
 </script>
 </div>
+</div>
 </section>
 <section id="επανάληψη-κατανόηση" class="slide level2">
 <h2>Επανάληψη &amp; κατανόηση</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-5" class="exercise-cell">
 
@@ -196,9 +271,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY29u
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZm9yIG5hbWUsIG51bWJlciBpbiBwaG9uZWJvb2suaXRlbXMoKTpcbiAgICBwcmludChmJ3tuYW1lfToge251bWJlcn0nKVxuXG5zcXVhcmVzID0ge3g6IHgqKjIgZm9yIHggaW4gcmFuZ2UoMSwgNil9XG5wcmludChzcXVhcmVzKSJ9
 </script>
 </div>
+</div>
 </section>
 <section id="εφαρμογή-καταμέτρηση-συχνοτήτων" class="slide level2">
 <h2>Εφαρμογή: καταμέτρηση συχνοτήτων</h2>
+<div class="fragment">
 <div>
 <div id="pyodide-6" class="exercise-cell">
 
@@ -207,9 +284,18 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZm9y
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoidGV4dCA9ICfPhM6/IM68zrXOs86xzrvOvyDPiM6xz4HOuSDPhM+Bz4nOtc65IM+Ezr8gzrzOuc66z4HOvyDPiM6xz4HOuSdcbmZyZXF1ZW5jeSA9IHt9XG5mb3IgY2ggaW4gdGV4dDpcbiAgICBpZiBjaCAhPSAnICc6XG4gICAgICAgIGZyZXF1ZW5jeVtjaF0gPSBmcmVxdWVuY3kuZ2V0KGNoLCAwKSArIDFcblxuZm9yIGNoLCBjb3VudCBpbiBzb3J0ZWQoZnJlcXVlbmN5Lml0ZW1zKCksIGtleT1sYW1iZGEgaXRlbTogLWl0ZW1bMV0pOlxuICAgIHByaW50KGYne2NofToge2NvdW50fScpIn0=
 </script>
 </div>
+</div>
 </section>
 <section id="memoization-με-λεξικό" class="slide level2">
 <h2>Memoization με λεξικό</h2>
+<p>Το λεξικό <code>cache</code> θυμάται τα αποτελέσματα — δεν ξαναϋπολογίζονται:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="1-2|3-4|5|6-7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="kw">def</span> fib_memo(n, cache<span class="op">=</span>{}):</span>
+<span id="cb1-2"><a href=""></a>    <span class="cf">if</span> n <span class="kw">in</span> cache:</span>
+<span id="cb1-3"><a href=""></a>        <span class="cf">return</span> cache[n]</span>
+<span id="cb1-4"><a href=""></a>    result <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">2</span> <span class="cf">else</span> fib_memo(n<span class="op">-</span><span class="dv">1</span>, cache) <span class="op">+</span> fib_memo(n<span class="op">-</span><span class="dv">2</span>, cache)</span>
+<span id="cb1-5"><a href=""></a>    cache[n] <span class="op">=</span> result</span>
+<span id="cb1-6"><a href=""></a>    <span class="cf">return</span> result</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
 <div>
 <div id="pyodide-7" class="exercise-cell">
 
@@ -218,15 +304,18 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoidGV4
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGZpYl9tZW1vKG4sIGNhY2hlPXt9KTpcbiAgICBpZiBuIGluIGNhY2hlOlxuICAgICAgICByZXR1cm4gY2FjaGVbbl1cbiAgICByZXN1bHQgPSAxIGlmIG4gPD0gMiBlbHNlIGZpYl9tZW1vKG4tMSwgY2FjaGUpICsgZmliX21lbW8obi0yLCBjYWNoZSlcbiAgICBjYWNoZVtuXSA9IHJlc3VsdFxuICAgIHJldHVybiByZXN1bHRcblxucHJpbnQoZmliX21lbW8oNTApKSJ9
 </script>
 </div>
+</div>
+<div class="fragment">
 <p>Τι κάνει “από μέσα” το <code>lru_cache</code> (Εβδομάδα 9).</p>
+</div>
 </section>
 <section id="σύνοψη" class="slide level2">
 <h2>Σύνοψη</h2>
 <ul>
-<li>Λεξικά: δημιουργία, πρόσβαση, <code>KeyError</code>, <code>in</code>/<code>get</code></li>
-<li>Τροποποίηση: προσθήκη, ενημέρωση, διαγραφή</li>
-<li><code>keys()</code>/<code>values()</code>/<code>items()</code>, λεξικά με κατανόηση</li>
-<li>Καταμέτρηση συχνοτήτων, memoization με λεξικό</li>
+<li class="fragment">Λεξικά: δημιουργία, πρόσβαση, <code>KeyError</code>, <code>in</code>/<code>get</code></li>
+<li class="fragment">Τροποποίηση: προσθήκη, ενημέρωση, διαγραφή</li>
+<li class="fragment"><code>keys()</code>/<code>values()</code>/<code>items()</code>, λεξικά με κατανόηση</li>
+<li class="fragment">Καταμέτρηση συχνοτήτων, memoization με λεξικό</li>
 </ul>
 </section>
 <section id="section" class="slide level2">
