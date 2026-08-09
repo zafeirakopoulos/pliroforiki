@@ -239,6 +239,19 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZG91
 <section id="απώλεια-ακρίβειας-float32-έναντι-float64" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Απώλεια ακρίβειας: <code>float32</code> έναντι <code>float64</code></h1>
 <p>Ο τύπος <code>float</code> της Python αναπαριστά πραγματικούς αριθμούς σε <strong>διπλή ακρίβεια (double precision, 64-bit, IEEE 754)</strong>, με περίπου 15–17 σωστά δεκαδικά ψηφία. Οι περισσότερες γλώσσες προσφέρουν και έναν τύπο <strong>απλής ακρίβειας (single precision, 32-bit)</strong>, με πολύ λιγότερα σωστά ψηφία (περίπου 7). Κάθε αριθμητική πράξη σε πεπερασμένη ακρίβεια <strong>στρογγυλοποιεί</strong> το αποτέλεσμα στην πλησιέστερη αναπαραστάσιμη τιμή — και αυτές οι μικροσκοπικές στρογγυλοποιήσεις μπορούν να συσσωρευτούν.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Σημείωση
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Γιατί <strong>“περίπου”</strong> και όχι έναν ακριβή αριθμό ψηφίων; Η ακρίβεια αποθηκεύεται σε <strong>bits</strong> (δυαδικό σύστημα), όχι σε δεκαδικά ψηφία, και τα δύο δεν αντιστοιχίζονται 1-προς-1. Η <code>double</code> έχει <span class="math inline">\(53\)</span> bits significand (mantissa), και κάθε bit “αξίζει” <span class="math inline">\(\log_{10}(2) \approx 0.301\)</span> δεκαδικά ψηφία, άρα <span class="math inline">\(53 \times 0.301 \approx 15{,}95\)</span> — γι’ αυτό λέμε “15 έως 17”: <span class="math inline">\(15\)</span> δεκαδικά ψηφία είναι <strong>πάντα</strong> σωστά για κάθε <code>double</code>, ενώ <span class="math inline">\(17\)</span> ψηφία χρειάζονται μόνο στη χειρότερη περίπτωση για να ξαναφτιάξουμε ακριβώς τον αρχικό αριθμό από τη δεκαδική του γραφή (round-trip). Ομοίως, η <code>single</code> έχει <span class="math inline">\(24\)</span> bits significand, <span class="math inline">\(24 \times 0.301 \approx 7{,}22\)</span>, άρα “περίπου 7”.</p>
+</div>
+</div>
 <p>Η Python δεν έχει ξεχωριστό τύπο <code>float32</code> από προεπιλογή, αλλά μπορούμε να <strong>προσομοιώσουμε</strong> μία πράξη σε single precision στρογγυλοποιώντας το αποτέλεσμα κάθε βήματος στην ακρίβεια των 32-bit, χρησιμοποιώντας το module <code>struct</code> της πρότυπης βιβλιοθήκης (πακετάρουμε τον αριθμό σε 4 bytes IEEE-754 single precision, και τον ξεπακετάρουμε αμέσως πίσω σε κανονικό <code>float</code>):</p>
 <div>
 <div id="pyodide-6" class="exercise-cell">
