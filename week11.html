@@ -94,6 +94,7 @@ window.Quarto = {
   <li><a href="#υπολογισμός-του-συνεχούς-κλάσματος-ενός-ρητού" id="toc-υπολογισμός-του-συνεχούς-κλάσματος-ενός-ρητού" class="nav-link" data-scroll-target="#υπολογισμός-του-συνεχούς-κλάσματος-ενός-ρητού"><span class="header-section-number">2.2</span> Υπολογισμός του συνεχούς κλάσματος ενός ρητού</a></li>
   <li><a href="#άπειρα-συνεχή-κλάσματα-οκνηρή-αποτίμηση-lazy-evaluation-με-γεννήτριες" id="toc-άπειρα-συνεχή-κλάσματα-οκνηρή-αποτίμηση-lazy-evaluation-με-γεννήτριες" class="nav-link" data-scroll-target="#άπειρα-συνεχή-κλάσματα-οκνηρή-αποτίμηση-lazy-evaluation-με-γεννήτριες"><span class="header-section-number">2.3</span> Άπειρα συνεχή κλάσματα: οκνηρή αποτίμηση (lazy evaluation) με γεννήτριες</a></li>
   </ul></li>
+  <li><a href="#σύνοψη" id="toc-σύνοψη" class="nav-link" data-scroll-target="#σύνοψη"><span class="header-section-number">3</span> Σύνοψη</a></li>
   </ul>
 </nav>
 </div>
@@ -245,6 +246,17 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 </script>
 </div>
 <p>Με μόλις <span class="math inline">\(7\)</span> όρους, η συγκλίνουσα <code>239/169</code> προσεγγίζει το <span class="math inline">\(\sqrt{2}\)</span> με σφάλμα μικρότερο από <span class="math inline">\(10^{-5}\)</span> — και χωρίς ποτέ να αποθηκεύσουμε μια άπειρη ακολουθία, χάρη στην οκνηρή αποτίμηση: η γεννήτρια <code>sqrt2_continued_fraction()</code> “ξέρει” πώς να συνεχίσει επ’ άπειρον, αλλά υπολογίζει κάθε επόμενο όρο <strong>μόνο όταν της το ζητήσουμε ρητά</strong> με <code>next()</code>.</p>
+</section>
+</section>
+<section id="σύνοψη" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Σύνοψη</h1>
+<p>Σε αυτή την εβδομάδα είδαμε:</p>
+<ul>
+<li>Τον <strong>αλγόριθμο του Ευκλείδη</strong> και τον <strong>επεκτεταμένο</strong> Ευκλείδειο αλγόριθμο (ταυτότητα του Bézout).</li>
+<li><strong>Ακριβή (συμβολικό) υπολογισμό</strong>: απεριόριστους ακέραιους, και το module <code>fractions</code>.</li>
+<li><strong>Συνεχή κλάσματα</strong>, και τη στενή σχέση τους με τον αλγόριθμο του Ευκλείδη.</li>
+<li><strong>Οκνηρή αποτίμηση (lazy evaluation)</strong> με γεννήτριες, για άπειρα συνεχή κλάσματα και τις συγκλίνουσές τους.</li>
+</ul>
 <script type="pyodide-data">
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
@@ -262,7 +274,6 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2RO
 <script type="vfs-file">
 W10=
 </script>
-</section>
 </section>
 
 </main>

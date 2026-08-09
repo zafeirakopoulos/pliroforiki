@@ -93,12 +93,10 @@ window.Quarto = {
   <li><a href="#κωδικοποίηση-χαρακτήρων-ord-και-chr" id="toc-κωδικοποίηση-χαρακτήρων-ord-και-chr" class="nav-link" data-scroll-target="#κωδικοποίηση-χαρακτήρων-ord-και-chr"><span class="header-section-number">2.3</span> Κωδικοποίηση χαρακτήρων: <code>ord</code> και <code>chr</code></a></li>
   <li><a href="#χαρακτηριστικό-της-python-έναντι-.join" id="toc-χαρακτηριστικό-της-python-έναντι-.join" class="nav-link" data-scroll-target="#χαρακτηριστικό-της-python-έναντι-.join"><span class="header-section-number">2.4</span> Χαρακτηριστικό της Python: <code>+=</code> έναντι <code>''.join()</code></a></li>
   </ul></li>
-  <li><a href="#μαθηματικές-εφαρμογές" id="toc-μαθηματικές-εφαρμογές" class="nav-link" data-scroll-target="#μαθηματικές-εφαρμογές"><span class="header-section-number">3</span> Μαθηματικές Εφαρμογές</a>
-  <ul class="collapse">
-  <li><a href="#όγκος-σφαίρας-και-άλλων-στερεών" id="toc-όγκος-σφαίρας-και-άλλων-στερεών" class="nav-link" data-scroll-target="#όγκος-σφαίρας-και-άλλων-στερεών"><span class="header-section-number">3.1</span> Όγκος σφαίρας και άλλων στερεών</a></li>
-  <li><a href="#μετατροπή-fahrenheit-celsius" id="toc-μετατροπή-fahrenheit-celsius" class="nav-link" data-scroll-target="#μετατροπή-fahrenheit-celsius"><span class="header-section-number">3.2</span> Μετατροπή Fahrenheit ⇄ Celsius</a></li>
-  <li><a href="#ο-κρυπτογράφος-του-καίσαρα" id="toc-ο-κρυπτογράφος-του-καίσαρα" class="nav-link" data-scroll-target="#ο-κρυπτογράφος-του-καίσαρα"><span class="header-section-number">3.3</span> Ο κρυπτογράφος του Καίσαρα</a></li>
-  </ul></li>
+  <li><a href="#όγκος-σφαίρας-και-άλλων-στερεών" id="toc-όγκος-σφαίρας-και-άλλων-στερεών" class="nav-link" data-scroll-target="#όγκος-σφαίρας-και-άλλων-στερεών"><span class="header-section-number">3</span> Όγκος σφαίρας και άλλων στερεών</a></li>
+  <li><a href="#μετατροπή-fahrenheit-celsius" id="toc-μετατροπή-fahrenheit-celsius" class="nav-link" data-scroll-target="#μετατροπή-fahrenheit-celsius"><span class="header-section-number">4</span> Μετατροπή Fahrenheit ⇄ Celsius</a></li>
+  <li><a href="#ο-κρυπτογράφος-του-καίσαρα" id="toc-ο-κρυπτογράφος-του-καίσαρα" class="nav-link" data-scroll-target="#ο-κρυπτογράφος-του-καίσαρα"><span class="header-section-number">5</span> Ο κρυπτογράφος του Καίσαρα</a></li>
+  <li><a href="#σύνοψη" id="toc-σύνοψη" class="nav-link" data-scroll-target="#σύνοψη"><span class="header-section-number">6</span> Σύνοψη</a></li>
   </ul>
 </nav>
 </div>
@@ -291,10 +289,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicGFy
 <p>Και οι δύο δίνουν το ίδιο αποτέλεσμα — η διαφορά είναι στην απόδοση όταν το πλήθος των κομματιών γίνεται πολύ μεγάλο, και στο ότι το <code>''.join(...)</code> εκφράζει πιο άμεσα την πρόθεσή μας (“ένωσε αυτά τα κομμάτια”), χωρίς να χρειάζεται καν ρητός βρόχος.</p>
 </section>
 </section>
-<section id="μαθηματικές-εφαρμογές" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Μαθηματικές Εφαρμογές</h1>
-<section id="όγκος-σφαίρας-και-άλλων-στερεών" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="όγκος-σφαίρας-και-άλλων-στερεών"><span class="header-section-number">3.1</span> Όγκος σφαίρας και άλλων στερεών</h2>
+<section id="όγκος-σφαίρας-και-άλλων-στερεών" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Όγκος σφαίρας και άλλων στερεών</h1>
 <p>Με απλές αριθμητικές πράξεις μπορούμε να υπολογίσουμε τον όγκο βασικών στερεών σωμάτων, δεδομένης της ακτίνας <span class="math inline">\(r\)</span> (και, όπου χρειάζεται, του ύψους <span class="math inline">\(h\)</span>):</p>
 <p><span class="math display">\[
 V_{\text{σφαίρα}} = \frac{4}{3}\pi r^3, \qquad
@@ -320,8 +316,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJp
 </div>
 <p>Δοκιμάστε διαφορετικά <code>r</code> και <code>h</code> παραπάνω και ξανατρέξτε: η ισότητα <code>cone_volume == cylinder_volume / 3</code> “τυχαίνει” να ισχύει ακριβώς εδώ, αλλά γενικά, όταν συγκρίνουμε αποτελέσματα πράξεων κινητής υποδιαστολής, προτιμάμε το <code>math.isclose(...)</code> αντί για το <code>==</code>, ακριβώς επειδή δύο μαθηματικά ίσες ποσότητες μπορεί να υπολογιστούν με ελαφρώς διαφορετική σειρά πράξεων, και να καταλήξουν σε ελαφρώς διαφορετικό αποτέλεσμα λόγω στρογγυλοποίησης.</p>
 </section>
-<section id="μετατροπή-fahrenheit-celsius" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="μετατροπή-fahrenheit-celsius"><span class="header-section-number">3.2</span> Μετατροπή Fahrenheit ⇄ Celsius</h2>
+<section id="μετατροπή-fahrenheit-celsius" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Μετατροπή Fahrenheit ⇄ Celsius</h1>
 <p>Οι κλίμακες Κελσίου (<span class="math inline">\(C\)</span>) και Φαρενάιτ (<span class="math inline">\(F\)</span>) συνδέονται με τον γραμμικό τύπο</p>
 <p><span class="math display">\[
 F = \frac{9}{5}C + 32 \quad \Longleftrightarrow \quad C = \frac{5}{9}(F - 32).
@@ -336,8 +332,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY2Vs
 </div>
 <p>Δοκιμάστε το χαρακτηριστικό σημείο όπου οι δύο κλίμακες συμφωνούν: για <span class="math inline">\(C = -40\)</span>, βρείτε ότι και το <code>fahrenheit</code> βγαίνει <span class="math inline">\(-40\)</span>.</p>
 </section>
-<section id="ο-κρυπτογράφος-του-καίσαρα" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="ο-κρυπτογράφος-του-καίσαρα"><span class="header-section-number">3.3</span> Ο κρυπτογράφος του Καίσαρα</h2>
+<section id="ο-κρυπτογράφος-του-καίσαρα" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Ο κρυπτογράφος του Καίσαρα</h1>
 <p>Ο <strong>κρυπτογράφος του Καίσαρα</strong> είναι μια από τις αρχαιότερες γνωστές μεθόδους κρυπτογράφησης: κάθε γράμμα του μηνύματος αντικαθίσταται από το γράμμα που βρίσκεται <span class="math inline">\(k\)</span> θέσεις μετά, στο κυκλικά επαναλαμβανόμενο αλφάβητο (μετά το <code>Z</code> ξαναγυρνάμε στο <code>A</code>). Αν αντιστοιχίσουμε στο <code>A</code> το <code>0</code>, στο <code>B</code> το <code>1</code>, …, στο <code>Z</code> το <code>25</code>, τότε η κρυπτογράφηση ενός γράμματος με αριθμό θέσης <span class="math inline">\(p\)</span> είναι μια πράξη <strong>αρθμητικής υπολοίπου (modular arithmetic)</strong>:</p>
 <p><span class="math display">\[
 E(p) = (p + k) \bmod 26.
@@ -352,6 +348,16 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </script>
 </div>
 <p>Παρατηρήστε ότι η αποκρυπτογράφηση είναι απλώς μια κρυπτογράφηση με αντίθετο κλειδί, <code>-k</code>, χάρη στην αριθμητική υπολοίπου (το πηλίκο <code>%</code> στην Python δίνει πάντα μη αρνητικό αποτέλεσμα για θετικό διαιρέτη, οπότε η ολίσθηση “τυλίγεται” σωστά και προς τις δύο κατευθύνσεις). Δοκιμάστε <code>k = 13</code> — είναι ο γνωστός αλγόριθμος <strong>ROT13</strong>, όπου η κρυπτογράφηση είναι η δική της αντίστροφη συνάρτηση (<code>caesar_shift(caesar_shift(text, 13), 13) == text</code>)!</p>
+</section>
+<section id="σύνοψη" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Σύνοψη</h1>
+<p>Σε αυτή την εβδομάδα είδαμε:</p>
+<ul>
+<li><strong>Αριθμητικούς τελεστές</strong>, προτεραιότητα πράξεων, και τελεστές επαυξημένης εκχώρησης.</li>
+<li>Δύο συνηθισμένα σφάλματα: <code>ZeroDivisionError</code>, και <strong>υπερχείλιση (overflow)</strong> — και γιατί οι ακέραιοι της Python δεν υπερχειλίζουν ποτέ, σε αντίθεση με τους <code>float</code>.</li>
+<li><strong>Συμβολοσειρές</strong>: δείκτες, τεμαχισμός, αμεταβλητότητα, τον τελεστή <code>in</code>, μεθόδους (<code>strip</code>, <code>split</code>, <code>replace</code>, …), και τις <code>ord</code>/<code>chr</code>.</li>
+<li>Το χαρακτηριστικό <code>+=</code> έναντι <code>''.join()</code>: γιατί το δεύτερο είναι πιο αποδοτικό για το χτίσιμο μεγάλων συμβολοσειρών.</li>
+</ul>
 <script type="pyodide-data">
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
@@ -369,7 +375,6 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTE1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9k
 <script type="vfs-file">
 W10=
 </script>
-</section>
 </section>
 
 </main>

@@ -87,8 +87,9 @@ window.Quarto = {
   <li><a href="#πλήθος-υποσυνόλων" id="toc-πλήθος-υποσυνόλων" class="nav-link" data-scroll-target="#πλήθος-υποσυνόλων"><span class="header-section-number">1.1</span> Πλήθος υποσυνόλων</a></li>
   <li><a href="#πλήθος-μεταθέσεων" id="toc-πλήθος-μεταθέσεων" class="nav-link" data-scroll-target="#πλήθος-μεταθέσεων"><span class="header-section-number">1.2</span> Πλήθος μεταθέσεων</a></li>
   <li><a href="#χαρακτηριστικό-της-python-γεννήτριες-για-απαρίθμηση-και-το-module-itertools" id="toc-χαρακτηριστικό-της-python-γεννήτριες-για-απαρίθμηση-και-το-module-itertools" class="nav-link" data-scroll-target="#χαρακτηριστικό-της-python-γεννήτριες-για-απαρίθμηση-και-το-module-itertools"><span class="header-section-number">1.3</span> Χαρακτηριστικό της Python: γεννήτριες για απαρίθμηση, και το module <code>itertools</code></a></li>
-  <li><a href="#μαθηματική-εφαρμογή-μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2" id="toc-μαθηματική-εφαρμογή-μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2" class="nav-link" data-scroll-target="#μαθηματική-εφαρμογή-μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2"><span class="header-section-number">1.4</span> Μαθηματική Εφαρμογή: μια ταυτότητα αθροίσματος δυνάμεων του 2</a></li>
+  <li><a href="#μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2" id="toc-μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2" class="nav-link" data-scroll-target="#μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2"><span class="header-section-number">1.4</span> Μια ταυτότητα αθροίσματος δυνάμεων του 2</a></li>
   </ul></li>
+  <li><a href="#σύνοψη" id="toc-σύνοψη" class="nav-link" data-scroll-target="#σύνοψη"><span class="header-section-number">2</span> Σύνοψη</a></li>
   </ul>
 </nav>
 </div>
@@ -181,8 +182,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 </div>
 <p>Το <code>itertools.combinations(elements, k)</code> παράγει όλα τα υποσύνολα με <strong>ακριβώς</strong> <span class="math inline">\(k\)</span> στοιχεία (μια πιο συγκεκριμένη ερώτηση από το “όλα τα υποσύνολα” που λύσαμε παραπάνω με το bit-trick). Όπως και με τον αλγόριθμο του Ευκλείδη στην Εβδομάδα 11: το να ξέρουμε να γράψουμε αυτούς τους αλγορίθμους οι ίδιοι μάς βοηθά να καταλάβουμε πώς δουλεύουν και γιατί το πλήθος τους μεγαλώνει όσο μεγαλώνει — αλλά στην πράξη, το <code>itertools</code> είναι συνήθως η πιο γρήγορη και ασφαλής επιλογή.</p>
 </section>
-<section id="μαθηματική-εφαρμογή-μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="μαθηματική-εφαρμογή-μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2"><span class="header-section-number">1.4</span> Μαθηματική Εφαρμογή: μια ταυτότητα αθροίσματος δυνάμεων του 2</h2>
+<section id="μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="μια-ταυτότητα-αθροίσματος-δυνάμεων-του-2"><span class="header-section-number">1.4</span> Μια ταυτότητα αθροίσματος δυνάμεων του 2</h2>
 <p>Αφού το πλήθος των υποσυνόλων ενός συνόλου με <span class="math inline">\(i\)</span> στοιχεία είναι <span class="math inline">\(2^i\)</span>, τι θα πάρουμε αν αθροίσουμε αυτό το πλήθος για <span class="math inline">\(i = 1, 2, \ldots, n\)</span>; Δηλαδή, ισχύει η ταυτότητα</p>
 <p><span class="math display">\[
 \sum_{i=1}^{n} 2^i = 2 + 4 + 8 + \cdots + 2^n \;=\; 2^{n+1} - 2 \; ?
@@ -197,6 +198,17 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYWxs
 </script>
 </div>
 <p>Αυτού του είδους η <strong>υπολογιστική επαλήθευση</strong> δεν αποτελεί μαθηματική απόδειξη (ελέγχει μόνο πεπερασμένες, συγκεκριμένες περιπτώσεις — εδώ <span class="math inline">\(n \le 20\)</span>), αλλά είναι εξαιρετικά χρήσιμη: μας δίνει άμεση εμπιστοσύνη ότι μια ταυτότητα “φαίνεται σωστή” προτού μπούμε στον κόπο μιας αυστηρής απόδειξης, και βοηθάει να εντοπίσουμε γρήγορα λάθος τύπους.</p>
+</section>
+</section>
+<section id="σύνοψη" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Σύνοψη</h1>
+<p>Σε αυτή την εβδομάδα είδαμε:</p>
+<ul>
+<li>Πώς να μετράμε και να παράγουμε <strong>υποσύνολα</strong> ενός συνόλου, με αντιστοίχιση σε δυαδικές αναπαραστάσεις ακεραίων (bitmask).</li>
+<li>Πώς να μετράμε και να παράγουμε <strong>μεταθέσεις</strong>, αναδρομικά.</li>
+<li><strong>Γεννήτριες</strong> για απαρίθμηση χωρίς αποθήκευση όλων των αποτελεσμάτων, και το module <strong><code>itertools</code></strong>.</li>
+<li>Πώς η <strong>υπολογιστική επαλήθευση</strong> μιας ταυτότητας δίνει εμπιστοσύνη πριν από μια αυστηρή απόδειξη.</li>
+</ul>
 <script type="pyodide-data">
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
@@ -214,7 +226,6 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2RO
 <script type="vfs-file">
 W10=
 </script>
-</section>
 </section>
 
 </main>

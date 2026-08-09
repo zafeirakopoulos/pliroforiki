@@ -122,8 +122,9 @@ window.Quarto = {
   <li><a href="#λογικές-εκφράσεις" id="toc-λογικές-εκφράσεις" class="nav-link" data-scroll-target="#λογικές-εκφράσεις"><span class="header-section-number">1.1</span> Λογικές εκφράσεις</a></li>
   <li><a href="#η-εντολή-if" id="toc-η-εντολή-if" class="nav-link" data-scroll-target="#η-εντολή-if"><span class="header-section-number">1.2</span> Η εντολή <code>if</code></a></li>
   <li><a href="#χαρακτηριστικό-της-python-δεσμευμένη-έκφραση-if-conditional-expression" id="toc-χαρακτηριστικό-της-python-δεσμευμένη-έκφραση-if-conditional-expression" class="nav-link" data-scroll-target="#χαρακτηριστικό-της-python-δεσμευμένη-έκφραση-if-conditional-expression"><span class="header-section-number">1.3</span> Χαρακτηριστικό της Python: δεσμευμένη έκφραση if (conditional expression)</a></li>
-  <li><a href="#μαθηματική-εφαρμογή-επίλυση-δευτεροβάθμιας-εξίσωσης" id="toc-μαθηματική-εφαρμογή-επίλυση-δευτεροβάθμιας-εξίσωσης" class="nav-link" data-scroll-target="#μαθηματική-εφαρμογή-επίλυση-δευτεροβάθμιας-εξίσωσης"><span class="header-section-number">1.4</span> Μαθηματική Εφαρμογή: επίλυση δευτεροβάθμιας εξίσωσης</a></li>
+  <li><a href="#επίλυση-δευτεροβάθμιας-εξίσωσης" id="toc-επίλυση-δευτεροβάθμιας-εξίσωσης" class="nav-link" data-scroll-target="#επίλυση-δευτεροβάθμιας-εξίσωσης"><span class="header-section-number">1.4</span> Επίλυση δευτεροβάθμιας εξίσωσης</a></li>
   </ul></li>
+  <li><a href="#σύνοψη" id="toc-σύνοψη" class="nav-link" data-scroll-target="#σύνοψη"><span class="header-section-number">2</span> Σύνοψη</a></li>
   </ul>
 </nav>
 </div>
@@ -277,8 +278,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibmFt
 </div>
 <p>Και οι δύο εκδοχές είναι πιο <strong>συνοπτικές</strong> από μια πλήρη <code>if</code>, αλλά χρησιμοποιήστε τις με μέτρο: για πολύπλοκη λογική, μια κανονική <code>if</code>/<code>elif</code>/<code>else</code> παραμένει πιο ευανάγνωστη.</p>
 </section>
-<section id="μαθηματική-εφαρμογή-επίλυση-δευτεροβάθμιας-εξίσωσης" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="μαθηματική-εφαρμογή-επίλυση-δευτεροβάθμιας-εξίσωσης"><span class="header-section-number">1.4</span> Μαθηματική Εφαρμογή: επίλυση δευτεροβάθμιας εξίσωσης</h2>
+<section id="επίλυση-δευτεροβάθμιας-εξίσωσης" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="επίλυση-δευτεροβάθμιας-εξίσωσης"><span class="header-section-number">1.4</span> Επίλυση δευτεροβάθμιας εξίσωσης</h2>
 <p>Θέλουμε να υπολογίσουμε τις (πραγματικές) ρίζες μιας δευτεροβάθμιας εξίσωσης</p>
 <p><span class="math display">\[
 a x^2 + b x + c = 0, \qquad a \neq 0,
@@ -297,6 +298,17 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSwg
 </script>
 </div>
 <p>Δοκιμάστε τους δικούς σας συντελεστές <code>a</code>, <code>b</code>, <code>c</code> παραπάνω: σε αντίθεση με πριν, ο κώδικας πλέον <strong>δεν σκάει</strong> ποτέ με σφάλμα — για κάθε δυνατή είσοδο, η <code>if</code>/<code>elif</code>/<code>else</code> εξασφαλίζει ότι θα εκτελεστεί ακριβώς η σωστή διαδρομή. (Παρατηρήστε πόσο επαναλαμβανόμενος είναι ο κώδικας όταν τον γράφουμε τρεις φορές με το χέρι — αυτό ακριβώς είναι ένας από τους λόγους που θα μάθουμε συναρτήσεις στην Εβδομάδα 6.)</p>
+</section>
+</section>
+<section id="σύνοψη" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Σύνοψη</h1>
+<p>Σε αυτή την εβδομάδα είδαμε:</p>
+<ul>
+<li><strong>Σχεσιακούς και λογικούς τελεστές</strong> (<code>==</code>, <code>&lt;</code>, <code>and</code>, <code>or</code>, <code>not</code>), short-circuit αξιολόγηση, και αλυσιδωτές συγκρίσεις.</li>
+<li>Την εντολή <strong><code>if</code>/<code>elif</code>/<code>else</code></strong>, και τη λεξικογραφική σύγκριση συμβολοσειρών.</li>
+<li>Τη <strong>δεσμευμένη έκφραση if</strong> (<code>x if συνθήκη else y</code>) και το ιδίωμα <code>or</code> για προεπιλεγμένες τιμές.</li>
+<li>Γιατί ο επαναλαμβανόμενος κώδικας (τρεις φορές το ίδιο if/elif/else) είναι ένα από τα κίνητρα για τις <strong>συναρτήσεις</strong>, που έρχονται στην Εβδομάδα 6.</li>
+</ul>
 <script type="pyodide-data">
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
@@ -314,7 +326,6 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2RO
 <script type="vfs-file">
 W10=
 </script>
-</section>
 </section>
 
 </main>

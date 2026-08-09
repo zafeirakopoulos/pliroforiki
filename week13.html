@@ -60,9 +60,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#τροποποίηση-προσθήκη-ενημέρωση-διαγραφή" id="toc-τροποποίηση-προσθήκη-ενημέρωση-διαγραφή" class="nav-link" data-scroll-target="#τροποποίηση-προσθήκη-ενημέρωση-διαγραφή"><span class="header-section-number">1.3</span> Τροποποίηση: προσθήκη, ενημέρωση, διαγραφή</a></li>
   <li><a href="#επανάληψη-σε-λεξικό-keys-values-items" id="toc-επανάληψη-σε-λεξικό-keys-values-items" class="nav-link" data-scroll-target="#επανάληψη-σε-λεξικό-keys-values-items"><span class="header-section-number">1.4</span> Επανάληψη σε λεξικό: <code>keys()</code>, <code>values()</code>, <code>items()</code></a></li>
   <li><a href="#χαρακτηριστικό-της-python-λεξικά-με-κατανόηση-dict-comprehensions" id="toc-χαρακτηριστικό-της-python-λεξικά-με-κατανόηση-dict-comprehensions" class="nav-link" data-scroll-target="#χαρακτηριστικό-της-python-λεξικά-με-κατανόηση-dict-comprehensions"><span class="header-section-number">1.5</span> Χαρακτηριστικό της Python: λεξικά με κατανόηση (dict comprehensions)</a></li>
-  <li><a href="#μαθηματική-εφαρμογή-καταμέτρηση-συχνότητας-χαρακτήρων" id="toc-μαθηματική-εφαρμογή-καταμέτρηση-συχνότητας-χαρακτήρων" class="nav-link" data-scroll-target="#μαθηματική-εφαρμογή-καταμέτρηση-συχνότητας-χαρακτήρων"><span class="header-section-number">1.6</span> Μαθηματική Εφαρμογή: καταμέτρηση συχνότητας χαρακτήρων</a></li>
-  <li><a href="#μαθηματική-εφαρμογή-memoization-με-λεξικό-ξανά" id="toc-μαθηματική-εφαρμογή-memoization-με-λεξικό-ξανά" class="nav-link" data-scroll-target="#μαθηματική-εφαρμογή-memoization-με-λεξικό-ξανά"><span class="header-section-number">1.7</span> Μαθηματική Εφαρμογή: memoization με λεξικό, ξανά</a></li>
+  <li><a href="#καταμέτρηση-συχνότητας-χαρακτήρων" id="toc-καταμέτρηση-συχνότητας-χαρακτήρων" class="nav-link" data-scroll-target="#καταμέτρηση-συχνότητας-χαρακτήρων"><span class="header-section-number">1.6</span> Καταμέτρηση συχνότητας χαρακτήρων</a></li>
+  <li><a href="#memoization-με-λεξικό-ξανά" id="toc-memoization-με-λεξικό-ξανά" class="nav-link" data-scroll-target="#memoization-με-λεξικό-ξανά"><span class="header-section-number">1.7</span> Memoization με λεξικό, ξανά</a></li>
   </ul></li>
+  <li><a href="#σύνοψη" id="toc-σύνοψη" class="nav-link" data-scroll-target="#σύνοψη"><span class="header-section-number">2</span> Σύνοψη</a></li>
   </ul>
 </nav>
 </div>
@@ -175,8 +176,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic3F1
 </script>
 </div>
 </section>
-<section id="μαθηματική-εφαρμογή-καταμέτρηση-συχνότητας-χαρακτήρων" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="μαθηματική-εφαρμογή-καταμέτρηση-συχνότητας-χαρακτήρων"><span class="header-section-number">1.6</span> Μαθηματική Εφαρμογή: καταμέτρηση συχνότητας χαρακτήρων</h2>
+<section id="καταμέτρηση-συχνότητας-χαρακτήρων" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="καταμέτρηση-συχνότητας-χαρακτήρων"><span class="header-section-number">1.6</span> Καταμέτρηση συχνότητας χαρακτήρων</h2>
 <p>Ένα κλασικό πρόβλημα όπου τα λεξικά είναι το φυσικό εργαλείο: πόσες φορές εμφανίζεται κάθε χαρακτήρας σε ένα κείμενο; Χρησιμοποιούμε το χαρακτήρα ως <strong>κλειδί</strong>, και το πλήθος εμφανίσεών του ως <strong>τιμή</strong>, ενημερώνοντάς το με τη <code>get</code> (ώστε να μη χρειάζεται να ελέγχουμε ρητά αν το κλειδί υπάρχει ήδη):</p>
 <div>
 <div id="pyodide-8" class="exercise-cell">
@@ -188,8 +189,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoidGV4
 </div>
 <p>Η <code>sorted(..., key=lambda item: -item[1])</code> ταξινομεί τα ζεύγη (κλειδί, τιμή) κατά <strong>φθίνουσα</strong> συχνότητα — το <code>lambda</code> ορίζει μια ανώνυμη, “μιας χρήσης” συνάρτηση που λέει στην <code>sorted</code> να συγκρίνει τα ζεύγη με βάση το δεύτερο στοιχείο τους (<code>item[1]</code>, δηλαδή το πλήθος), με πρόσημο <code>-</code> ώστε η ταξινόμηση να είναι φθίνουσα αντί για αύξουσα.</p>
 </section>
-<section id="μαθηματική-εφαρμογή-memoization-με-λεξικό-ξανά" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="μαθηματική-εφαρμογή-memoization-με-λεξικό-ξανά"><span class="header-section-number">1.7</span> Μαθηματική Εφαρμογή: memoization με λεξικό, ξανά</h2>
+<section id="memoization-με-λεξικό-ξανά" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="memoization-με-λεξικό-ξανά"><span class="header-section-number">1.7</span> Memoization με λεξικό, ξανά</h2>
 <p>Στην Εβδομάδα 9 χρησιμοποιήσαμε το έτοιμο <code>@functools.lru_cache</code> για memoization της αναδρομικής Fibonacci. Τώρα που ξέρουμε λεξικά, μπορούμε να δούμε τι κάνει “από μέσα”: κρατάει ένα λεξικό όπου το κλειδί είναι το όρισμα, και η τιμή το ήδη υπολογισμένο αποτέλεσμα:</p>
 <div>
 <div id="pyodide-9" class="exercise-cell">
@@ -212,6 +213,17 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 <p>Στην Εβδομάδα 6 είδαμε ότι τα <strong>μεταβλητά προεπιλεγμένα ορίσματα</strong> (όπως το <code>cache={}</code>) είναι συνήθως <strong>παγίδα</strong>, ακριβώς επειδή το ίδιο αντικείμενο επιβιώνει από κλήση σε κλήση. Εδώ είναι μία από τις σπάνιες περιπτώσεις όπου αυτό ακριβώς το χαρακτηριστικό είναι <strong>επιθυμητό</strong>: θέλουμε το <code>cache</code> να “θυμάται” τα αποτελέσματα ανάμεσα σε διαδοχικές (αναδρομικές) κλήσεις της <code>fib_memo</code>.</p>
 </div>
 </div>
+</section>
+</section>
+<section id="σύνοψη" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Σύνοψη</h1>
+<p>Σε αυτή την εβδομάδα είδαμε:</p>
+<ul>
+<li><strong>Λεξικά</strong>: δημιουργία, πρόσβαση με κλειδί, <code>KeyError</code>, και τους ασφαλέστερους τρόπους <code>in</code> και <code>get</code>.</li>
+<li><strong>Τροποποίηση</strong> λεξικών: προσθήκη, ενημέρωση, διαγραφή.</li>
+<li>Επανάληψη με <code>keys()</code>, <code>values()</code>, <code>items()</code>, και <strong>λεξικά με κατανόηση</strong>.</li>
+<li>Δύο εφαρμογές: <strong>καταμέτρηση συχνότητας</strong>, και <strong>memoization</strong> με λεξικό (τι κάνει “από μέσα” το <code>lru_cache</code> της Εβδομάδας 9).</li>
+</ul>
 <script type="pyodide-data">
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
@@ -229,7 +241,6 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2RO
 <script type="vfs-file">
 W10=
 </script>
-</section>
 </section>
 
 </main>

@@ -90,9 +90,10 @@ window.Quarto = {
   <li><a href="#χαρακτηριστικό-της-python-memoization-με-functools.lru_cache" id="toc-χαρακτηριστικό-της-python-memoization-με-functools.lru_cache" class="nav-link" data-scroll-target="#χαρακτηριστικό-της-python-memoization-με-functools.lru_cache"><span class="header-section-number">1.4</span> Χαρακτηριστικό της Python: memoization με <code>functools.lru_cache</code></a></li>
   <li><a href="#χαρακτηριστικό-της-python-γεννήτριες-generators-και-το-yield" id="toc-χαρακτηριστικό-της-python-γεννήτριες-generators-και-το-yield" class="nav-link" data-scroll-target="#χαρακτηριστικό-της-python-γεννήτριες-generators-και-το-yield"><span class="header-section-number">1.5</span> Χαρακτηριστικό της Python: γεννήτριες (generators) και το <code>yield</code></a></li>
   <li><a href="#ταξινόμηση-με-συγχώνευση-merge-sort" id="toc-ταξινόμηση-με-συγχώνευση-merge-sort" class="nav-link" data-scroll-target="#ταξινόμηση-με-συγχώνευση-merge-sort"><span class="header-section-number">1.6</span> Ταξινόμηση με συγχώνευση (merge sort)</a></li>
-  <li><a href="#μαθηματική-εφαρμογή-οι-πύργοι-του-ανόι" id="toc-μαθηματική-εφαρμογή-οι-πύργοι-του-ανόι" class="nav-link" data-scroll-target="#μαθηματική-εφαρμογή-οι-πύργοι-του-ανόι"><span class="header-section-number">1.7</span> Μαθηματική Εφαρμογή: οι Πύργοι του Ανόι</a></li>
+  <li><a href="#οι-πύργοι-του-ανόι" id="toc-οι-πύργοι-του-ανόι" class="nav-link" data-scroll-target="#οι-πύργοι-του-ανόι"><span class="header-section-number">1.7</span> Οι Πύργοι του Ανόι</a></li>
   <li><a href="#παραγωγή-ακέραιων-διαμερίσεων-αναδρομικά" id="toc-παραγωγή-ακέραιων-διαμερίσεων-αναδρομικά" class="nav-link" data-scroll-target="#παραγωγή-ακέραιων-διαμερίσεων-αναδρομικά"><span class="header-section-number">1.8</span> Παραγωγή ακέραιων διαμερίσεων, αναδρομικά</a></li>
   </ul></li>
+  <li><a href="#σύνοψη" id="toc-σύνοψη" class="nav-link" data-scroll-target="#σύνοψη"><span class="header-section-number">2</span> Σύνοψη</a></li>
   </ul>
 </nav>
 </div>
@@ -219,8 +220,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </script>
 </div>
 </section>
-<section id="μαθηματική-εφαρμογή-οι-πύργοι-του-ανόι" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="μαθηματική-εφαρμογή-οι-πύργοι-του-ανόι"><span class="header-section-number">1.7</span> Μαθηματική Εφαρμογή: οι Πύργοι του Ανόι</h2>
+<section id="οι-πύργοι-του-ανόι" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="οι-πύργοι-του-ανόι"><span class="header-section-number">1.7</span> Οι Πύργοι του Ανόι</h2>
 <p>Στο γρίφος των <strong>Πύργων του Ανόι</strong>, <span class="math inline">\(n\)</span> δίσκοι διαφορετικού μεγέθους είναι στοιβαγμένοι σε έναν στύλο <code>A</code>, σε φθίνουσα σειρά μεγέθους, και θέλουμε να τους μεταφέρουμε όλους σε έναν στύλο προορισμού <code>B</code>, χρησιμοποιώντας έναν βοηθητικό στύλο <code>C</code>, με τους κανόνες: μετακινείται ένας δίσκος τη φορά, μόνο ο πάνω δίσκος μιας στοίβας, και ποτέ μεγαλύτερος δίσκος πάνω σε μικρότερο.</p>
 <p>Η αναδρομική λύση είναι κομψή: για να μετακινήσουμε <span class="math inline">\(n\)</span> δίσκους από το <code>start</code> στο <code>finish</code> (με βοηθητικό το <code>temp</code>),</p>
 <ol type="1">
@@ -266,6 +267,18 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </script>
 </div>
 <p>Συγκρίνετε με την <code>all_partitions_naive</code> της Εβδομάδας 5: η ρητή στοίβα εκεί κάνει ακριβώς τη δουλειά που κάνει τώρα αυτόματα η Python για εμάς — κάθε αναδρομική κλήση <code>partitions(n - first, first)</code> είναι ένα νέο “εκκρεμές υποπρόβλημα”, και η στοίβα κλήσεων της ίδιας της Python (θυμηθείτε το <code>RecursionError</code> παραπάνω) παίζει τον ρόλο της στοίβας που διαχειριζόμασταν εμείς με το χέρι.</p>
+</section>
+</section>
+<section id="σύνοψη" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Σύνοψη</h1>
+<p>Σε αυτή την εβδομάδα είδαμε:</p>
+<ul>
+<li>Τη δομή κάθε αναδρομικής συνάρτησης: <strong>βασική περίπτωση</strong> και <strong>αναδρομικό βήμα</strong>.</li>
+<li>Τους κινδύνους της αναδρομής: <strong><code>RecursionError</code></strong>, και η <strong>εκθετική επανάληψη υπολογισμών</strong> (αφελής Fibonacci).</li>
+<li><strong>Memoization</strong> με <code>functools.lru_cache</code>, και <strong>γεννήτριες</strong> (<code>yield</code>) για άπειρες ακολουθίες.</li>
+<li>Δύο κλασικούς αναδρομικούς αλγορίθμους: <strong>ταξινόμηση με συγχώνευση</strong> και <strong>Πύργοι του Ανόι</strong>.</li>
+<li>Την <strong>αναδρομική</strong> παραγωγή ακέραιων διαμερίσεων, σε αντιδιαστολή με τη naive εκδοχή με ρητή στοίβα της Εβδομάδας 5.</li>
+</ul>
 <script type="pyodide-data">
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
@@ -283,7 +296,6 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9k
 <script type="vfs-file">
 W10=
 </script>
-</section>
 </section>
 
 </main>

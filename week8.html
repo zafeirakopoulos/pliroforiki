@@ -92,12 +92,13 @@ window.Quarto = {
   <li><a href="#πολλαπλασιασμός-πινάκων" id="toc-πολλαπλασιασμός-πινάκων" class="nav-link" data-scroll-target="#πολλαπλασιασμός-πινάκων"><span class="header-section-number">1.3</span> Πολλαπλασιασμός πινάκων</a></li>
   <li><a href="#ανάστροφος-πίνακας-transpose" id="toc-ανάστροφος-πίνακας-transpose" class="nav-link" data-scroll-target="#ανάστροφος-πίνακας-transpose"><span class="header-section-number">1.4</span> Ανάστροφος πίνακας (transpose)</a></li>
   <li><a href="#ορίζουσα-determinant" id="toc-ορίζουσα-determinant" class="nav-link" data-scroll-target="#ορίζουσα-determinant"><span class="header-section-number">1.5</span> Ορίζουσα (determinant)</a></li>
-  <li><a href="#μαθηματική-εφαρμογή-γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss" id="toc-μαθηματική-εφαρμογή-γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss" class="nav-link" data-scroll-target="#μαθηματική-εφαρμογή-γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss"><span class="header-section-number">1.6</span> Μαθηματική Εφαρμογή: Γραμμικά Συστήματα και η Μέθοδος Απαλοιφής του Gauss</a></li>
+  <li><a href="#γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss" id="toc-γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss" class="nav-link" data-scroll-target="#γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss"><span class="header-section-number">1.6</span> Γραμμικά Συστήματα και η Μέθοδος Απαλοιφής του Gauss</a></li>
   </ul></li>
   <li><a href="#γραμμική-παλινδρόμηση-linear-regression" id="toc-γραμμική-παλινδρόμηση-linear-regression" class="nav-link" data-scroll-target="#γραμμική-παλινδρόμηση-linear-regression"><span class="header-section-number">2</span> Γραμμική Παλινδρόμηση (Linear Regression)</a>
   <ul class="collapse">
   <li><a href="#από-γραμμικά-συστήματα-σε-καλύτερο-δυνατό-ταίριασμα" id="toc-από-γραμμικά-συστήματα-σε-καλύτερο-δυνατό-ταίριασμα" class="nav-link" data-scroll-target="#από-γραμμικά-συστήματα-σε-καλύτερο-δυνατό-ταίριασμα"><span class="header-section-number">2.1</span> Από γραμμικά συστήματα σε “καλύτερο δυνατό” ταίριασμα</a></li>
   </ul></li>
+  <li><a href="#σύνοψη" id="toc-σύνοψη" class="nav-link" data-scroll-target="#σύνοψη"><span class="header-section-number">3</span> Σύνοψη</a></li>
   </ul>
 </nav>
 </div>
@@ -249,8 +250,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </div>
 <p>Για μεγαλύτερους πίνακες (<span class="math inline">\(n \ge 4\)</span>) ο τύπος της ορίζουσας γενικεύεται με <strong>αναδρομική ανάπτυξη κατά γραμμή/στήλη (cofactor expansion)</strong> — μια φυσική εφαρμογή της αναδρομής, που θα μελετήσουμε αναλυτικά την επόμενη εβδομάδα.</p>
 </section>
-<section id="μαθηματική-εφαρμογή-γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="μαθηματική-εφαρμογή-γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss"><span class="header-section-number">1.6</span> Μαθηματική Εφαρμογή: Γραμμικά Συστήματα και η Μέθοδος Απαλοιφής του Gauss</h2>
+<section id="γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss"><span class="header-section-number">1.6</span> Γραμμικά Συστήματα και η Μέθοδος Απαλοιφής του Gauss</h2>
 <p>Ένα <strong>γραμμικό σύστημα</strong> <span class="math inline">\(n\)</span> εξισώσεων με <span class="math inline">\(n\)</span> αγνώστους γράφεται συνοπτικά ως <span class="math inline">\(A\vec{x} = \vec{b}\)</span>, όπου <span class="math inline">\(A\)</span> είναι ο πίνακας των συντελεστών. Η <strong>μέθοδος απαλοιφής του Gauss</strong> το λύνει σε δύο φάσεις:</p>
 <ol type="1">
 <li><strong>Ευθεία απαλοιφή (forward elimination):</strong> χρησιμοποιούμε κάθε γραμμή, με τη σειρά, για να “μηδενίσουμε” τα στοιχεία της αντίστοιχης στήλης σε όλες τις γραμμές από κάτω της — αφαιρώντας από κάθε γραμμή ένα κατάλληλο πολλαπλάσιο της “τρέχουσας” γραμμής (του <strong>οδηγού στοιχείου</strong>, pivot). Ο πίνακας καταλήγει σε <strong>άνω τριγωνική</strong> μορφή.</li>
@@ -290,6 +291,16 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 </script>
 </div>
 <p>Δεν χρειάστηκε να γράψουμε κανέναν καινούριο αλγόριθμο επίλυσης — μόνο να φτιάξουμε τον σωστό πίνακα <span class="math inline">\(X\)</span>. Το ίδιο ακριβώς πρόγραμμα προσαρμόζει ευθεία, παραβολή, ή πολυώνυμο οποιουδήποτε βαθμού, αρκεί να προσθέσουμε τις αντίστοιχες στήλες <span class="math inline">\(x^k\)</span> στον πίνακα σχεδιασμού. Θα δούμε στην Εβδομάδα 10 πώς να <strong>οπτικοποιήσουμε</strong> αυτή την προσαρμογή με πραγματικά γραφήματα.</p>
+</section>
+</section>
+<section id="σύνοψη" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Σύνοψη</h1>
+<p>Σε αυτή την εβδομάδα είδαμε:</p>
+<ul>
+<li><strong>Πίνακες ως λίστες λιστών</strong>, και τις βασικές πράξεις: πρόσθεση, πολλαπλασιασμό (με αριθμό και μεταξύ πινάκων), ανάστροφο, ορίζουσα.</li>
+<li>Τη <strong>μέθοδο απαλοιφής του Gauss</strong> για την επίλυση γραμμικών συστημάτων (ευθεία απαλοιφή + αντικατάσταση προς τα πίσω).</li>
+<li>Τη <strong>γραμμική παλινδρόμηση</strong> (μέθοδος ελαχίστων τετραγώνων), και πώς οι κανονικές εξισώσεις μετατρέπουν την προσαρμογή δεδομένων σε ένα ακόμα γραμμικό σύστημα — λυμένο με το ίδιο <code>gauss_solve</code>.</li>
+</ul>
 <script type="pyodide-data">
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
@@ -307,7 +318,6 @@ eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9k
 <script type="vfs-file">
 W10=
 </script>
-</section>
 </section>
 
 </main>
