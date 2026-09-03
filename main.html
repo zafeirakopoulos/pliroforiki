@@ -111,16 +111,21 @@ ul.task-list li input[type="checkbox"] {
     var WEEKS = 13;
     var file = (location.pathname.split('/').pop() || '').toLowerCase();
     var m = file.match(/^week(\d+)(-slides)?\.html$/);
-    if (!m) return;                       // main.html etc. -> nav stays empty (hidden)
-    var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
     var out = [];
-    if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
-    out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
-    out.push(isSlides
-      ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
-      : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
-    out.push('<span class="uoa-nav__spacer"></span>');
-    if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    if (!m) {
+      // program / index page: no prev/next, just a way into the course
+      out.push('<span class="uoa-nav__spacer"></span>');
+      out.push('<a href="week1.html" rel="next">Ξεκινήστε: Εβδομάδα 1 &#8594;</a>');
+    } else {
+      var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
+      if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
+      out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
+      out.push(isSlides
+        ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
+        : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
+      out.push('<span class="uoa-nav__spacer"></span>');
+      if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    }
     nav.innerHTML = out.join('');
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
