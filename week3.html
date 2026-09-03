@@ -292,7 +292,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSwg
 </script>
 </div>
 <p>Οι <code>and</code>/<code>or</code> λειτουργούν με <strong>short-circuit</strong>: αν το αποτέλεσμα μπορεί να προσδιοριστεί από την πρώτη λογική έκφραση, η δεύτερη δεν υπολογίζεται καν (π.χ. αν το πρώτο μέλος ενός <code>and</code> είναι <code>False</code>, το αποτέλεσμα είναι σίγουρα <code>False</code>).</p>
-<p>Ένα συνηθισμένο λάθος: για να ελέγξουμε αν το <code>x</code> <strong>δεν</strong> ισούται ούτε με 2 ούτε με 3, το <code>x != 2 or x != 3</code> είναι πάντα <code>True</code> (λάθος!)· το σωστό είναι <code>x != 2 and x != 3</code>. Επίσης, η Python επιτρέπει <strong>αλυσιδωτές συγκρίσεις</strong>: το <span class="math inline">\(0 \le x &lt; 1\)</span> γράφεται απευθείας <code>0 &lt;= x &lt; 1</code>, χωρίς να χρειάζεται <code>and</code>:</p>
+<p><strong>Ένα συνηθισμένο λάθος.</strong> Για να ελέγξουμε ότι το <code>x</code> δεν ισούται <em>ούτε</em> με 2 <em>ούτε</em> με 3: το <code>x != 2 or x != 3</code> είναι <strong>πάντα</strong> <code>True</code> (λάθος!) — το σωστό είναι <code>x != 2 and x != 3</code>.</p>
+<p>Τέλος, η Python επιτρέπει <strong>αλυσιδωτές συγκρίσεις</strong>: το <span class="math inline">\(0 \le x &lt; 1\)</span> γράφεται απευθείας <code>0 &lt;= x &lt; 1</code>, χωρίς <code>and</code>:</p>
 <div>
 <div id="pyodide-3" class="exercise-cell">
 
@@ -362,7 +363,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    εντολές               <span class="co"># εκτελείται αν η προηγούμενη ήταν False και αυτή True</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    εντολές               <span class="co"># εκτελείται αν όλες οι παραπάνω συνθήκες είναι False</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Το <code>elif</code> και το <code>else</code> είναι προαιρετικά, και μπορούν να υπάρχουν όσα <code>elif</code> χρειάζονται. Στην Python, τα όρια ενός μπλοκ κώδικα <strong>δεν</strong> δηλώνονται με άγκιστρα, αλλά με τη <strong>στοίχιση (indentation)</strong> — η ίδια στήλη έναρξης σηματοδοτεί το ίδιο μπλοκ.</p>
+<p>Το <code>elif</code> και το <code>else</code> είναι προαιρετικά, και μπορούν να υπάρχουν όσα <code>elif</code> χρειάζονται.</p>
+<p>Στην Python, τα όρια ενός μπλοκ κώδικα <strong>δεν</strong> δηλώνονται με άγκιστρα, αλλά με τη <strong>στοίχιση (indentation)</strong>: η ίδια στήλη έναρξης σηματοδοτεί το ίδιο μπλοκ.</p>
 <div>
 <div id="pyodide-8" class="exercise-cell">
 
@@ -378,7 +380,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2Nv
 <li>το <code>if not test:</code> είναι ισοδύναμο με το <code>if test == False:</code></li>
 </ul>
 <p>Η σκέτη μορφή είναι και η προτιμώμενη — το <code>== True</code> είναι περιττό.</p>
-<p>Οι συμβολοσειρές (Εβδομάδα 2) συγκρίνονται με τους ίδιους σχεσιακούς τελεστές: το <code>==</code>/<code>!=</code> ελέγχει ταύτιση, ενώ το <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> συγκρίνει <strong>λεξικογραφικά</strong>, με βάση τον κωδικό ASCII/Unicode κάθε χαρακτήρα, μέχρι την πρώτη διαφορά (ή μέχρι το τέλος της κοντύτερης συμβολοσειράς, αν η μία είναι πρόθεμα της άλλης):</p>
+<p>Οι συμβολοσειρές (Εβδομάδα 2) συγκρίνονται με τους ίδιους σχεσιακούς τελεστές. Το <code>==</code>/<code>!=</code> ελέγχει ταύτιση· το <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> συγκρίνει <strong>λεξικογραφικά</strong> — χαρακτήρα προς χαρακτήρα, με βάση τον κωδικό ASCII/Unicode, μέχρι την πρώτη διαφορά (ή μέχρι το τέλος της κοντύτερης, αν η μία είναι πρόθεμα της άλλης):</p>
 <div>
 <div id="pyodide-9" class="exercise-cell">
 
@@ -423,7 +425,13 @@ a x^2 + b x + c = 0, \qquad a \neq 0,
 <p><span class="math display">\[
 x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
 \]</span></p>
-<p>Η διακρίνουσα <span class="math inline">\(\Delta = b^2 - 4ac\)</span> καθορίζει <strong>πόσες</strong> πραγματικές ρίζες υπάρχουν: δύο αν <span class="math inline">\(\Delta &gt; 0\)</span>, μία (διπλή) αν <span class="math inline">\(\Delta = 0\)</span>, και καμία αν <span class="math inline">\(\Delta &lt; 0\)</span> (αφού η τετραγωνική ρίζα αρνητικού αριθμού δεν ορίζεται στους πραγματικούς). Τώρα που έχουμε την <code>if</code>, μπορούμε επιτέλους να διαχειριστούμε <strong>και τις τρεις</strong> περιπτώσεις σωστά, αντί να υποθέτουμε ότι <span class="math inline">\(\Delta \ge 0\)</span> (δεν έχουμε δει ακόμα συναρτήσεις — θα τις μάθουμε στην Εβδομάδα 6 — οπότε προς το παρόν επαναλαμβάνουμε τον ίδιο κώδικα για τρεις διαφορετικές τριάδες συντελεστών <code>a</code>, <code>b</code>, <code>c</code>, μία-μία, στο ίδιο κελί):</p>
+<p>Η διακρίνουσα <span class="math inline">\(\Delta = b^2 - 4ac\)</span> καθορίζει <strong>πόσες</strong> πραγματικές ρίζες υπάρχουν:</p>
+<ul>
+<li>δύο, αν <span class="math inline">\(\Delta &gt; 0\)</span>·</li>
+<li>μία (διπλή), αν <span class="math inline">\(\Delta = 0\)</span>·</li>
+<li>καμία, αν <span class="math inline">\(\Delta &lt; 0\)</span> — η τετραγωνική ρίζα αρνητικού δεν ορίζεται στους πραγματικούς.</li>
+</ul>
+<p>Τώρα που έχουμε την <code>if</code>, μπορούμε επιτέλους να χειριστούμε σωστά <strong>και τις τρεις</strong> περιπτώσεις, αντί να υποθέτουμε ότι <span class="math inline">\(\Delta \ge 0\)</span>. (Δεν έχουμε δει ακόμα συναρτήσεις, οπότε δοκιμάζουμε τρεις τριάδες <code>a, b, c</code> γράφοντας τον ίδιο κώδικα τρεις φορές στο ίδιο κελί.)</p>
 <div>
 <div id="pyodide-12" class="exercise-cell">
 
@@ -432,7 +440,7 @@ x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSwgYiwgYyA9IDEsIC0zLCAtNCAgICMgzrTOv866zrnOvM6uIDE6IHheMiAtIDN4IC0gNCA9ICh4LTQpKHgrMSkgIC0+ICDOlCA+IDBcbmRpc2NyaW1pbmFudCA9IGIqKjIgLSA0KmEqY1xuXG5pZiBkaXNjcmltaW5hbnQgPiAwOlxuICAgIHNxcnRfZGlzYyA9IGRpc2NyaW1pbmFudCAqKiAwLjVcbiAgICB4MSA9ICgtYiArIHNxcnRfZGlzYykgLyAoMiphKVxuICAgIHgyID0gKC1iIC0gc3FydF9kaXNjKSAvICgyKmEpXG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSB7ZGlzY3JpbWluYW50fSA+IDAgIC0+ICDOtM+Nzr8gz4HOr862zrXPgjogeDEgPSB7eDE6LjRmfSwgeDIgPSB7eDI6LjRmfScpXG5lbGlmIGRpc2NyaW1pbmFudCA9PSAwOlxuICAgIHggPSAtYiAvICgyKmEpXG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSAwICAtPiAgzrzOr86xIM60zrnPgM67zq4gz4HOr862zrE6IHggPSB7eDouNGZ9JylcbmVsc2U6XG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSB7ZGlzY3JpbWluYW50fSA8IDAgIC0+ICDOus6xzrzOr86xIM+Az4HOsc6zzrzOsc+EzrnOus6uIM+Bzq/Ots6xJylcblxuYSwgYiwgYyA9IDEsIC00LCA0ICAgICMgzrTOv866zrnOvM6uIDI6IHheMiAtIDR4ICsgNCA9ICh4LTIpXjIgIC0+ICDOlCA9IDBcbmRpc2NyaW1pbmFudCA9IGIqKjIgLSA0KmEqY1xuXG5pZiBkaXNjcmltaW5hbnQgPiAwOlxuICAgIHNxcnRfZGlzYyA9IGRpc2NyaW1pbmFudCAqKiAwLjVcbiAgICB4MSA9ICgtYiArIHNxcnRfZGlzYykgLyAoMiphKVxuICAgIHgyID0gKC1iIC0gc3FydF9kaXNjKSAvICgyKmEpXG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSB7ZGlzY3JpbWluYW50fSA+IDAgIC0+ICDOtM+Nzr8gz4HOr862zrXPgjogeDEgPSB7eDE6LjRmfSwgeDIgPSB7eDI6LjRmfScpXG5lbGlmIGRpc2NyaW1pbmFudCA9PSAwOlxuICAgIHggPSAtYiAvICgyKmEpXG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSAwICAtPiAgzrzOr86xIM60zrnPgM67zq4gz4HOr862zrE6IHggPSB7eDouNGZ9JylcbmVsc2U6XG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSB7ZGlzY3JpbWluYW50fSA8IDAgIC0+ICDOus6xzrzOr86xIM+Az4HOsc6zzrzOsc+EzrnOus6uIM+Bzq/Ots6xJylcblxuYSwgYiwgYyA9IDEsIDAsIDEgICAgICMgzrTOv866zrnOvM6uIDM6IHheMiArIDEgPSAwICAtPiAgzpQgPCAwXG5kaXNjcmltaW5hbnQgPSBiKioyIC0gNCphKmNcblxuaWYgZGlzY3JpbWluYW50ID4gMDpcbiAgICBzcXJ0X2Rpc2MgPSBkaXNjcmltaW5hbnQgKiogMC41XG4gICAgeDEgPSAoLWIgKyBzcXJ0X2Rpc2MpIC8gKDIqYSlcbiAgICB4MiA9ICgtYiAtIHNxcnRfZGlzYykgLyAoMiphKVxuICAgIHByaW50KGYnYT17YX0sIGI9e2J9LCBjPXtjfTogIM6UID0ge2Rpc2NyaW1pbmFudH0gPiAwICAtPiAgzrTPjc6/IM+Bzq/Ots61z4I6IHgxID0ge3gxOi40Zn0sIHgyID0ge3gyOi40Zn0nKVxuZWxpZiBkaXNjcmltaW5hbnQgPT0gMDpcbiAgICB4ID0gLWIgLyAoMiphKVxuICAgIHByaW50KGYnYT17YX0sIGI9e2J9LCBjPXtjfTogIM6UID0gMCAgLT4gIM68zq/OsSDOtM65z4DOu86uIM+Bzq/Ots6xOiB4ID0ge3g6LjRmfScpXG5lbHNlOlxuICAgIHByaW50KGYnYT17YX0sIGI9e2J9LCBjPXtjfTogIM6UID0ge2Rpc2NyaW1pbmFudH0gPCAwICAtPiAgzrrOsc68zq/OsSDPgM+BzrHOs868zrHPhM65zrrOriDPgc6vzrbOsScpIn0=
 </script>
 </div>
-<p>Δοκιμάστε τους δικούς σας συντελεστές <code>a</code>, <code>b</code>, <code>c</code> παραπάνω: σε αντίθεση με πριν, ο κώδικας πλέον <strong>δεν σκάει</strong> ποτέ με σφάλμα — για κάθε δυνατή είσοδο, η <code>if</code>/<code>elif</code>/<code>else</code> εξασφαλίζει ότι θα εκτελεστεί ακριβώς η σωστή διαδρομή. (Παρατηρήστε πόσο επαναλαμβανόμενος είναι ο κώδικας όταν τον γράφουμε τρεις φορές με το χέρι — αυτό ακριβώς είναι ένας από τους λόγους που θα μάθουμε συναρτήσεις στην Εβδομάδα 6.)</p>
+<p>Δοκιμάστε τους δικούς σας συντελεστές <code>a</code>, <code>b</code>, <code>c</code> παραπάνω. Σε αντίθεση με πριν, ο κώδικας <strong>δεν σκάει</strong> ποτέ με σφάλμα: για κάθε δυνατή είσοδο, η <code>if</code>/<code>elif</code>/<code>else</code> εξασφαλίζει ότι εκτελείται ακριβώς η σωστή διαδρομή.</p>
 </section>
 </section>
 <section id="σύνοψη" class="level1" data-number="2">

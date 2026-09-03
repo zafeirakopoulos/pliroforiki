@@ -263,10 +263,12 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9IDUwICAgIyDOus6xzrjOv867zrnOus6uIM68zrXPhM6xzrLOu863z4TOrlxuXG5kZWYgY2hhbmdlX3goKTpcbiAgICBnbG9iYWwgeFxuICAgIHggPSAyXG5cbnByaW50KCfOoM+BzrnOvTonLCB4KVxuY2hhbmdlX3goKVxucHJpbnQoJ86czrXPhM6sOicsIHgpIn0=
 </script>
 </div>
-<p>Χωρίς τη δήλωση <code>global</code>, μια εντολή εκχώρησης <code>x = 2</code> μέσα στη συνάρτηση θα δημιουργούσε μια <strong>νέα, τοπική</strong> μεταβλητή <code>x</code>, χωρίς να επηρεάσει την καθολική. Γενικά, η χρήση καθολικών μεταβλητών είναι καλό να αποφεύγεται· προτιμάται η μεταβίβαση τιμών ως ορίσματα και η επιστροφή αποτελεσμάτων με <code>return</code>.</p>
+<p>Χωρίς τη δήλωση <code>global</code>, η <code>x = 2</code> μέσα στη συνάρτηση θα έφτιαχνε μια <strong>νέα, τοπική</strong> <code>x</code>, αφήνοντας την καθολική ανέπαφη.</p>
+<p>Γενικά, αποφεύγουμε τις καθολικές μεταβλητές: προτιμάμε να περνάμε τιμές ως ορίσματα και να επιστρέφουμε αποτελέσματα με <code>return</code>.</p>
 <section id="προσοχή-το-global-χρειάζεται-μόνο-για-επανεκχώρηση-όχι-για-μεταβολή" class="level3">
 <h3 class="anchored" data-anchor-id="προσοχή-το-global-χρειάζεται-μόνο-για-επανεκχώρηση-όχι-για-μεταβολή">Προσοχή: το <code>global</code> χρειάζεται μόνο για επανεκχώρηση, όχι για μεταβολή</h3>
-<p>Η δήλωση <code>global</code> απαιτείται <strong>μόνο</strong> όταν μια συνάρτηση θέλει να <strong>επανεκχωρήσει</strong> (δηλαδή, να αλλάξει σε ποιο αντικείμενο δείχνει) μια καθολική μεταβλητή. Αν όμως η καθολική μεταβλητή είναι ένα <strong>μεταβλητό (mutable)</strong> αντικείμενο, όπως μια λίστα, μπορούμε να <strong>τροποποιήσουμε τα στοιχεία της</strong> χωρίς καμία δήλωση <code>global</code> — γιατί δεν επανεκχωρούμε το όνομα <code>totals</code>, απλώς τροποποιούμε το αντικείμενο στο οποίο ήδη δείχνει (ακριβώς η ίδια λογική με τα ορίσματα λιστών στην Εβδομάδα 6):</p>
+<p>Η δήλωση <code>global</code> απαιτείται <strong>μόνο</strong> για <strong>επανεκχώρηση</strong> — όταν θέλουμε να αλλάξουμε σε ποιο αντικείμενο δείχνει μια καθολική μεταβλητή.</p>
+<p>Αν η καθολική είναι <strong>μεταβλητό (mutable)</strong> αντικείμενο (μια λίστα), μπορούμε να <strong>τροποποιήσουμε τα στοιχεία της</strong> χωρίς <code>global</code>: δεν αλλάζουμε το όνομα <code>totals</code>, μόνο το αντικείμενο στο οποίο ήδη δείχνει — ίδια λογική με τα ορίσματα λιστών στην Εβδομάδα 6.</p>
 <div>
 <div id="pyodide-5" class="exercise-cell">
 
@@ -275,7 +277,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoidG90YWxzID0gW10gICAjIM66zrHOuM6/zrvOuc66zq4gzrvOr8+Dz4TOsVxuXG5kZWYgcmVjb3JkKHgpOlxuICAgIHRvdGFscy5hcHBlbmQoeCkgICAjIM6kzqHOn86gzp/OoM6fzpnOl86jzpcsIM+Mz4fOuSDOtc+AzrHOvc61zrrPh8+Oz4HOt8+DzrcgLS0gzrTOtc69IM+Hz4HOtc65zqzOts61z4TOsc65ICdnbG9iYWwnXG5cbnJlY29yZCgxMClcbnJlY29yZCgyMClcbnByaW50KHRvdGFscykifQ==
 </script>
 </div>
-<p>Αν αντίθετα προσπαθήσουμε να <strong>επανεκχωρήσουμε</strong> έναν καθολικό ακέραιο χωρίς <code>global</code>, η Python δεν “ανακατεύεται” καθόλου με την καθολική μεταβλητή· αντιθέτως, θεωρεί το όνομα <em>τοπικό σε όλη τη συνάρτηση</em> (επειδή υπάρχει εκχώρηση σε αυτό κάπου μέσα της) — και επειδή δεν έχει ακόμα τιμή τη στιγμή της ανάγνωσης, προκύπτει σφάλμα:</p>
+<p>Αν όμως προσπαθήσουμε να <strong>επανεκχωρήσουμε</strong> έναν καθολικό ακέραιο χωρίς <code>global</code>, η Python δεν αγγίζει καθόλου την καθολική. Επειδή υπάρχει εκχώρηση στο όνομα κάπου μέσα στη συνάρτηση, το θεωρεί <em>τοπικό σε ολόκληρη τη συνάρτηση</em> — και η ανάγνωση πριν την πρώτη τιμή δίνει σφάλμα:</p>
 <div>
 <div id="pyodide-6" class="exercise-cell">
 

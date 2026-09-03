@@ -213,6 +213,7 @@ window.Quarto = {
 <p><em>(Οδηγίες χρήσης του διαδραστικού κώδικα: δείτε την <a href="main.html">αρχική σελίδα</a>.)</em></p>
 <section id="αριθμητικοί-τελεστές-και-προτεραιότητα" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Αριθμητικοί τελεστές και προτεραιότητα</h1>
+<p>Η Python διαθέτει τους συνηθισμένους αριθμητικούς τελεστές, με μερικές λεπτομέρειες που αξίζει να προσέξουμε:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -266,7 +267,7 @@ window.Quarto = {
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoMTUgKyA1IC8gMikgICAgICMgz4DPgc+Oz4TOsSDOtyDOtM65zrHOr8+BzrXPg863OiAxNSArIDIuNVxucHJpbnQoNSArIDEyIC8gMyAqIDIpICMgzrTOuc6xzq/Pgc61z4POtywgzrzOtc+Ezqwgz4DOv867zrvOsc+AzrvOsc+DzrnOsc+DzrzPjM+COiA1ICsgNC4wKjJcbnByaW50KDQgKiogMyAqKiAyKSAgICAjIM60zrXOvs65zqwgz4DPgc6/z4IgzrHPgc65z4PPhM61z4HOrDogNCoqKDMqKjIpID0gNCoqOVxucHJpbnQoMiArIDMgKiA0IC0gMSkgICMgz4DOv867zrvOsc+AzrvOsc+DzrnOsc+DzrzPjM+CIM+Az4HPjs+EzrE6IDIgKyAxMiAtIDFcbnByaW50KCgyICsgMykgKiAoNCAtIDEpKSAgICMgzr/OuSDPgM6xz4HOtc69zrjOrc+DzrXOuc+CIM6tz4fOv8+Fzr0gz4DOrM69z4TOsSDPgM+Bzr/PhM61z4HOsc65z4zPhM63z4TOsVxucHJpbnQoLTIgKiogMikgICAgICAgICAjIM+Az4HOv8+Dzr/Ph86uOiDOtyDPjc+Iz4nPg863IM+DzrUgzrTPjc69zrHOvM63IM+Az4HOv863zrPOtc6vz4TOsc65IM+Ezr/PhSAnLScsIM6sz4HOsSAtKDIqKjIpID0gLTRcbnByaW50KDcgJSAzICsgMiAqIDUpICAgIyDPhc+Az4zOu86/zrnPgM6/IM66zrHOuSDPgM6/zrvOu86xz4DOu86xz4POuc6xz4POvM+Mz4Igz4DPgc65zr0gz4TOt869IM+Az4HPjM+DzrjOtc+DzrdcbnByaW50KDIwIC8vIDMgJSAyKSAgICAgIyDOsc66zq3Pgc6xzrnOsSDOtM65zrHOr8+BzrXPg863IM66zrHOuSDPhc+Az4zOu86/zrnPgM6/LCDOsc+BzrnPg8+EzrXPgc6sIM+Az4HOv8+CIM60zrXOvs65zqw6ICgyMCAvLyAzKSAlIDIifQ==
 </script>
 </div>
-<p>Οι <strong>τελεστές επαυξημένης εκχώρησης</strong> (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>//=</code>, <code>%=</code>, <code>**=</code>) συντομεύουν εκχωρήσεις που περιλαμβάνουν τη μεταβλητή που ενημερώνεται, π.χ. <code>a += x</code> είναι το ίδιο με <code>a = a + x</code>:</p>
+<p>Οι <strong>τελεστές επαυξημένης εκχώρησης</strong> (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>//=</code>, <code>%=</code>, <code>**=</code>) συντομεύουν μια εκχώρηση όπου η ίδια μεταβλητή εμφανίζεται και στα δύο μέλη: το <code>a += x</code> είναι απλώς συντομογραφία του <code>a = a + x</code>.</p>
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
@@ -286,7 +287,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSA9
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9IDEwXG55ID0gMFxucHJpbnQoeCAvIHkpICAgIyBaZXJvRGl2aXNpb25FcnJvcjogZGl2aXNpb24gYnkgemVybyJ9
 </script>
 </div>
-<p>Σε πολλές άλλες γλώσσες (π.χ. C, Java), οι ακέραιοι έχουν σταθερό μέγεθος σε bits, και μια πράξη που ξεπερνάει το μέγιστο δυνατό αποθηκεύσιμο μέγεθος προκαλεί <strong>υπερχείλιση (overflow)</strong> — συχνά αθόρυβα, δίνοντας ένα λάθος (και μάλιστα τυχαία αρνητικό!) αποτέλεσμα. Οι ακέραιοι (<code>int</code>) της Python όμως έχουν <strong>απεριόριστο μέγεθος</strong>: μεγαλώνουν όσο χρειάζεται, χωρίς να «σπάνε» ποτέ:</p>
+<p>Σε πολλές άλλες γλώσσες (C, Java, …) οι ακέραιοι έχουν σταθερό μέγεθος σε bits. Μια πράξη που ξεπερνάει το μέγιστο αποθηκεύσιμο μέγεθος προκαλεί <strong>υπερχείλιση (overflow)</strong> — συχνά αθόρυβα, δίνοντας λάθος (και μάλιστα ενίοτε αρνητικό!) αποτέλεσμα.</p>
+<p>Οι ακέραιοι (<code>int</code>) της Python όμως έχουν <strong>απεριόριστο μέγεθος</strong>: μεγαλώνουν όσο χρειάζεται, χωρίς να «σπάνε» ποτέ.</p>
 <div>
 <div id="pyodide-4" class="exercise-cell">
 
@@ -340,7 +342,38 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2Vu
 </section>
 <section id="μέθοδοι-συμβολοσειρών" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="μέθοδοι-συμβολοσειρών"><span class="header-section-number">2.2</span> Μέθοδοι συμβολοσειρών</h2>
-<p>Η Python διαθέτει πλούσιο σύνολο μεθόδων για έλεγχο και επεξεργασία συμβολοσειρών. Για <strong>έλεγχο</strong> περιεχομένου: <code>isalpha()</code>, <code>isdigit()</code>, <code>isalnum()</code>, <code>isspace()</code>, <code>islower()</code>, <code>isupper()</code>. Για <strong>τροποποιημένα αντίγραφα</strong>: <code>lower()</code>, <code>upper()</code>, <code>strip()</code> (αφαιρεί κενούς χαρακτήρες από τις άκρες), <code>replace(παλιό, νέο)</code>. Για <strong>αναζήτηση</strong>: <code>find(υπο-συμβολοσειρά)</code>, <code>startswith(...)</code>, <code>endswith(...)</code>, και για <strong>διαχωρισμό σε λέξεις</strong>: <code>split()</code>.</p>
+<p>Η Python διαθέτει πλούσιο σύνολο μεθόδων για συμβολοσειρές:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Σκοπός</th>
+<th style="text-align: left;">Μέθοδοι</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">έλεγχος περιεχομένου</td>
+<td style="text-align: left;"><code>isalpha()</code>, <code>isdigit()</code>, <code>isalnum()</code>, <code>isspace()</code>, <code>islower()</code>, <code>isupper()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">τροποποιημένο αντίγραφο</td>
+<td style="text-align: left;"><code>lower()</code>, <code>upper()</code>, <code>strip()</code> (κόβει κενά από τις άκρες), <code>replace(παλιό, νέο)</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">αναζήτηση</td>
+<td style="text-align: left;"><code>find(υπο-συμβολοσειρά)</code>, <code>startswith(...)</code>, <code>endswith(...)</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">διαχωρισμός σε λέξεις</td>
+<td style="text-align: left;"><code>split()</code></td>
+</tr>
+</tbody>
+</table>
+<p>Επειδή οι συμβολοσειρές είναι αμετάβλητες, όλες αυτές οι μέθοδοι επιστρέφουν <strong>νέα</strong> συμβολοσειρά — δεν αλλάζουν την αρχική.</p>
 <div>
 <div id="pyodide-9" class="exercise-cell">
 
@@ -523,7 +556,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoY29uZV92b2x1bWUsIGN5bGluZGVyX3ZvbHVtZSAvIDMpXG5wcmludChjb25lX3ZvbHVtZSA9PSBjeWxpbmRlcl92b2x1bWUgLyAzKSAgICAgICAgICAjIM65z4PPjM+EzrfPhM6xIGZsb2F0cyAtLSDPg8+Fzr3Ors64z4nPgiDOtc+AzrnOus6vzr3OtM+Fzr3OtyAozpXOss60zr/OvM6szrTOsSAxMClcbnByaW50KG1hdGguaXNjbG9zZShjb25lX3ZvbHVtZSwgY3lsaW5kZXJfdm9sdW1lIC8gMykpICAgIyDOvyDOsc+Dz4bOsc67zq3Pg8+EzrXPgc6/z4Igz4TPgc+Mz4DOv8+CIM+Dz43Os866z4HOuc+DzrfPgiBmbG9hdHMifQ==
 </script>
 </div>
-<p>Δοκιμάστε διαφορετικά <code>r</code> και <code>h</code> παραπάνω και ξανατρέξτε: η ισότητα <code>cone_volume == cylinder_volume / 3</code> “τυχαίνει” να ισχύει ακριβώς εδώ, αλλά γενικά, όταν συγκρίνουμε αποτελέσματα πράξεων κινητής υποδιαστολής, προτιμάμε το <code>math.isclose(...)</code> αντί για το <code>==</code>, ακριβώς επειδή δύο μαθηματικά ίσες ποσότητες μπορεί να υπολογιστούν με ελαφρώς διαφορετική σειρά πράξεων, και να καταλήξουν σε ελαφρώς διαφορετικό αποτέλεσμα λόγω στρογγυλοποίησης.</p>
+<p>Δοκιμάστε διαφορετικά <code>r</code> και <code>h</code> παραπάνω: η ισότητα <code>cone_volume == cylinder_volume / 3</code> «τυχαίνει» να ισχύει ακριβώς εδώ, αλλά δεν είναι εγγυημένη.</p>
+<p>Ο λόγος: δύο μαθηματικά ίσες ποσότητες μπορεί να υπολογιστούν με ελαφρώς διαφορετική σειρά πράξεων, και να καταλήξουν σε ελαφρώς διαφορετικό <code>float</code> λόγω στρογγυλοποίησης. Γι’ αυτό, όταν συγκρίνουμε αποτελέσματα πράξεων κινητής υποδιαστολής, προτιμάμε το <code>math.isclose(...)</code> αντί για το <code>==</code>.</p>
 </section>
 <section id="μετατροπή-fahrenheit-celsius" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Μετατροπή Fahrenheit ⇄ Celsius</h1>
@@ -590,7 +624,8 @@ E(p) = (p + k) \bmod 26.
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGNhZXNhcl9zaGlmdCh0ZXh0LCBrKTpcbiAgICByZXN1bHQgPSAnJ1xuICAgIGZvciBjaCBpbiB0ZXh0OlxuICAgICAgICBpZiBjaC5pc2FscGhhKCk6XG4gICAgICAgICAgICBiYXNlID0gb3JkKCdBJykgaWYgY2guaXN1cHBlcigpIGVsc2Ugb3JkKCdhJylcbiAgICAgICAgICAgIHNoaWZ0ZWQgPSAob3JkKGNoKSAtIGJhc2UgKyBrKSAlIDI2XG4gICAgICAgICAgICByZXN1bHQgKz0gY2hyKGJhc2UgKyBzaGlmdGVkKVxuICAgICAgICBlbHNlOlxuICAgICAgICAgICAgcmVzdWx0ICs9IGNoICAgIyDOus61zr3OrCwgz4POt868zrXOr86xIM+Dz4TOr86+zrfPgiDOui7Ou8+ALiDOvM6tzr3Ov8+Fzr0gz4nPgiDOrc+Hzr/Phc69XG4gICAgcmV0dXJuIHJlc3VsdFxuXG5tZXNzYWdlID0gJ01lZXQgbWUgYXQgZGF3bicgICAjIM6xzrvOu86szr7PhM61IM+Ezr8gzrzOrs69z4XOvM6xXG5rID0gMyAgICAgICAgICAgICAgICAgICAgICAgICAgIyDOsc67zrvOrM6+z4TOtSDPhM6/IM66zrvOtc65zrTOryDOv867zq/Pg864zrfPg863z4JcblxuZW5jcnlwdGVkID0gY2Flc2FyX3NoaWZ0KG1lc3NhZ2UsIGspXG5kZWNyeXB0ZWQgPSBjYWVzYXJfc2hpZnQoZW5jcnlwdGVkLCAtaykgICAjIM6xz4DOv866z4HPhc+Az4TOv86zz4HOrM+GzrfPg863OiDOv867zq/Pg864zrfPg863IM+Az4HOv8+CIM+EzrEgz4DOr8+Dz4lcblxucHJpbnQoJ86Rz4HPh865zrrPjCDOvM6uzr3Phc68zrE6ICcsIG1lc3NhZ2UpXG5wcmludCgnzprPgc+Fz4DPhM6/zrPPgc6xz4bOt868zq3Ovc6/OicsIGVuY3J5cHRlZClcbnByaW50KCfOkc+Azr/Ous+Bz4XPgM+Ezr/Os8+BzrHPhs63zrzOrc69zr86JywgZGVjcnlwdGVkKSJ9
 </script>
 </div>
-<p>Παρατηρήστε ότι η αποκρυπτογράφηση είναι απλώς μια κρυπτογράφηση με αντίθετο κλειδί, <code>-k</code>, χάρη στην αριθμητική υπολοίπου (το πηλίκο <code>%</code> στην Python δίνει πάντα μη αρνητικό αποτέλεσμα για θετικό διαιρέτη, οπότε η ολίσθηση “τυλίγεται” σωστά και προς τις δύο κατευθύνσεις). Δοκιμάστε <code>k = 13</code> — είναι ο γνωστός αλγόριθμος <strong>ROT13</strong>, όπου η κρυπτογράφηση είναι η δική της αντίστροφη συνάρτηση (<code>caesar_shift(caesar_shift(text, 13), 13) == text</code>)!</p>
+<p>Η αποκρυπτογράφηση είναι απλώς κρυπτογράφηση με αντίθετο κλειδί <code>-k</code>, χάρη στην αριθμητική υπολοίπου: το <code>%</code> στην Python δίνει πάντα μη αρνητικό αποτέλεσμα για θετικό διαιρέτη, οπότε η ολίσθηση «τυλίγεται» σωστά και προς τις δύο κατευθύνσεις.</p>
+<p>Δοκιμάστε <code>k = 13</code>: είναι ο γνωστός <strong>ROT13</strong>, όπου η κρυπτογράφηση είναι η ίδια της η αντίστροφη — <code>caesar_shift(caesar_shift(text, 13), 13) == text</code>.</p>
 </section>
 <section id="σύνοψη" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Σύνοψη</h1>

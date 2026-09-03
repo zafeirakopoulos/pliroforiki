@@ -210,7 +210,8 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Πίνακες (Matrices)</h1>
 <section id="αναπαράσταση-πινάκων-ως-λίστες-λιστών" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="αναπαράσταση-πινάκων-ως-λίστες-λιστών"><span class="header-section-number">1.1</span> Αναπαράσταση πινάκων ως λίστες λιστών</h2>
-<p>Θυμηθείτε τις <strong>δισδιάστατες λίστες</strong> (Εβδομάδα 4): μια λίστα των οποίας τα στοιχεία είναι κι αυτά λίστες. Αυτή είναι ακριβώς η φυσική αναπαράσταση ενός <strong>πίνακα (matrix)</strong> στην Python — δεν χρειαζόμαστε κανένα εξωτερικό module, μόνο απλές λίστες: κάθε εσωτερική λίστα είναι μία <strong>γραμμή</strong>, και ο δείκτης της θέσης της στην εξωτερική λίστα είναι ο αριθμός της γραμμής.</p>
+<p>Θυμηθείτε τις <strong>δισδιάστατες λίστες</strong> (Εβδομάδα 4): μια λίστα με στοιχεία που είναι κι αυτά λίστες. Αυτή είναι η φυσική αναπαράσταση ενός <strong>πίνακα (matrix)</strong> στην Python — χωρίς κανένα εξωτερικό module.</p>
+<p>Κάθε εσωτερική λίστα είναι μία <strong>γραμμή</strong>· η θέση της στην εξωτερική λίστα είναι ο αριθμός της γραμμής.</p>
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
@@ -230,7 +231,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiQSA9
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicm93cywgY29scyA9IDMsIDNcbnplcm9zID0gW1swXSAqIGNvbHMgZm9yIF8gaW4gcmFuZ2Uocm93cyldICAgIyDOo86pzqPOpM6fOiDOus6szrjOtSDOs8+BzrHOvM68zq4gzrXOr869zrHOuSDOnc6VzpEgzrvOr8+Dz4TOsVxucHJpbnRfbWF0cml4KHplcm9zKSJ9
 </script>
 </div>
-<p>Υπάρχει όμως ένας πολύ δελεαστικός, αλλά <strong>λανθασμένος</strong> συντομότερος τρόπος, που εκμεταλλεύεται τον τελεστή επανάληψης <code>*</code> σε λίστες (Εβδομάδα 4): <code>[[0]*cols]*rows</code>. Το πρόβλημα είναι ότι το <code>*rows</code> δεν αντιγράφει την εσωτερική λίστα <code>rows</code> φορές — δημιουργεί <code>rows</code> <strong>αναφορές (Εβδομάδα 1) στην ίδια ακριβώς εσωτερική λίστα</strong>:</p>
+<p>Υπάρχει και ένας δελεαστικά σύντομος αλλά <strong>λανθασμένος</strong> τρόπος: <code>[[0]*cols]*rows</code>, με τον τελεστή επανάληψης <code>*</code> (Εβδομάδα 4).</p>
+<p>Το πρόβλημα: το <code>*rows</code> δεν αντιγράφει την εσωτερική λίστα — φτιάχνει <code>rows</code> <strong>αναφορές (Εβδομάδα 1) στην ίδια ακριβώς λίστα</strong>.</p>
 <div>
 <div id="pyodide-3" class="exercise-cell">
 
@@ -322,7 +324,12 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </section>
 <section id="ορίζουσα-determinant" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="ορίζουσα-determinant"><span class="header-section-number">1.5</span> Ορίζουσα (determinant)</h2>
-<p>Η <strong>ορίζουσα</strong> ενός τετραγωνικού πίνακα είναι ένας αριθμός που, μεταξύ άλλων, μας λέει αν ο πίνακας είναι <strong>αντιστρέψιμος</strong> (ορίζουσα <span class="math inline">\(\neq 0\)</span>) και πόσο “τεντώνει” ή “συρρικνώνει” τους όγκους ο αντίστοιχος γραμμικός μετασχηματισμός. Για πίνακα <span class="math inline">\(2\times2\)</span>:</p>
+<p>Η <strong>ορίζουσα</strong> ενός τετραγωνικού πίνακα είναι ένας αριθμός που, μεταξύ άλλων, μας λέει:</p>
+<ul>
+<li>αν ο πίνακας είναι <strong>αντιστρέψιμος</strong> (ορίζουσα <span class="math inline">\(\neq 0\)</span>)·</li>
+<li>πόσο «τεντώνει» ή «συρρικνώνει» τους όγκους ο αντίστοιχος γραμμικός μετασχηματισμός.</li>
+</ul>
+<p>Για πίνακα <span class="math inline">\(2\times2\)</span>:</p>
 <p><span class="math display">\[
 \det\begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix} = ad - bc.
 \]</span></p>
@@ -345,8 +352,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 <h2 data-number="1.6" class="anchored" data-anchor-id="γραμμικά-συστήματα-και-η-μέθοδος-απαλοιφής-του-gauss"><span class="header-section-number">1.6</span> Γραμμικά Συστήματα και η Μέθοδος Απαλοιφής του Gauss</h2>
 <p>Ένα <strong>γραμμικό σύστημα</strong> <span class="math inline">\(n\)</span> εξισώσεων με <span class="math inline">\(n\)</span> αγνώστους γράφεται συνοπτικά ως <span class="math inline">\(A\vec{x} = \vec{b}\)</span>, όπου <span class="math inline">\(A\)</span> είναι ο πίνακας των συντελεστών. Η <strong>μέθοδος απαλοιφής του Gauss</strong> το λύνει σε δύο φάσεις:</p>
 <ol type="1">
-<li><strong>Ευθεία απαλοιφή (forward elimination):</strong> χρησιμοποιούμε κάθε γραμμή, με τη σειρά, για να “μηδενίσουμε” τα στοιχεία της αντίστοιχης στήλης σε όλες τις γραμμές από κάτω της — αφαιρώντας από κάθε γραμμή ένα κατάλληλο πολλαπλάσιο της “τρέχουσας” γραμμής (του <strong>οδηγού στοιχείου</strong>, pivot). Ο πίνακας καταλήγει σε <strong>άνω τριγωνική</strong> μορφή.</li>
-<li><strong>Αντικατάσταση προς τα πίσω (back substitution):</strong> αφού η τελευταία εξίσωση έχει πλέον μόνο έναν άγνωστο, τη λύνουμε πρώτη, και αντικαθιστούμε διαδοχικά προς τα πάνω.</li>
+<li><strong>Ευθεία απαλοιφή (forward elimination):</strong> με κάθε γραμμή (το <strong>οδηγό στοιχείο</strong>, pivot) μηδενίζουμε τα στοιχεία της ίδιας στήλης σε όλες τις γραμμές από κάτω, αφαιρώντας ένα κατάλληλο πολλαπλάσιό της. Ο πίνακας καταλήγει <strong>άνω τριγωνικός</strong>.</li>
+<li><strong>Αντικατάσταση προς τα πίσω (back substitution):</strong> η τελευταία εξίσωση έχει πλέον έναν άγνωστο· τη λύνουμε και αντικαθιστούμε διαδοχικά προς τα πάνω.</li>
 </ol>
 <p>Δουλεύουμε πάνω στον <strong>επαυξημένο πίνακα</strong> <span class="math inline">\([A \mid \vec{b}]\)</span> (τον πίνακα <span class="math inline">\(A\)</span> με μια επιπλέον στήλη, το <span class="math inline">\(\vec{b}\)</span>), ώστε κάθε πράξη γραμμής να ενημερώνει ταυτόχρονα και τα δύο μέλη της εξίσωσης:</p>
 <div>

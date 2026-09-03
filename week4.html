@@ -269,7 +269,11 @@ window.Quarto = {
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZm9yIG51bSBpbiByYW5nZSgxLCAxMCwgMik6XG4gICAgcHJpbnQobnVtLCBlbmQ9JyAnKVxucHJpbnQoKVxuZm9yIG51bSBpbiByYW5nZSgxMCwgNSwgLTIpOlxuICAgIHByaW50KG51bSwgZW5kPScgJykifQ==
 </script>
 </div>
-<p>Δύο ιδιότητες της <code>for</code> αξίζει να θυμόμαστε: (α) αν αλλάξουμε την τιμή της μεταβλητής-μετρητή μέσα στο σώμα του βρόχου, αυτό <strong>δεν</strong> επηρεάζει την επόμενη επανάληψη (θα πάρει ούτως ή άλλως την επόμενη τιμή από τη λίστα τιμών του <code>range</code>), και (β) η μεταβλητή-μετρητής συνεχίζει να υπάρχει και μετά τον βρόχο, με την τελευταία τιμή που πήρε.</p>
+<p>Δύο ιδιότητες της <code>for</code> αξίζει να θυμόμαστε:</p>
+<ul>
+<li>αν αλλάξουμε τη μεταβλητή-μετρητή μέσα στο σώμα του βρόχου, αυτό <strong>δεν</strong> επηρεάζει την επόμενη επανάληψη — θα πάρει ούτως ή άλλως την επόμενη τιμή από το <code>range</code>·</li>
+<li>η μεταβλητή-μετρητής συνεχίζει να υπάρχει και μετά τον βρόχο, με την τελευταία τιμή που πήρε.</li>
+</ul>
 <p><strong>Ένθετα <code>for</code></strong> (βρόχος μέσα σε βρόχο) χρησιμοποιούνται π.χ. για δισδιάστατα μοτίβα:</p>
 <div>
 <div id="pyodide-2" class="exercise-cell">
@@ -349,7 +353,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTCA9
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyDOvM61IM66zrHOvc6/zr3Ouc66z4wgzrLPgc+Mz4fOvyBmb3JcbnNxdWFyZXMgPSBbXVxuZm9yIHggaW4gcmFuZ2UoMSwgMTEpOlxuICAgIHNxdWFyZXMuYXBwZW5kKHggKiogMilcbnByaW50KHNxdWFyZXMpXG5cbiMgz4TOvyDOr860zrnOvyDOsc66z4HOuc6yz47PgiDOsc+Azr/PhM6tzrvOtc+DzrzOsSwgz4nPgiBsaXN0IGNvbXByZWhlbnNpb25cbnNxdWFyZXMyID0gW3ggKiogMiBmb3IgeCBpbiByYW5nZSgxLCAxMSldXG5wcmludChzcXVhcmVzMilcblxuIyDOvM61IM+Dz4XOvc64zq7Ous63IM+GzrnOu8+Ez4HOsc+Bzq/Pg868zrHPhM6/z4I6IM68z4zOvc6/IM+EzrEgz4TOtc+Ez4HOrM6zz4nOvc6xIM+Ez4nOvSDOrM+Bz4TOuc+Jzr1cbmV2ZW5zX3NxdWFyZWQgPSBbeCAqKiAyIGZvciB4IGluIHJhbmdlKDEsIDExKSBpZiB4ICUgMiA9PSAwXVxucHJpbnQoZXZlbnNfc3F1YXJlZCkifQ==
 </script>
 </div>
-<p>Στην πραγματικότητα, έχουμε ήδη χρησιμοποιήσει αυτό το μοτίβο παραπάνω, στο <code>range(0, 11, 2)</code> -&gt; <code>list(...)</code>. Μια στενά συγγενική έννοια είναι η <strong>γεννήτρια-έκφραση (generator expression)</strong>: ίδια σύνταξη, αλλά με παρενθέσεις <code>(...)</code> αντί για αγκύλες <code>[...]</code>. Σε αντίθεση με τη λίστα με κατανόηση, μια γεννήτρια-έκφραση <strong>δεν</strong> κατασκευάζει ολόκληρη τη λίστα στη μνήμη· παράγει τις τιμές μία-μία, “τεμπέλικα” (lazily), μόνο όταν ζητηθούν — πολύ χρήσιμο όταν μας ενδιαφέρει μόνο ένα συγκεντρωτικό αποτέλεσμα (π.χ. ένα άθροισμα), όχι η ίδια η λίστα:</p>
+<p>Μια στενά συγγενική έννοια είναι η <strong>γεννήτρια-έκφραση (generator expression)</strong>: ίδια σύνταξη, αλλά με παρενθέσεις <code>(...)</code> αντί για αγκύλες <code>[...]</code>.</p>
+<p>Η διαφορά: μια γεννήτρια-έκφραση <strong>δεν</strong> κατασκευάζει ολόκληρη τη λίστα στη μνήμη — παράγει τις τιμές μία-μία, «τεμπέλικα» (lazily), μόνο όταν ζητηθούν. Είναι ιδανική όταν μας ενδιαφέρει μόνο ένα συγκεντρωτικό αποτέλεσμα (π.χ. ένα άθροισμα), όχι η ίδια η λίστα:</p>
 <div>
 <div id="pyodide-9" class="exercise-cell">
 
@@ -361,7 +366,39 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoidG90
 </section>
 <section id="μεταβλητότητα-μέθοδοι-και-αντίγραφα" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="μεταβλητότητα-μέθοδοι-και-αντίγραφα"><span class="header-section-number">2.4</span> Μεταβλητότητα, μέθοδοι, και αντίγραφα</h2>
-<p>Οι λίστες είναι <strong>μεταβλητός (mutable)</strong> τύπος: μπορούμε να αλλάξουμε στοιχεία με <code>λίστα[δείκτης] = νέα_τιμή</code>. Οι πιο χρήσιμες μέθοδοι είναι οι <code>append</code> (προσθήκη στο τέλος), <code>insert(θέση, στοιχείο)</code>, <code>sort()</code>, <code>sort(reverse=True)</code>, <code>remove(στοιχείο)</code> και <code>reverse()</code>. Οι ενσωματωμένες συναρτήσεις <code>min</code>, <code>max</code>, <code>sum</code>, <code>len</code> δουλεύουν κατευθείαν πάνω σε λίστες:</p>
+<p>Οι λίστες είναι <strong>μεταβλητός (mutable)</strong> τύπος: μπορούμε να αλλάξουμε στοιχεία με <code>λίστα[δείκτης] = νέα_τιμή</code>.</p>
+<p>Οι πιο χρήσιμες μέθοδοι:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Μέθοδος</th>
+<th style="text-align: left;">Τι κάνει</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>append(x)</code></td>
+<td style="text-align: left;">προσθέτει το <code>x</code> στο τέλος</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>insert(θέση, x)</code></td>
+<td style="text-align: left;">εισάγει το <code>x</code> στη θέση</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>remove(x)</code></td>
+<td style="text-align: left;">αφαιρεί την πρώτη εμφάνιση του <code>x</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>sort()</code> / <code>sort(reverse=True)</code></td>
+<td style="text-align: left;">ταξινομεί επί τόπου</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>reverse()</code></td>
+<td style="text-align: left;">αντιστρέφει επί τόπου</td>
+</tr>
+</tbody>
+</table>
+<p>Οι ενσωματωμένες συναρτήσεις <code>min</code>, <code>max</code>, <code>sum</code>, <code>len</code> δουλεύουν κατευθείαν πάνω σε λίστες:</p>
 <div>
 <div id="pyodide-10" class="exercise-cell">
 
@@ -549,7 +586,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcblxuZGVmIHNpZXZlX29mX2VyYXRvc3RoZW5lcyhOKTpcbiAgICBpc19jYW5kaWRhdGUgPSBbVHJ1ZV0gKiAoTiArIDEpXG4gICAgaXNfY2FuZGlkYXRlWzBdID0gaXNfY2FuZGlkYXRlWzFdID0gRmFsc2UgICAjIM+Ezr8gMCDOus6xzrkgz4TOvyAxIM60zrXOvSDOtc6vzr3Osc65IM+Az4HPjs+Ezr/OuVxuXG4gICAgZm9yIGkgaW4gcmFuZ2UoMiwgbWF0aC5pc3FydChOKSArIDEpOlxuICAgICAgICBpZiBpc19jYW5kaWRhdGVbaV06XG4gICAgICAgICAgICBmb3IgbXVsdGlwbGUgaW4gcmFuZ2UoaSAqIGksIE4gKyAxLCBpKTpcbiAgICAgICAgICAgICAgICBpc19jYW5kaWRhdGVbbXVsdGlwbGVdID0gRmFsc2VcblxuICAgIHByaW1lcyA9IFtuIGZvciBuIGluIHJhbmdlKE4gKyAxKSBpZiBpc19jYW5kaWRhdGVbbl1dXG4gICAgcmV0dXJuIHByaW1lc1xuXG5OID0gMTAwICAgIyDOsc67zrvOrM6+z4TOtSDPhM6/IM+Mz4HOuc6/IE5cbnByaW1lcyA9IHNpZXZlX29mX2VyYXRvc3RoZW5lcyhOKVxucHJpbnQoZifOoM+Bz47PhM6/zrkgzrHPgc65zrjOvM6/zq8gzrzOrc+Hz4HOuSDPhM6/IHtOfSAoe2xlbihwcmltZXMpfSDPg8+Fzr3Ov867zrnOus6sKTonKVxucHJpbnQocHJpbWVzKSJ9
 </script>
 </div>
-<p>Παρατηρήστε ότι εξετάζουμε πιθανούς πρώτους μόνο μέχρι το <span class="math inline">\(\sqrt{N}\)</span>: αν ένας αριθμός <span class="math inline">\(n \le N\)</span> δεν είναι πρώτος, τότε έχει σίγουρα κάποιον διαιρέτη <span class="math inline">\(\le \sqrt{n} \le \sqrt{N}\)</span> (διαφορετικά, αν όλοι οι διαιρέτες του ήταν <span class="math inline">\(&gt; \sqrt{n}\)</span>, το γινόμενο δύο οποιωνδήποτε θα ξεπερνούσε το <span class="math inline">\(n\)</span>). Αυτή η παρατήρηση μειώνει δραστικά τον όγκο των υπολογισμών σε σχέση με τον έλεγχο κάθε αριθμού ξεχωριστά μέχρι το <span class="math inline">\(N\)</span>. Δοκιμάστε να αυξήσετε το <span class="math inline">\(N\)</span> σε <code>100000</code> και δείτε πόσο γρήγορα βρίσκει τους πρώτους — πολύ πιο γρήγορα από το να καλούσαμε την <code>is_prime</code> παραπάνω <span class="math inline">\(N\)</span> φορές.</p>
+<p>Γιατί εξετάζουμε πιθανούς πρώτους μόνο μέχρι το <span class="math inline">\(\sqrt{N}\)</span>; Αν ένας αριθμός <span class="math inline">\(n \le N\)</span> δεν είναι πρώτος, έχει σίγουρα κάποιον διαιρέτη <span class="math inline">\(\le \sqrt{n} \le \sqrt{N}\)</span> — αλλιώς, αν όλοι οι διαιρέτες του ήταν <span class="math inline">\(&gt; \sqrt{n}\)</span>, το γινόμενο δύο οποιωνδήποτε θα ξεπερνούσε το <span class="math inline">\(n\)</span>.</p>
+<p>Αυτή η παρατήρηση μειώνει δραστικά τους υπολογισμούς. Δοκιμάστε να αυξήσετε το <span class="math inline">\(N\)</span> σε <code>100000</code>: το κόσκινο τους βρίσκει σχεδόν ακαριαία, πολύ πιο γρήγορα από <span class="math inline">\(N\)</span> κλήσεις της <code>is_prime</code>.</p>
 </section>
 </section>
 <section id="σύνοψη" class="level1" data-number="4">

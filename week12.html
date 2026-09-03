@@ -207,7 +207,8 @@ window.Quarto = {
 2 \times 2 \times \cdots \times 2 = 2^n
 \]</span></p>
 <p>υποσύνολα (συμπεριλαμβανομένου του κενού συνόλου και ολόκληρου του συνόλου).</p>
-<p>Ας γίνουμε πιο ακριβείς: για <strong>κάθε</strong> στοιχείο έχουμε μια <strong>δυαδική επιλογή (binary choice)</strong> — το συμπεριλαμβάνουμε (1) ή όχι (0). Αν λοιπόν αριθμήσουμε τα στοιχεία <span class="math inline">\(1, 2, \ldots, n\)</span> και καταγράψουμε τις επιλογές μας με τη σειρά, παίρνουμε μια <strong>λίστα από <span class="math inline">\(n\)</span> bits</strong>, π.χ. για <span class="math inline">\(n=3\)</span> στοιχεία η λίστα <code>[1, 0, 1]</code> σημαίνει «μέσα το 1ο, έξω το 2ο, μέσα το 3ο». Κάθε τέτοια λίστα bits περιγράφει ένα και μοναδικό υποσύνολο, και κάθε υποσύνολο προκύπτει από ακριβώς μία λίστα bits — άρα το πλήθος των υποσυνόλων είναι ακριβώς το πλήθος των λιστών bits μήκους <span class="math inline">\(n\)</span>, δηλαδή <span class="math inline">\(2^n\)</span>.</p>
+<p>Ας γίνουμε πιο ακριβείς. Για <strong>κάθε</strong> στοιχείο έχουμε μια <strong>δυαδική επιλογή</strong>: μέσα (1) ή έξω (0). Καταγράφοντας τις <span class="math inline">\(n\)</span> επιλογές με τη σειρά, παίρνουμε μια <strong>λίστα από <span class="math inline">\(n\)</span> bits</strong> — π.χ. για <span class="math inline">\(n=3\)</span>, η <code>[1, 0, 1]</code> σημαίνει «μέσα το 1ο, έξω το 2ο, μέσα το 3ο».</p>
+<p>Κάθε λίστα bits αντιστοιχεί σε ένα και μοναδικό υποσύνολο, και αντίστροφα. Άρα τα υποσύνολα είναι ακριβώς όσες και οι λίστες bits μήκους <span class="math inline">\(n\)</span>: <span class="math inline">\(2^n\)</span>.</p>
 <p>Αυτό μας δίνει και έναν τρόπο να <strong>παράγουμε</strong> όλα τα υποσύνολα ρητά: μια λίστα από <span class="math inline">\(n\)</span> bits δεν είναι τίποτε άλλο από τη δυαδική αναπαράσταση ενός ακεραίου από <code>0</code> έως <code>2**n - 1</code>. Αν λοιπόν αριθμήσουμε όλους αυτούς τους ακέραιους, τα bits της δυαδικής αναπαράστασης του καθενός μας λένε ακριβώς ποια στοιχεία να συμπεριλάβουμε:</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -281,7 +282,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 </section>
 <section id="χαρακτηριστικό-της-python-γεννήτριες-για-απαρίθμηση-και-το-module-itertools" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="χαρακτηριστικό-της-python-γεννήτριες-για-απαρίθμηση-και-το-module-itertools"><span class="header-section-number">1.3</span> Χαρακτηριστικό της Python: γεννήτριες για απαρίθμηση, και το module <code>itertools</code></h2>
-<p>Οι συναρτήσεις <code>all_subsets</code> και <code>all_permutations</code> παραπάνω φτιάχνουν <strong>ολόκληρη</strong> τη λίστα με το αποτέλεσμα, πριν επιστρέψουν οτιδήποτε. Για <span class="math inline">\(n=20\)</span> στοιχεία, αυτό σημαίνει να κρατάμε ταυτόχρονα στη μνήμη πάνω από ένα εκατομμύριο υποσύνολα (<span class="math inline">\(2^{20}\)</span>), κάτι που γρήγορα γίνεται απαγορευτικό. Μια <strong>γεννήτρια (generator, Εβδομάδα 9)</strong> λύνει το πρόβλημα: παράγει τα υποσύνολα <strong>ένα-ένα</strong>, “τεμπέλικα” (lazily), χωρίς ποτέ να τα αποθηκεύσει όλα μαζί:</p>
+<p>Οι <code>all_subsets</code> και <code>all_permutations</code> φτιάχνουν <strong>ολόκληρη</strong> τη λίστα αποτελεσμάτων πριν επιστρέψουν οτιδήποτε. Για <span class="math inline">\(n=20\)</span>, αυτό σημαίνει πάνω από ένα εκατομμύριο υποσύνολα (<span class="math inline">\(2^{20}\)</span>) ταυτόχρονα στη μνήμη — γρήγορα απαγορευτικό.</p>
+<p>Μια <strong>γεννήτρια (generator, Εβδομάδα 9)</strong> το λύνει: παράγει τα υποσύνολα <strong>ένα-ένα</strong>, «τεμπέλικα», χωρίς ποτέ να τα κρατήσει όλα μαζί:</p>
 <div>
 <div id="pyodide-4" class="exercise-cell">
 
