@@ -75,6 +75,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <style>html{ scroll-behavior: smooth; }</style>
 <script type="module" src="week5_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="week5_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script src="week5_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="week5_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="week5_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -120,6 +123,13 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#η-εντολή-while" id="toc-η-εντολή-while" class="nav-link" data-scroll-target="#η-εντολή-while"><span class="header-section-number">1.1</span> Η εντολή <code>while</code></a></li>
   <li><a href="#χαρακτηριστικό-της-python-το-ιδίωμα-while-true-με-break" id="toc-χαρακτηριστικό-της-python-το-ιδίωμα-while-true-με-break" class="nav-link" data-scroll-target="#χαρακτηριστικό-της-python-το-ιδίωμα-while-true-με-break"><span class="header-section-number">1.2</span> Χαρακτηριστικό της Python: το ιδίωμα <code>while True</code> με <code>break</code></a></li>
+  <li><a href="#δυαδική-αναζήτηση-binary-search" id="toc-δυαδική-αναζήτηση-binary-search" class="nav-link" data-scroll-target="#δυαδική-αναζήτηση-binary-search"><span class="header-section-number">1.3</span> Δυαδική Αναζήτηση (Binary Search)</a>
+  <ul class="collapse">
+  <li><a href="#σε-φυσική-γλώσσα" id="toc-σε-φυσική-γλώσσα" class="nav-link" data-scroll-target="#σε-φυσική-γλώσσα">Σε φυσική γλώσσα</a></li>
+  <li><a href="#ως-διάγραμμα-ροής" id="toc-ως-διάγραμμα-ροής" class="nav-link" data-scroll-target="#ως-διάγραμμα-ροής">Ως διάγραμμα ροής</a></li>
+  <li><a href="#ως-κώδικας-python" id="toc-ως-κώδικας-python" class="nav-link" data-scroll-target="#ως-κώδικας-python">Ως κώδικας Python</a></li>
+  <li><a href="#πόσο-πιο-γρήγορη" id="toc-πόσο-πιο-γρήγορη" class="nav-link" data-scroll-target="#πόσο-πιο-γρήγορη">Πόσο πιο γρήγορη;</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#ακέραιες-διαμερίσεις-integer-partitions" id="toc-ακέραιες-διαμερίσεις-integer-partitions" class="nav-link" data-scroll-target="#ακέραιες-διαμερίσεις-integer-partitions"><span class="header-section-number">2</span> Ακέραιες Διαμερίσεις (Integer Partitions)</a>
   <ul class="collapse">
@@ -194,16 +204,21 @@ window.Quarto = {
     var WEEKS = 13;
     var file = (location.pathname.split('/').pop() || '').toLowerCase();
     var m = file.match(/^week(\d+)(-slides)?\.html$/);
-    if (!m) return;                       // main.html etc. -> nav stays empty (hidden)
-    var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
     var out = [];
-    if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
-    out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
-    out.push(isSlides
-      ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
-      : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
-    out.push('<span class="uoa-nav__spacer"></span>');
-    if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    if (!m) {
+      // program / index page: no prev/next, just a way into the course
+      out.push('<span class="uoa-nav__spacer"></span>');
+      out.push('<a href="week1.html" rel="next">Ξεκινήστε: Εβδομάδα 1 &#8594;</a>');
+    } else {
+      var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
+      if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
+      out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
+      out.push(isSlides
+        ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
+        : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
+      out.push('<span class="uoa-nav__spacer"></span>');
+      if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    }
     nav.innerHTML = out.join('');
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
@@ -239,6 +254,23 @@ window.Quarto = {
 <p>Ο βρόχος <code>while</code> επαναλαμβάνεται όσο μια συνθήκη είναι αληθής — είναι <strong>βρόχος ελεγχόμενος με συνθήκη</strong> (condition-controlled loop), και ελέγχει τη συνθήκη <em>πριν</em> από κάθε επανάληψη (βρόχος προελέγχου):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> συνθήκη:</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    εντολές</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Σχηματικά, ο <code>while</code> <strong>ελέγχει πρώτα, εκτελεί μετά</strong> — αν η συνθήκη είναι εξαρχής <code>False</code>, το σώμα δεν εκτελείται ούτε μία φορά:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    S(["πριν τον βρόχο"]) --&gt; C{"συνθήκη ;"}
+    C -- "True" --&gt; B["σώμα του βρόχου"]
+    B --&gt; C
+    C -- "False" --&gt; E(["μετά τον βρόχο"])
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>Η συνθήκη πρέπει να μεταβάλλεται μέσα στον βρόχο ώστε τελικά να γίνει <code>False</code>· διαφορετικά προκύπτει <strong>ατέρμονας βρόχος</strong> (infinite loop). Ο <code>while</code> είναι πιο γενικός από τον <code>for</code> (Εβδομάδα 4): μπορεί πάντα να τον αντικαταστήσει, ενώ το αντίστροφο δεν ισχύει πάντα — χρησιμοποιούμε <code>while</code> ειδικά όταν το πλήθος των επαναλήψεων δεν είναι εκ των προτέρων γνωστό.</p>
 <div>
 <div id="pyodide-1" class="exercise-cell">
@@ -248,12 +280,21 @@ window.Quarto = {
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibW9uZXkgPSAxMDAwLjAgICAjIM6xzrvOu86szr7PhM61IM+Ezr8gzrHPgc+HzrnOus+MIM66zrXPhs6szrvOsc65zr9cbnJhdGUgPSAwLjA1ICAgICAgICMgzrXPhM6uz4POuc6/IM61z4DOuc+Ez4zOus65zr8gNSVcbmdvYWwgPSAyICogbW9uZXlcbnllYXJzID0gMFxud2hpbGUgbW9uZXkgPCBnb2FsOlxuICAgIG1vbmV5ICo9IDEgKyByYXRlXG4gICAgeWVhcnMgKz0gMVxuXG5wcmludChmJ86nz4HOtc65zqzOts6/zr3PhM6xzrkge3llYXJzfSDPh8+Bz4zOvc65zrEgzrPOuc6xIM69zrEgzrTOuc+AzrvOsc+DzrnOsc+Dz4TOtc6vIM+Ezr8gzrrOtc+GzqzOu86xzrnOvy4nKSJ9
 </script>
 </div>
-<p>Μια πολύ χρήσιμη τεχνική είναι η επεξεργασία δεδομένων άγνωστου πλήθους μέχρι μια <strong>ειδική τιμή τερματισμού (sentinel)</strong>:</p>
+<p>Δεν ξέραμε εκ των προτέρων πόσες επαναλήψεις χρειάζονται — γι’ αυτό <code>while</code> και όχι <code>for</code>. Ας κρατήσουμε το κεφάλαιο κάθε χρονιάς σε μια λίστα και ας το σχεδιάσουμε:</p>
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
 </div>
 <script type="pyodide-2-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuXG5tb25leSwgcmF0ZSA9IDEwMDAuMCwgMC4wNVxuZ29hbCA9IDIgKiBtb25leVxuXG5oaXN0b3J5ID0gW21vbmV5XVxud2hpbGUgbW9uZXkgPCBnb2FsOlxuICAgIG1vbmV5ICo9IDEgKyByYXRlXG4gICAgaGlzdG9yeS5hcHBlbmQobW9uZXkpXG5cbnBsdC5wbG90KHJhbmdlKGxlbihoaXN0b3J5KSksIGhpc3RvcnksIG1hcmtlcj0nbycpXG5wbHQuYXhobGluZShnb2FsLCBjb2xvcj0ndGFiOnJlZCcsIGxpbmVzdHlsZT0nLS0nLCBsYWJlbD1mJ8+Dz4TPjM+Hzr/PgiA9IHtnb2FsOi4wZn0g4oKsJylcbnBsdC54bGFiZWwoJ8+Hz4HPjM69zrnOsScpOyBwbHQueWxhYmVsKCfOus61z4bOrM67zrHOuc6/ICjigqwpJyk7IHBsdC5sZWdlbmQoKVxucGx0LnRpdGxlKGYnzpHOvc6xz4TOv866zrnPg868z4zPgiDOvM61IM61z4DOuc+Ez4zOus65zr8ge3JhdGU6LjAlfSDigJQgzrTOuc+AzrvOsc+DzrnOsc+DzrzPjM+CIM+DzrUge2xlbihoaXN0b3J5KSAtIDF9IM+Hz4HPjM69zrnOsScpXG5wbHQuc2hvdygpIn0=
+</script>
+</div>
+<p>Μια πολύ χρήσιμη τεχνική είναι η επεξεργασία δεδομένων άγνωστου πλήθους μέχρι μια <strong>ειδική τιμή τερματισμού (sentinel)</strong>:</p>
+<div>
+<div id="pyodide-3" class="exercise-cell">
+
+</div>
+<script type="pyodide-3-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGF0YSA9IFszLjAsIDcuNSwgMi4wLCA5LjAsIC0xXSAgICMgz4TOvyAtMSDPg863zrzOsc+Ezr/OtM6/z4TOtc6vIM+Ezr8gz4TOrc67zr/PgiAoc2VudGluZWwpXG5cbnRvdGFsID0gMC4wXG5pID0gMFxudmFsdWUgPSBkYXRhW2ldXG53aGlsZSB2YWx1ZSAhPSAtMTpcbiAgICB0b3RhbCArPSB2YWx1ZVxuICAgIGkgKz0gMVxuICAgIHZhbHVlID0gZGF0YVtpXVxuXG5wcmludChmJ86GzrjPgc6/zrnPg868zrE6IHt0b3RhbH0nKSJ9
 </script>
 </div>
@@ -261,16 +302,112 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGF0
 <section id="χαρακτηριστικό-της-python-το-ιδίωμα-while-true-με-break" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="χαρακτηριστικό-της-python-το-ιδίωμα-while-true-με-break"><span class="header-section-number">1.2</span> Χαρακτηριστικό της Python: το ιδίωμα <code>while True</code> με <code>break</code></h2>
 <p>Η Python δεν διαθέτει έτοιμη εντολή “do-while” (βρόχο που ελέγχει τη συνθήκη <em>μετά</em> την πρώτη εκτέλεση, όπως σε άλλες γλώσσες). Το αντίστοιχο <strong>ιδίωμα</strong> είναι ένας βρόχος <code>while True:</code> (μια συνθήκη που είναι πάντα αληθής, άρα ποτέ δεν σταματάει “μόνη της”) σε συνδυασμό με μια εσωτερική <code>if</code> που κάνει <code>break</code> όταν φτάσουμε στο επιθυμητό σημείο τερματισμού. Έτσι το σώμα του βρόχου εκτελείται σίγουρα <strong>τουλάχιστον μία φορά</strong>, σε αντίθεση με έναν κανονικό <code>while</code>, που μπορεί να μην εκτελεστεί καθόλου αν η συνθήκη είναι εξαρχής ψευδής:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
 <div>
-<div id="pyodide-3" class="exercise-cell">
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    S(["while True"]) --&gt; B["σώμα — εκτελείται πάντα ≥ 1 φορά"]
+    B --&gt; C{"συνθήκη τερματισμού ;"}
+    C -- "όχι" --&gt; B
+    C -- "ναι" --&gt; D["break"] --&gt; E(["έξοδος"])
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div>
+<div id="pyodide-4" class="exercise-cell">
 
 </div>
-<script type="pyodide-3-contents">
+<script type="pyodide-4-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYXR0ZW1wdHMgPSBbMTcsIC01LCA0Ml0gICAjIM+Az4HOv8+Dzr/OvM6/zrnPjs69zrXOuSDOtM65zrHOtM6/z4fOuc66zq3PgiDPhM65zrzOrc+CIM6xz4DPjCBpbnB1dCgpLCDOvM6vzrEgzrHOvc6sIM+Az4HOv8+Dz4DOrM64zrXOuc6xXG5pID0gMFxud2hpbGUgVHJ1ZTpcbiAgICBndWVzcyA9IGF0dGVtcHRzW2ldXG4gICAgaSArPSAxXG4gICAgaWYgZ3Vlc3MgPiAwOlxuICAgICAgICBicmVhayAgICAgICAgICAgICAjIM6tzrPOus+Fz4HOtyDPhM65zrzOriAtLSDPg8+EzrHOvM6sz4TOsSDPhM6/zr0gzrLPgc+Mz4fOv1xuICAgIHByaW50KGYnzpzOtyDOrc6zzrrPhc+Bzrcgz4TOuc68zq46IHtndWVzc30sIM6+zrHOvc6xzrTOv866zrnOvM6sz4PPhM61JylcblxucHJpbnQoZifOiM6zzrrPhc+Bzrcgz4TOuc68zq46IHtndWVzc30nKSJ9
 </script>
 </div>
 <p>Αυτό το μοτίβο είναι πολύ συνηθισμένο για <strong>επικύρωση εισόδου (input validation)</strong>: ζήτα μια τιμή, και συνέχισε να ζητάς μέχρι να πάρεις μια αποδεκτή.</p>
+</section>
+<section id="δυαδική-αναζήτηση-binary-search" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="δυαδική-αναζήτηση-binary-search"><span class="header-section-number">1.3</span> Δυαδική Αναζήτηση (Binary Search)</h2>
+<p>Στην Εβδομάδα 1 είδαμε τη <strong>γραμμική</strong> αναζήτηση: σάρωση στοιχείο-στοιχείο, έως και <span class="math inline">\(n\)</span> έλεγχοι. Αν όμως η λίστα είναι <strong>ταξινομημένη</strong>, ο <code>while</code> μας επιτρέπει κάτι πολύ αποδοτικότερο — και είναι η τέλεια περίπτωση για <code>while</code>, γιατί <strong>δεν ξέρουμε εκ των προτέρων</strong> πόσες επαναλήψεις θα χρειαστούν.</p>
+<p>Η ιδέα: κρατάμε ένα «παράθυρο» <code>[αριστερά .. δεξιά]</code> όπου μπορεί να βρίσκεται ο στόχος. Σε κάθε βήμα κοιτάμε το <strong>μεσαίο</strong> στοιχείο· αν δεν είναι ο στόχος, η ταξινόμηση μας λέει σε ποιο μισό να συνεχίσουμε — και <strong>πετάμε το άλλο μισό</strong>.</p>
+<section id="σε-φυσική-γλώσσα" class="level3">
+<h3 class="anchored" data-anchor-id="σε-φυσική-γλώσσα">Σε φυσική γλώσσα</h3>
+<ol type="1">
+<li>Όρισε <code>αριστερά = 0</code> και <code>δεξιά = μήκος(v) - 1</code>.</li>
+<li>Όσο <code>αριστερά &lt;= δεξιά</code> (το παράθυρο δεν έχει αδειάσει):
+<ol type="a">
+<li><code>μέσο = (αριστερά + δεξιά) // 2</code>.</li>
+<li>Αν <code>v[μέσο]</code> είναι ο στόχος, <strong>βρέθηκε</strong> — επίστρεψε <code>μέσο</code>.</li>
+<li>Αν ο στόχος είναι μικρότερος, συνέχισε αριστερά: <code>δεξιά = μέσο - 1</code>.</li>
+<li>Αλλιώς συνέχισε δεξιά: <code>αριστερά = μέσο + 1</code>.</li>
+</ol></li>
+<li>Αν το παράθυρο άδειασε, ο στόχος <strong>δεν υπάρχει</strong>.</li>
+</ol>
+</section>
+<section id="ως-διάγραμμα-ροής" class="level3">
+<h3 class="anchored" data-anchor-id="ως-διάγραμμα-ροής">Ως διάγραμμα ροής</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A(["Αρχή"]) --&gt; B["αριστερά = 0
+δεξιά = n - 1"]
+    B --&gt; C{"αριστερά &lt;= δεξιά ;"}
+    C -- "Όχι" --&gt; H["Δεν βρέθηκε (-1)"]
+    C -- "Ναι" --&gt; D["μέσο = (αριστερά + δεξιά) // 2"]
+    D --&gt; E{"v[μέσο] == στόχος ;"}
+    E -- "Ναι" --&gt; F["Βρέθηκε στη θέση μέσο"]
+    E -- "Όχι" --&gt; G{"στόχος &lt; v[μέσο] ;"}
+    G -- "Ναι" --&gt; I["δεξιά = μέσο - 1"]
+    G -- "Όχι" --&gt; J["αριστερά = μέσο + 1"]
+    I --&gt; C
+    J --&gt; C
+    F --&gt; K(["Τέλος"])
+    H --&gt; K
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="ως-κώδικας-python" class="level3">
+<h3 class="anchored" data-anchor-id="ως-κώδικας-python">Ως κώδικας Python</h3>
+<div>
+<div id="pyodide-5" class="exercise-cell">
+
+</div>
+<script type="pyodide-5-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGJpbmFyeV9zZWFyY2godiwgdGFyZ2V0KTpcbiAgICBsZWZ0LCByaWdodCA9IDAsIGxlbih2KSAtIDFcbiAgICB3aGlsZSBsZWZ0IDw9IHJpZ2h0OlxuICAgICAgICBtaWQgPSAobGVmdCArIHJpZ2h0KSAvLyAyXG4gICAgICAgIGlmIHZbbWlkXSA9PSB0YXJnZXQ6XG4gICAgICAgICAgICByZXR1cm4gbWlkICAgICAgICAgICAjIM6yz4HOrc64zrfOus61XG4gICAgICAgIGVsaWYgdGFyZ2V0IDwgdlttaWRdOlxuICAgICAgICAgICAgcmlnaHQgPSBtaWQgLSAxICAgICAgIyDPiM6szr7OtSDOsc+BzrnPg8+EzrXPgc6sXG4gICAgICAgIGVsc2U6XG4gICAgICAgICAgICBsZWZ0ID0gbWlkICsgMSAgICAgICAjIM+IzqzOvs61IM60zrXOvs65zqxcbiAgICByZXR1cm4gLTEgICAgICAgICAgICAgICAgICAgICMgz4TOvyDPgM6xz4HOrM64z4XPgc6/IM6szrTOtc65zrHPg861IC0tIM60zrXOvSDPhc+AzqzPgc+HzrXOuVxuXG5zb3J0ZWRfbGlzdCA9IFszLCA3LCAxMiwgMTksIDI1LCAzNCwgNDEsIDUwLCA2NiwgNzhdICAjIM6gzqHOlc6gzpXOmSDOvc6xIM61zq/Ovc6xzrkgz4TOsc6+zrnOvc6/zrzOt868zq3Ovc63XG50YXJnZXQgPSA0MSAgICMgzrHOu867zqzOvs+EzrUgz4TOt869IM+EzrnOvM6uwrcgzrTOv866zrnOvM6sz4PPhM61IM66zrHOuSDOvM6vzrEgz4DOv8+FIM60zrXOvSDPhc+AzqzPgc+HzrXOuSAoz4Auz4cuIDQwKVxuXG5wb3MgPSBiaW5hcnlfc2VhcmNoKHNvcnRlZF9saXN0LCB0YXJnZXQpXG5wcmludChmJ86kzr8ge3RhcmdldH0gzrLPgc6tzrjOt866zrUgz4PPhM63IM64zq3Pg863IHtwb3N9JyBpZiBwb3MgIT0gLTEgZWxzZSBmJ86kzr8ge3RhcmdldH0gzrTOtc69IM6yz4HOrc64zrfOus61JykifQ==
+</script>
+</div>
+<p>Με μερικές επιπλέον <code>print</code>, βλέπουμε το παράθυρο να μισοκόβεται σε κάθε επανάληψη:</p>
+<div>
+<div id="pyodide-6" class="exercise-cell">
+
+</div>
+<script type="pyodide-6-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGJpbmFyeV9zZWFyY2hfdHJhY2VkKHYsIHRhcmdldCk6XG4gICAgbGVmdCwgcmlnaHQgPSAwLCBsZW4odikgLSAxXG4gICAgc3RlcCA9IDFcbiAgICB3aGlsZSBsZWZ0IDw9IHJpZ2h0OlxuICAgICAgICBtaWQgPSAobGVmdCArIHJpZ2h0KSAvLyAyXG4gICAgICAgIHByaW50KGYnzpLOrs68zrEge3N0ZXB9OiDPgM6xz4HOrM64z4XPgc6/ID0gzrjOrc+DzrXOuc+CIHtsZWZ0fS4ue3JpZ2h0fSAgKHtyaWdodCAtIGxlZnQgKyAxfSDPg8+Ezr/Ouc+HzrXOr86xKSwgIM68zq3Pg86/ID0ge21pZH0nKVxuICAgICAgICBpZiB2W21pZF0gPT0gdGFyZ2V0OlxuICAgICAgICAgICAgcHJpbnQoZicgICAgICAgIHZbe21pZH1dID0ge3ZbbWlkXX0gPT0gz4PPhM+Mz4fOv8+CICAtPiAgzrLPgc6tzrjOt866zrUhJylcbiAgICAgICAgICAgIHJldHVybiBtaWRcbiAgICAgICAgZWxpZiB0YXJnZXQgPCB2W21pZF06XG4gICAgICAgICAgICBwcmludChmJyAgICAgICAge3RhcmdldH0gPCB7dlttaWRdfSAgLT4gIM66z4HOsc+EzqzOvM61IM+Ezr8gzrHPgc65z4PPhM61z4HPjCDOvM65z4PPjCcpXG4gICAgICAgICAgICByaWdodCA9IG1pZCAtIDFcbiAgICAgICAgZWxzZTpcbiAgICAgICAgICAgIHByaW50KGYnICAgICAgICB7dGFyZ2V0fSA+IHt2W21pZF19ICAtPiAgzrrPgc6xz4TOrM68zrUgz4TOvyDOtM61zr7OryDOvM65z4PPjCcpXG4gICAgICAgICAgICBsZWZ0ID0gbWlkICsgMVxuICAgICAgICBzdGVwICs9IDFcbiAgICBwcmludCgnICAgICAgICDPhM6/IM+AzrHPgc6szrjPhc+Bzr8gzqzOtM61zrnOsc+DzrUgIC0+ICDOtM61zr0gz4XPgM6sz4HPh861zrknKVxuICAgIHJldHVybiAtMVxuXG5iaW5hcnlfc2VhcmNoX3RyYWNlZChbMywgNywgMTIsIDE5LCAyNSwgMzQsIDQxLCA1MCwgNjYsIDc4XSwgNDEpIn0=
+</script>
+</div>
+</section>
+<section id="πόσο-πιο-γρήγορη" class="level3">
+<h3 class="anchored" data-anchor-id="πόσο-πιο-γρήγορη">Πόσο πιο γρήγορη;</h3>
+<p>Κάθε βήμα υποδιπλασιάζει το παράθυρο, άρα ο αριθμός των βημάτων είναι περίπου <span class="math inline">\(\log_2 n\)</span> αντί για <span class="math inline">\(n\)</span>:</p>
+<div>
+<div id="pyodide-7" class="exercise-cell">
+
+</div>
+<script type="pyodide-7-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcbmltcG9ydCBtYXRwbG90bGliLnB5cGxvdCBhcyBwbHRcblxuc2l6ZXMgPSBsaXN0KHJhbmdlKDEsIDEwMDEpKVxucGx0LnBsb3Qoc2l6ZXMsIHNpemVzLCBsYWJlbD0nzrPPgc6xzrzOvM65zrrOrjogzq3Pic+CIG4gzrLOrs68zrHPhM6xJylcbnBsdC5wbG90KHNpemVzLCBbbWF0aC5sb2cyKG4pICsgMSBmb3IgbiBpbiBzaXplc10sIGxhYmVsPSfOtM+FzrHOtM65zrrOrjogfmxvZ+KCgihuKSDOss6uzrzOsc+EzrEnKVxucGx0LnhsYWJlbCgnzrzOrc6zzrXOuM6/z4IgzrvOr8+Dz4TOsc+CIG4nKTsgcGx0LnlsYWJlbCgnzrLOrs68zrHPhM6xICjPh861zrnPgc+Mz4TOtc+Bzrcgz4DOtc+Bzq/PgM+Ez4nPg863KScpXG5wbHQubGVnZW5kKCk7IHBsdC50aXRsZSgnzpPPgc6xzrzOvM65zrrOriB2cyDOtM+FzrHOtM65zrrOriDOsc69zrHOts6uz4TOt8+DzrcnKVxucGx0LnNob3coKVxuXG5mb3IgbiBpbiBbMTAsIDEwMCwgMTAwMCwgMTAqKjZdOlxuICAgIHByaW50KGYnbiA9IHtuOj45fTogIM6zz4HOsc68zrzOuc66zq4gzq3Pic+CIHtuOj45fSDOss6uzrzOsc+EzrEsICDOtM+FzrHOtM65zrrOriDOrc+Jz4Ige21hdGguY2VpbChtYXRoLmxvZzIobiArIDEpKTo+Mn0nKSJ9
+</script>
+</div>
 <p>Οι βρόχοι <code>for</code> και <code>while</code> μάς δίνουν πλέον όλα τα εργαλεία που χρειαζόμαστε για να μελετήσουμε διεξοδικά ένα κλασικό πρόβλημα απαρίθμησης: το πλήθος των τρόπων να γράψουμε έναν αριθμό ως άθροισμα.</p>
+</section>
 </section>
 </section>
 <section id="ακέραιες-διαμερίσεις-integer-partitions" class="level1" data-number="2">
@@ -282,12 +419,33 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYXR0
 4, \quad 3+1, \quad 2+2, \quad 2+1+1, \quad 1+1+1+1,
 \]</span></p>
 <p>δηλαδή υπάρχουν <span class="math inline">\(5\)</span> διαμερίσεις του <span class="math inline">\(4\)</span> (γράφουμε <span class="math inline">\(p(4) = 5\)</span>). Παρατηρήστε ότι το <span class="math inline">\(3+1\)</span> και το <span class="math inline">\(1+3\)</span> θεωρούνται η <strong>ίδια</strong> διαμέριση (γι’ αυτό διαφέρει ριζικά από τις μεταθέσεις, όπου η σειρά μετρούσε).</p>
+<p>Για να μην ξαναμετρήσουμε την ίδια διαμέριση, τις παράγουμε πάντα με τα μέρη σε <strong>φθίνουσα σειρά</strong>: διαλέγουμε το μεγαλύτερο μέρος, μετά διαμερίζουμε το υπόλοιπο με μέρη <em>όχι μεγαλύτερα</em> από αυτό. Οι επιλογές σχηματίζουν ένα δέντρο, και οι διαμερίσεις είναι τα φύλλα του:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    R["διαμέρισε 4"] --&gt; A["4"]
+    R --&gt; B["3 + διαμέρισε 1 (μέρη ≤ 3)"]
+    R --&gt; C["2 + διαμέρισε 2 (μέρη ≤ 2)"]
+    R --&gt; D["1 + διαμέρισε 3 (μέρη ≤ 1)"]
+    B --&gt; B1["3 + 1"]
+    C --&gt; C1["2 + 2"]
+    C --&gt; C2["2 + 1 + 1"]
+    D --&gt; D1["1 + 1 + 1 + 1"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>Μπορούμε να παράγουμε όλες τις διαμερίσεις του <span class="math inline">\(n\)</span> <strong>naively</strong>, δηλαδή χωρίς κομψά τεχνάσματα — και συγκεκριμένα, χωρίς <strong>αναδρομή</strong> (δεν την έχουμε μάθει ακόμα· θα τη δούμε αναλυτικά στην Εβδομάδα 9). Η ιδέα: επιλέγουμε το <strong>μεγαλύτερο</strong> μέρος (έστω <code>first</code>, με <code>first &lt;= n</code>, και όχι μεγαλύτερο από κάποιο ανώτατο όριο <code>max_part</code> — ώστε να μην ξαναμετρήσουμε την ίδια διαμέριση με άλλη σειρά), και μετά διαμερίζουμε το υπόλοιπο <code>n - first</code> με την ίδια λογική. Αντί να αφήσουμε την Python να διαχειριστεί αυτόματα αυτά τα “εκκρεμή υποπροβλήματα” (κάτι που κάνει η αναδρομή), το κάνουμε εμείς ρητά, με μια δική μας <strong>στοίβα (stack)</strong> — μια λίστα όπου προσθέτουμε νέα εκκρεμή υποπροβλήματα με <code>append</code>, και τα βγάζουμε πάντα από το τέλος με <code>pop</code>, με έναν βρόχο <code>while</code> που συνεχίζει όσο η στοίβα δεν είναι άδεια:</p>
 <div>
-<div id="pyodide-4" class="exercise-cell">
+<div id="pyodide-8" class="exercise-cell">
 
 </div>
-<script type="pyodide-4-contents">
+<script type="pyodide-8-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGFsbF9wYXJ0aXRpb25zX25haXZlKG4pOlxuICAgIHJlc3VsdHMgPSBbXVxuICAgIHN0YWNrID0gWyhuLCBuLCBbXSldICAgIyAoz4XPgM+MzrvOv865z4DOvyDPgM+Bzr/PgiDOtM65zrHOvM6tz4HOuc+DzrcsIM68zq3Os865z4PPhM6/IM61z4DOuc+Ez4HOtc+Az4TPjCDOvM6tz4HOv8+CLCDOvM6tz4HOtyDPgM6/z4Ugzq3Ph86/z4XOvSDOrs60zrcgzrXPgM65zrvOtc6zzrXOrylcbiAgICB3aGlsZSBzdGFjazpcbiAgICAgICAgcmVtYWluaW5nLCBtYXhfcGFydCwgY2hvc2VuID0gc3RhY2sucG9wKClcbiAgICAgICAgaWYgcmVtYWluaW5nID09IDA6XG4gICAgICAgICAgICByZXN1bHRzLmFwcGVuZChjaG9zZW4pICAgICAgIyDOv867zr/Ous67zrfPgc+JzrzOrc69zrcgzrTOuc6xzrzOrc+BzrnPg863IC0tIM66zrHPhM6xzrPPgc6sz4bOtc+EzrHOuVxuICAgICAgICAgICAgY29udGludWVcbiAgICAgICAgZm9yIGZpcnN0IGluIHJhbmdlKDEsIG1pbihyZW1haW5pbmcsIG1heF9wYXJ0KSArIDEpOlxuICAgICAgICAgICAgc3RhY2suYXBwZW5kKChyZW1haW5pbmcgLSBmaXJzdCwgZmlyc3QsIGNob3NlbiArIFtmaXJzdF0pKSAgICMgzr3Orc6/IM61zrrOus+BzrXOvM6tz4Igz4XPgM6/z4DPgc+MzrLOu863zrzOsVxuICAgIHJldHVybiByZXN1bHRzXG5cbm4gPSA2ICAgIyDOsc67zrvOrM6+z4TOtSDPhM6/IG4gKM+Az4HOv8+Dzr/Ph86uOiDPhM6/IM+AzrvOrs64zr/PgiDOvM61zrPOsc67z47Ovc61zrkgzrPPgc6uzrPOv8+BzrEpXG5mb3IgcCBpbiBhbGxfcGFydGl0aW9uc19uYWl2ZShuKTpcbiAgICBwcmludChwKVxucHJpbnQoZidwKHtufSkgPSB7bGVuKGFsbF9wYXJ0aXRpb25zX25haXZlKG4pKX0nKSJ9
 </script>
 </div>
@@ -297,23 +455,23 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 <h2 data-number="2.2" class="anchored" data-anchor-id="η-συνάρτηση-διαμέρισης-pn-πόσο-γρήγορα-μεγαλώνει"><span class="header-section-number">2.2</span> Η συνάρτηση διαμέρισης <span class="math inline">\(p(n)\)</span>: πόσο γρήγορα μεγαλώνει;</h2>
 <p>Η <code>all_partitions_naive</code> παράγει ρητά όλες τις διαμερίσεις, κάτι που γίνεται γρήγορα απαγορευτικό: το <span class="math inline">\(p(50)\)</span> είναι ήδη πάνω από <span class="math inline">\(200{.}000\)</span>, και το <span class="math inline">\(p(100)\)</span> ξεπερνά τα <span class="math inline">\(190\)</span> εκατομμύρια! Αν μας ενδιαφέρει μόνο το <strong>πλήθος</strong> <span class="math inline">\(p(n)\)</span> και όχι η λίστα των διαμερίσεων, υπάρχει ένας πολύ πιο αποδοτικός τρόπος: μια τεχνική γνωστή ως <strong>δυναμικός προγραμματισμός (dynamic programming)</strong>, εδώ υλοποιημένη με δύο απλούς ένθετους βρόχους <code>for</code> (<strong>όχι</strong> αναδρομή). Κρατάμε έναν πίνακα <code>dp</code>, όπου το <code>dp[i]</code> μετράει το πλήθος των τρόπων να γραφτεί το <code>i</code> ως άθροισμα «μερών» παρμένων από το σύνολο <code>{1, 2, ..., part}</code> — επιτρέποντας να χρησιμοποιήσουμε το <strong>ίδιο μέρος όσες φορές θέλουμε</strong> (π.χ. το <code>2+2+2</code> είναι έγκυρη διαμέριση του <code>6</code>, με το μέρος <code>2</code> να επαναλαμβάνεται τρεις φορές). Ο εξωτερικός βρόχος εξετάζει τα δυνατά μέρη <code>1, 2, 3, ...</code> ένα κάθε φορά· για κάθε νέο <code>part</code>, ενημερώνουμε κάθε <code>dp[i]</code> (με <code>i &gt;= part</code>) προσθέτοντας το <code>dp[i - part]</code>, δηλαδή το πλήθος τρόπων να συμπληρώσουμε το υπόλοιπο <code>i - part</code> χρησιμοποιώντας το <code>part</code> (τουλάχιστον) μία ακόμα φορά. Όταν ο εξωτερικός βρόχος έχει εξετάσει όλα τα μέρη μέχρι το <code>N</code>, το <code>dp[i]</code> ισούται ακριβώς με το <code>p(i)</code>:</p>
 <div>
-<div id="pyodide-5" class="exercise-cell">
+<div id="pyodide-9" class="exercise-cell">
 
 </div>
-<script type="pyodide-5-contents">
+<script type="pyodide-9-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIHBhcnRpdGlvbl9jb3VudHMoTik6XG4gICAgIyBkcFtpXSDOuM6xIM6zzq/Ovc61zrkgz4TOvyBwKGkpLCDOs865zrEgzrrOrM64zrUgaSDOsc+Az4wgMCDOrc+Jz4IgTlxuICAgIGRwID0gWzBdICogKE4gKyAxKVxuICAgIGRwWzBdID0gMSAgICMgzrzOr86xIM60zrnOsc68zq3Pgc65z4POtyDPhM6/z4UgMDogzrcgzrrOtc69zq4gzrTOuc6xzrzOrc+BzrnPg863XG4gICAgZm9yIHBhcnQgaW4gcmFuZ2UoMSwgTiArIDEpOiAgICAgICAgIyDOs865zrEgzrrOrM64zrUgzrTPhc69zrHPhM+MIFwizrzOrc+Bzr/PglwiIDEsIDIsIDMsIC4uLlxuICAgICAgICBmb3IgaSBpbiByYW5nZShwYXJ0LCBOICsgMSk6XG4gICAgICAgICAgICBkcFtpXSArPSBkcFtpIC0gcGFydF1cbiAgICByZXR1cm4gZHBcblxuTiA9IDIwXG5wID0gcGFydGl0aW9uX2NvdW50cyhOKVxuZm9yIG4gaW4gcmFuZ2UoTiArIDEpOlxuICAgIHByaW50KGYncCh7bn0pID0ge3Bbbl19JykifQ==
 </script>
 </div>
-<p>Ας δούμε πόσο γρήγορα μεγαλώνει το <span class="math inline">\(p(n)\)</span> σε σχέση με το <span class="math inline">\(n\)</span>, με ένα απλό γράφημα από αστερίσκους (σε λογαριθμική κλίμακα, αλλιώς οι τελευταίες τιμές δεν θα χωρούσαν στην οθόνη):</p>
+<p>Ας δούμε πόσο γρήγορα μεγαλώνει το <span class="math inline">\(p(n)\)</span> σε σχέση με το <span class="math inline">\(n\)</span>. Σε <strong>λογαριθμική</strong> κλίμακα στον κατακόρυφο άξονα (αλλιώς οι τελευταίες τιμές είναι τόσο μεγάλες που “ισοπεδώνουν” τις πρώτες):</p>
 <div>
-<div id="pyodide-6" class="exercise-cell">
+<div id="pyodide-10" class="exercise-cell">
 
 </div>
-<script type="pyodide-6-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcblxuTiA9IDYwXG5wID0gcGFydGl0aW9uX2NvdW50cyhOKVxuXG5wcmludChmJ3tcIm5cIjo+NH0ge1wicChuKVwiOj4xMn0gIGxvZzEwKHAobikpJylcbmZvciBuIGluIHJhbmdlKDEsIE4gKyAxLCAzKTogICAgIyDOus6szrjOtSAzzr8gbiwgzrPOuc6xIM69zrEgz4fPic+BzqzOtc65IM63IM6tzr7Ov860zr/PglxuICAgIGJhcl9sZW5ndGggPSBpbnQobWF0aC5sb2cxMChwW25dKSAqIDUpXG4gICAgcHJpbnQoZid7bjo+NH0ge3Bbbl06PjEyfSAgJyArICcqJyAqIGJhcl9sZW5ndGgpIn0=
+<script type="pyodide-10-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcbmltcG9ydCBtYXRwbG90bGliLnB5cGxvdCBhcyBwbHRcblxuTiA9IDEyMFxucCA9IHBhcnRpdGlvbl9jb3VudHMoTilcbm5zID0gbGlzdChyYW5nZSgxLCBOICsgMSkpXG5cbiMgzr8gzrHPg8+FzrzPgM+Ez4nPhM65zrrPjM+CIM+Ez43PgM6/z4IgSGFyZHnigJNSYW1hbnVqYW4gKDE5MTgpXG5hcHByb3ggPSBbbWF0aC5leHAobWF0aC5waSAqIG1hdGguc3FydCgyKm4vMykpIC8gKDQqbiptYXRoLnNxcnQoMykpIGZvciBuIGluIG5zXVxuXG5wbHQuc2VtaWxvZ3kobnMsIFtwW25dIGZvciBuIGluIG5zXSwgbGFiZWw9J3AobikgKM6xzrrPgc65zrLOrc+CKScpXG5wbHQuc2VtaWxvZ3kobnMsIGFwcHJveCwgJy0tJywgbGFiZWw9J8+Az4HOv8+Dzq3Os86zzrnPg863IEhhcmR54oCTUmFtYW51amFuJylcbnBsdC54bGFiZWwoJ24nKTsgcGx0LnlsYWJlbCgncChuKSAgKM67zr/Os86xz4HOuc64zrzOuc66zq4gzrrOu86vzrzOsc66zrEpJylcbnBsdC5sZWdlbmQoKTsgcGx0LnRpdGxlKCfOoM+Mz4POvyDOs8+Bzq7Os86/z4HOsSDOvM61zrPOsc67z47Ovc61zrkgzrcgz4PPhc69zqzPgc+EzrfPg863IM60zrnOsc68zq3Pgc65z4POt8+CJylcbnBsdC5zaG93KClcblxuZm9yIG4gaW4gWzEwLCA1MCwgMTAwXTpcbiAgICBwcmludChmJ3Aoe259KSA9IHtwW25dfScpIn0=
 </script>
 </div>
-<p>Το <span class="math inline">\(p(n)\)</span> μεγαλώνει πολύ γρήγορα — υπο-εκθετικά αλλά πολύ πιο γρήγορα από κάθε πολυώνυμο — σύμφωνα με τον περίφημο ασυμπτωτικό τύπο των Hardy και Ramanujan (1918):</p>
+<p>Μια ευθεία γραμμή σε λογαριθμικό άξονα σημαίνει <strong>εκθετική</strong> ανάπτυξη· η καμπύλη του <span class="math inline">\(p(n)\)</span> είναι λίγο πιο ήπια από ευθεία (υπο-εκθετική), αλλά πολύ πιο απότομη από κάθε πολυώνυμο. Η ακριβής συμπεριφορά δίνεται από τον περίφημο ασυμπτωτικό τύπο των Hardy και Ramanujan (1918):</p>
 <p><span class="math display">\[
 p(n) \sim \frac{1}{4n\sqrt{3}} \, e^{\pi\sqrt{2n/3}}.
 \]</span></p>
@@ -322,19 +480,19 @@ p(n) \sim \frac{1}{4n\sqrt{3}} \, e^{\pi\sqrt{2n/3}}.
 <h2 data-number="2.3" class="anchored" data-anchor-id="μοτίβα-διαιρετότητας-οι-ταυτότητες-του-ramanujan"><span class="header-section-number">2.3</span> Μοτίβα διαιρετότητας: οι ταυτότητες του Ramanujan</h2>
 <p>Ας εξετάσουμε τις τιμές του <span class="math inline">\(p(n)\)</span> πάνω σε ειδικές αριθμητικές προόδους, δηλαδή για <span class="math inline">\(n\)</span> της μορφής <span class="math inline">\(2n\)</span>, <span class="math inline">\(3n+2\)</span>, <span class="math inline">\(5n+4\)</span>:</p>
 <div>
-<div id="pyodide-7" class="exercise-cell">
+<div id="pyodide-11" class="exercise-cell">
 
 </div>
-<script type="pyodide-7-contents">
+<script type="pyodide-11-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTiA9IDYyXG5wID0gcGFydGl0aW9uX2NvdW50cyhOKVxuXG5wcmludCgncCgybikgzrPOuc6xIG49MCwxLDIsLi4uOicpXG5wcmludChbcFsyKm5dIGZvciBuIGluIHJhbmdlKE4gLy8gMiArIDEpXSlcblxucHJpbnQoJ1xcbnAoM24rMikgzrPOuc6xIG49MCwxLDIsLi4uOicpXG5wcmludChbcFszKm4rMl0gZm9yIG4gaW4gcmFuZ2UoKE4tMikgLy8gMyArIDEpXSlcblxucHJpbnQoJ1xcbnAoNW4rNCkgzrPOuc6xIG49MCwxLDIsLi4uOicpXG5wcmludChbcFs1Km4rNF0gZm9yIG4gaW4gcmFuZ2UoKE4tNCkgLy8gNSArIDEpXSkifQ==
 </script>
 </div>
 <p>Στις δύο πρώτες ακολουθίες δεν φαίνεται κάποιο προφανές μοτίβο διαιρετότητας. Στην <strong>τρίτη</strong> όμως κάτι ξεχωριστό συμβαίνει — ας το ελέγξουμε ρητά:</p>
 <div>
-<div id="pyodide-8" class="exercise-cell">
+<div id="pyodide-12" class="exercise-cell">
 
 </div>
-<script type="pyodide-8-contents">
+<script type="pyodide-12-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTiA9IDIwMFxucCA9IHBhcnRpdGlvbl9jb3VudHMoTilcblxuYWxsX2RpdmlzaWJsZSA9IFRydWVcbmZvciBuIGluIHJhbmdlKChOIC0gNCkgLy8gNSArIDEpOlxuICAgIHZhbHVlID0gcFs1Km4gKyA0XVxuICAgIGlmIHZhbHVlICUgNSAhPSAwOlxuICAgICAgICBhbGxfZGl2aXNpYmxlID0gRmFsc2VcbiAgICAgICAgcHJpbnQoZidwKHs1Km4rNH0pID0ge3ZhbHVlfSDOlM6Vzp0gzrTOuc6xzrnPgc61zq/PhM6xzrkgzrzOtSDPhM6/IDUhJylcblxuaWYgYWxsX2RpdmlzaWJsZTpcbiAgICBwcmludCgnzprOrM64zrUgcCg1bis0KSDOtM65zrHOuc+BzrXOr8+EzrHOuSDOsc66z4HOuc6yz47PgiDOvM61IM+Ezr8gNSEg4pyTJykifQ==
 </script>
 </div>
@@ -347,11 +505,20 @@ p(5n+4) \equiv 0 \pmod{5}.
 <h3 class="anchored" data-anchor-id="οπτικοποίηση-σε-5-στήλες">Οπτικοποίηση σε 5 στήλες</h3>
 <p>Ένας κλασικός τρόπος να “δει κανείς με το μάτι” το μοτίβο mod 5 είναι να τυπώσουμε τις τιμές του <span class="math inline">\(p(n)\)</span> σε πίνακα με 5 στήλες, όπου η στήλη <span class="math inline">\(n \equiv 4 \pmod 5\)</span> (η τελευταία) θα πρέπει να είναι πάντα πολλαπλάσιο του 5:</p>
 <div>
-<div id="pyodide-9" class="exercise-cell">
+<div id="pyodide-13" class="exercise-cell">
 
 </div>
-<script type="pyodide-9-contents">
+<script type="pyodide-13-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTiA9IDQ5XG5wID0gcGFydGl0aW9uX2NvdW50cyhOKVxuXG5mb3Igcm93X3N0YXJ0IGluIHJhbmdlKDAsIE4gKyAxLCA1KTpcbiAgICByb3cgPSBwW3Jvd19zdGFydDpyb3dfc3RhcnQrNV1cbiAgICBwcmludCgnICcuam9pbihmJ3t2Oj44fScgZm9yIHYgaW4gcm93KSkifQ==
+</script>
+</div>
+<p>Ακόμα καθαρότερα: χρωματίζουμε κάθε κελί <code>n</code> με το υπόλοιπο <code>p(n) % 5</code>. Η στήλη <code>n ≡ 4 (mod 5)</code> βγαίνει ολόκληρη ένα χρώμα — το μηδέν:</p>
+<div>
+<div id="pyodide-14" class="exercise-cell">
+
+</div>
+<script type="pyodide-14-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdHBsb3RsaWIucHlwbG90IGFzIHBsdFxuXG5OID0gOTlcbnAgPSBwYXJ0aXRpb25fY291bnRzKE4pXG5yb3dzID0gKE4gKyAxKSAvLyA1XG5tb2Q1ID0gW1twW3IqNSArIGNdICUgNSBmb3IgYyBpbiByYW5nZSg1KV0gZm9yIHIgaW4gcmFuZ2Uocm93cyldXG5cbnBsdC5pbXNob3cobW9kNSwgY21hcD0ndmlyaWRpcycsIGFzcGVjdD0nYXV0bycpXG5wbHQuY29sb3JiYXIobGFiZWw9J3AobikgbW9kIDUnLCB0aWNrcz1bMCwgMSwgMiwgMywgNF0pXG5wbHQueGxhYmVsKCduIG1vZCA1ICAozrcgz4PPhM6uzrvOtyA0IM61zq/Ovc6xzrkgz4DOrM69z4TOsSAwKScpOyBwbHQueWxhYmVsKCduIC8vIDUnKVxucGx0Lnh0aWNrcyhyYW5nZSg1KSlcbnBsdC50aXRsZSgncChuKSBtb2QgNScpXG5wbHQuc2hvdygpIn0=
 </script>
 </div>
 </section>
@@ -366,6 +533,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTiA9
 <p>Σε αυτή την εβδομάδα είδαμε:</p>
 <ul>
 <li>Τον βρόχο <strong><code>while</code></strong>, και το ιδίωμα <code>while True</code> + <code>break</code> (το ισοδύναμο ενός do-while).</li>
+<li>Τη <strong>δυαδική αναζήτηση</strong> σε ταξινομημένη λίστα: ~<span class="math inline">\(\log_2 n\)</span> βήματα αντί για <span class="math inline">\(n\)</span>, με παράθυρο που μισοκόβεται σε κάθε επανάληψη.</li>
 <li>Πώς να παράγουμε συνδυαστικά αντικείμενα <strong>naively</strong>, με μια ρητή <strong>στοίβα (stack)</strong> αντί για αναδρομή — μια τεχνική “χειροκίνητης” προσομοίωσης αναδρομής με βρόχο.</li>
 <li><strong>Δυναμικό προγραμματισμό</strong>: έναν πίνακα <code>dp</code> για αποδοτική καταμέτρηση, χωρίς να παράγουμε ρητά όλα τα αντικείμενα.</li>
 <li>Την τεχνική της <strong>υπολογιστικής επαλήθευσης</strong> ενός μοτίβου σε μεγάλη κλίμακα δεδομένων, πριν (ή αντί) από μια αυστηρή απόδειξη.</li>
@@ -376,7 +544,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTiA9
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl85ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzkgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTE0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTExIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTExLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl85ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzkgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">

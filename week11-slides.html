@@ -218,18 +218,22 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </div>
 </div>
 <div class="fragment">
+<pre><code>gcd(1071, 462) → gcd(462, 147) → gcd(147, 21) → gcd(21, 0) = 21</code></pre>
+<p>Κάθε βήμα: <code>(x, y) → (y, x % y)</code>. Γεωμετρικά: μεγαλύτερο τετράγωνο που στρώνει ένα <code>a × b</code> ορθογώνιο.</p>
+</div>
+<div class="fragment">
 <p><code>math.gcd()</code> υπάρχει έτοιμο — αλλά χρειαζόμαστε τη δική μας εκδοχή για <strong>παραλλαγές</strong>.</p>
 </div>
 </section>
 <section id="επεκτεταμένος-ευκλείδειος" class="slide level2">
 <h2>Επεκτεταμένος Ευκλείδειος</h2>
 <p>Υπολογίζει επιπλέον συντελεστές <span class="math inline">\(x,y\)</span> με <span class="math inline">\(ax+by=\gcd(a,b)\)</span>, βήμα-βήμα:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="1-2|3|4|5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="kw">def</span> extended_gcd(a, b):</span>
-<span id="cb1-2"><a href=""></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb1-3"><a href=""></a>        <span class="cf">return</span> a, <span class="dv">1</span>, <span class="dv">0</span></span>
-<span id="cb1-4"><a href=""></a>    g, x1, y1 <span class="op">=</span> extended_gcd(b, a <span class="op">%</span> b)</span>
-<span id="cb1-5"><a href=""></a>    x, y <span class="op">=</span> y1, x1 <span class="op">-</span> (a <span class="op">//</span> b) <span class="op">*</span> y1</span>
-<span id="cb1-6"><a href=""></a>    <span class="cf">return</span> g, x, y</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="1-2|3|4|5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="kw">def</span> extended_gcd(a, b):</span>
+<span id="cb2-2"><a href=""></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-3"><a href=""></a>        <span class="cf">return</span> a, <span class="dv">1</span>, <span class="dv">0</span></span>
+<span id="cb2-4"><a href=""></a>    g, x1, y1 <span class="op">=</span> extended_gcd(b, a <span class="op">%</span> b)</span>
+<span id="cb2-5"><a href=""></a>    x, y <span class="op">=</span> y1, x1 <span class="op">-</span> (a <span class="op">//</span> b) <span class="op">*</span> y1</span>
+<span id="cb2-6"><a href=""></a>    <span class="cf">return</span> g, x, y</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <div>
 <div id="pyodide-2" class="exercise-cell">
@@ -263,13 +267,13 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 <section id="συνεχή-κλάσματα-ευκλείδειος-αλγόριθμος" class="slide level2">
 <h2>Συνεχή κλάσματα ≈ Ευκλείδειος αλγόριθμος</h2>
 <p>Ίδιος βρόχος με τον <code>gcd</code>, απλώς καταγράφουμε το πηλίκο σε κάθε βήμα:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="1-2|3|4-5|6|7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="kw">def</span> continued_fraction(p, q):</span>
-<span id="cb2-2"><a href=""></a>    coeffs <span class="op">=</span> []</span>
-<span id="cb2-3"><a href=""></a>    <span class="cf">while</span> q <span class="op">!=</span> <span class="dv">0</span>:</span>
-<span id="cb2-4"><a href=""></a>        a <span class="op">=</span> p <span class="op">//</span> q</span>
-<span id="cb2-5"><a href=""></a>        coeffs.append(a)</span>
-<span id="cb2-6"><a href=""></a>        p, q <span class="op">=</span> q, p <span class="op">-</span> a <span class="op">*</span> q     <span class="co"># ίδιο μοτίβο με τον gcd!</span></span>
-<span id="cb2-7"><a href=""></a>    <span class="cf">return</span> coeffs</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="1-2|3|4-5|6|7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="kw">def</span> continued_fraction(p, q):</span>
+<span id="cb3-2"><a href=""></a>    coeffs <span class="op">=</span> []</span>
+<span id="cb3-3"><a href=""></a>    <span class="cf">while</span> q <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb3-4"><a href=""></a>        a <span class="op">=</span> p <span class="op">//</span> q</span>
+<span id="cb3-5"><a href=""></a>        coeffs.append(a)</span>
+<span id="cb3-6"><a href=""></a>        p, q <span class="op">=</span> q, p <span class="op">-</span> a <span class="op">*</span> q     <span class="co"># ίδιο μοτίβο με τον gcd!</span></span>
+<span id="cb3-7"><a href=""></a>    <span class="cf">return</span> coeffs</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <div>
 <div id="pyodide-4" class="exercise-cell">

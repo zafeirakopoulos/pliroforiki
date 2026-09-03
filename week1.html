@@ -79,6 +79,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="week1_files/libs/quarto-diagram/mermaid-init.js"></script>
 <link href="week1_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -92,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#τι-είναι-αλγόριθμος" id="toc-τι-είναι-αλγόριθμος" class="nav-link active" data-scroll-target="#τι-είναι-αλγόριθμος"><span class="header-section-number">1</span> Τι είναι αλγόριθμος</a>
   <ul class="collapse">
-  <li><a href="#παράδειγμα-δυαδική-αναζήτηση-binary-search" id="toc-παράδειγμα-δυαδική-αναζήτηση-binary-search" class="nav-link" data-scroll-target="#παράδειγμα-δυαδική-αναζήτηση-binary-search"><span class="header-section-number">1.1</span> Παράδειγμα: Δυαδική Αναζήτηση (Binary Search)</a>
+  <li><a href="#παράδειγμα-γραμμική-αναζήτηση-linear-search" id="toc-παράδειγμα-γραμμική-αναζήτηση-linear-search" class="nav-link" data-scroll-target="#παράδειγμα-γραμμική-αναζήτηση-linear-search"><span class="header-section-number">1.1</span> Παράδειγμα: Γραμμική Αναζήτηση (Linear Search)</a>
   <ul class="collapse">
   <li><a href="#σε-φυσική-γλώσσα" id="toc-σε-φυσική-γλώσσα" class="nav-link" data-scroll-target="#σε-φυσική-γλώσσα">Σε φυσική γλώσσα</a></li>
   <li><a href="#ως-διάγραμμα-ροής" id="toc-ως-διάγραμμα-ροής" class="nav-link" data-scroll-target="#ως-διάγραμμα-ροής">Ως διάγραμμα ροής</a></li>
@@ -190,16 +219,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     var WEEKS = 13;
     var file = (location.pathname.split('/').pop() || '').toLowerCase();
     var m = file.match(/^week(\d+)(-slides)?\.html$/);
-    if (!m) return;                       // main.html etc. -> nav stays empty (hidden)
-    var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
     var out = [];
-    if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
-    out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
-    out.push(isSlides
-      ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
-      : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
-    out.push('<span class="uoa-nav__spacer"></span>');
-    if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    if (!m) {
+      // program / index page: no prev/next, just a way into the course
+      out.push('<span class="uoa-nav__spacer"></span>');
+      out.push('<a href="week1.html" rel="next">Ξεκινήστε: Εβδομάδα 1 &#8594;</a>');
+    } else {
+      var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
+      if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
+      out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
+      out.push(isSlides
+        ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
+        : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
+      out.push('<span class="uoa-nav__spacer"></span>');
+      if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    }
     nav.innerHTML = out.join('');
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
@@ -250,25 +284,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Ερμηνεία των αποτελεσμάτων.</li>
 </ol>
 <p>Οι βασικές αλγοριθμικές ενέργειες που συναντάμε σχεδόν σε κάθε αλγόριθμο είναι: είσοδος/έξοδος δεδομένων, πράξεις ή αναθέσεις τιμών σε μεταβλητές, έλεγχος συνθηκών και επιλογή δράσης, επαναληπτική εκτέλεση, και τερματισμός.</p>
-<section id="παράδειγμα-δυαδική-αναζήτηση-binary-search" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="παράδειγμα-δυαδική-αναζήτηση-binary-search"><span class="header-section-number">1.1</span> Παράδειγμα: Δυαδική Αναζήτηση (Binary Search)</h2>
+<section id="παράδειγμα-γραμμική-αναζήτηση-linear-search" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="παράδειγμα-γραμμική-αναζήτηση-linear-search"><span class="header-section-number">1.1</span> Παράδειγμα: Γραμμική Αναζήτηση (Linear Search)</h2>
 <p>Ας δούμε έναν πλήρη αλγόριθμο στις <strong>τέσσερις</strong> μορφές αναπαράστασης που αναφέραμε: φυσική γλώσσα, διάγραμμα ροής, ψευδοκώδικας, και κώδικας.</p>
 <blockquote class="blockquote">
-<p><strong>Πρόβλημα:</strong> Δίνεται μια <strong>ταξινομημένη</strong> λίστα αριθμών <code>v</code> και μια τιμή-στόχος. Να βρεθεί η θέση της τιμής-στόχου μέσα στη λίστα (ή να διαπιστωθεί ότι δεν υπάρχει).</p>
+<p><strong>Πρόβλημα:</strong> Δίνεται μια λίστα αριθμών <code>v</code> και μια τιμή-στόχος. Να βρεθεί η θέση της τιμής-στόχου μέσα στη λίστα (ή να διαπιστωθεί ότι δεν υπάρχει).</p>
 </blockquote>
-<p>Η αφελής λύση θα ήταν να ελέγξουμε τα στοιχεία ένα-ένα (γραμμική αναζήτηση), κάτι που στη χειρότερη περίπτωση απαιτεί να ελέγξουμε όλα τα στοιχεία. Επειδή όμως η λίστα είναι ταξινομημένη, μπορούμε να είμαστε πολύ πιο αποδοτικοί: συγκρίνουμε τον στόχο με το <strong>μεσαίο</strong> στοιχείο, και ανάλογα αν ο στόχος είναι μικρότερος ή μεγαλύτερος, αγνοούμε αμέσως το ένα από τα δύο μισά της λίστας. Επαναλαμβάνοντας, ο χώρος αναζήτησης μικραίνει στο μισό σε κάθε βήμα.</p>
+<p>Ο απλούστερος αλγόριθμος: <strong>σαρώνουμε τη λίστα από την αρχή, στοιχείο-στοιχείο</strong>. Μόλις βρούμε τον στόχο, επιστρέφουμε τη θέση του και σταματάμε· αν φτάσουμε στο τέλος χωρίς να τον βρούμε, δεν υπάρχει. Δεν χρειάζεται η λίστα να είναι ταξινομημένη.</p>
 <section id="σε-φυσική-γλώσσα" class="level3">
 <h3 class="anchored" data-anchor-id="σε-φυσική-γλώσσα">Σε φυσική γλώσσα</h3>
 <ol type="1">
-<li>Όρισε δύο δείκτες, <code>αριστερά</code> (στην αρχή της λίστας) και <code>δεξιά</code> (στο τέλος της λίστας).</li>
-<li>Όσο ο δείκτης <code>αριστερά</code> δεν έχει προσπεράσει τον δείκτη <code>δεξιά</code>:
+<li>Ξεκίνα από την πρώτη θέση της λίστας (θέση <code>0</code>).</li>
+<li>Για κάθε θέση, με τη σειρά, μέχρι το τέλος της λίστας:
 <ol type="a">
-<li>Υπολόγισε το <code>μέσο</code>, τη θέση στη μέση του τρέχοντος διαστήματος <code>[αριστερά, δεξιά]</code>.</li>
-<li>Αν το στοιχείο στη θέση <code>μέσο</code> είναι ο στόχος, <strong>βρέθηκε</strong> — τερμάτισε επιστρέφοντας τη θέση <code>μέσο</code>.</li>
-<li>Αν ο στόχος είναι <strong>μικρότερος</strong> από το στοιχείο στη θέση <code>μέσο</code>, ο στόχος (αν υπάρχει) βρίσκεται στο αριστερό μισό: μετακίνησε τον δείκτη <code>δεξιά</code> αμέσως πριν το <code>μέσο</code>.</li>
-<li>Αλλιώς, ο στόχος βρίσκεται στο δεξί μισό: μετακίνησε τον δείκτη <code>αριστερά</code> αμέσως μετά το <code>μέσο</code>.</li>
+<li>Αν το στοιχείο σε αυτή τη θέση είναι ο στόχος, <strong>βρέθηκε</strong> — τερμάτισε επιστρέφοντας τη θέση.</li>
 </ol></li>
-<li>Αν ο δείκτης <code>αριστερά</code> προσπεράσει τον δείκτη <code>δεξιά</code> χωρίς να βρεθεί ο στόχος, τότε ο στόχος <strong>δεν υπάρχει</strong> στη λίστα.</li>
+<li>Αν έφτασες στο τέλος χωρίς να βρεις τον στόχο, τότε <strong>δεν υπάρχει</strong> στη λίστα.</li>
 </ol>
 </section>
 <section id="ως-διάγραμμα-ροής" class="level3">
@@ -279,19 +310,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart TD
-    A(["Αρχή"]) --&gt; B["αριστερά = 0
-δεξιά = n - 1"]
-    B --&gt; C{"αριστερά &lt;= δεξιά ;"}
-    C -- Όχι --&gt; H["Δεν βρέθηκε
+    A(["Αρχή"]) --&gt; B["θέση = 0"]
+    B --&gt; C{"θέση &lt; μήκος(v) ;"}
+    C -- "Όχι" --&gt; H["Δεν βρέθηκε
 (επίστρεψε -1)"]
-    C -- Ναι --&gt; D["μέσο = (αριστερά + δεξιά) // 2"]
-    D --&gt; E{"v[μέσο] == στόχος ;"}
-    E -- Ναι --&gt; F["Βρέθηκε στη θέση μέσο"]
-    E -- Όχι --&gt; G{"στόχος &lt; v[μέσο] ;"}
-    G -- Ναι --&gt; I["δεξιά = μέσο - 1"]
-    G -- Όχι --&gt; J["αριστερά = μέσο + 1"]
-    I --&gt; C
-    J --&gt; C
+    C -- "Ναι" --&gt; D{"v[θέση] == στόχος ;"}
+    D -- "Ναι" --&gt; F["Βρέθηκε
+(επίστρεψε θέση)"]
+    D -- "Όχι" --&gt; E["θέση = θέση + 1"]
+    E --&gt; C
     F --&gt; K(["Τέλος"])
     H --&gt; K
 </pre>
@@ -303,31 +330,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="ως-ψευδοκώδικας" class="level3">
 <h3 class="anchored" data-anchor-id="ως-ψευδοκώδικας">Ως ψευδοκώδικας</h3>
-<pre><code>ΔΥΑΔΙΚΗ_ΑΝΑΖΗΤΗΣΗ(v, στόχος):
-    αριστερά ← 0
-    δεξιά ← μήκος(v) - 1
-    όσο αριστερά &lt;= δεξιά:
-        μέσο ← (αριστερά + δεξιά) div 2
-        αν v[μέσο] = στόχος:
-            επίστρεψε μέσο               // βρέθηκε
-        αλλιώς_αν στόχος &lt; v[μέσο]:
-            δεξιά ← μέσο - 1              // ψάξε αριστερά
-        αλλιώς:
-            αριστερά ← μέσο + 1           // ψάξε δεξιά
-    επίστρεψε -1                          // δεν βρέθηκε</code></pre>
+<pre><code>ΓΡΑΜΜΙΚΗ_ΑΝΑΖΗΤΗΣΗ(v, στόχος):
+    για θέση από 0 έως μήκος(v) - 1:
+        αν v[θέση] = στόχος:
+            επίστρεψε θέση          // βρέθηκε
+    επίστρεψε -1                    // δεν βρέθηκε</code></pre>
 </section>
 <section id="ως-κώδικας-python" class="level3">
 <h3 class="anchored" data-anchor-id="ως-κώδικας-python">Ως κώδικας Python</h3>
-<p>Η μετάφραση του ψευδοκώδικα σε Python είναι σχεδόν γραμμή προς γραμμή:</p>
+<p>Ο βρόχος <code>for</code>, η εντολή <code>if</code>, οι λίστες και οι συναρτήσεις (<code>def</code>) έρχονται στις Εβδομάδες 3–6 — δείτε τον παρακάτω κώδικα απλώς ως <strong>πρόγευση</strong> του πού πηγαίνουμε. Οι τρεις προηγούμενες μορφές (φυσική γλώσσα, διάγραμμα, ψευδοκώδικας) δεν χρειάζονται καθόλου Python:</p>
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
 </div>
 <script type="pyodide-1-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGJpbmFyeV9zZWFyY2godiwgdGFyZ2V0KTpcbiAgICBsZWZ0LCByaWdodCA9IDAsIGxlbih2KSAtIDFcbiAgICB3aGlsZSBsZWZ0IDw9IHJpZ2h0OlxuICAgICAgICBtaWQgPSAobGVmdCArIHJpZ2h0KSAvLyAyXG4gICAgICAgIGlmIHZbbWlkXSA9PSB0YXJnZXQ6XG4gICAgICAgICAgICByZXR1cm4gbWlkICAgICAgICAgICAjIM6yz4HOrc64zrfOus61XG4gICAgICAgIGVsaWYgdGFyZ2V0IDwgdlttaWRdOlxuICAgICAgICAgICAgcmlnaHQgPSBtaWQgLSAxICAgICAgIyDPiM6szr7OtSDOsc+BzrnPg8+EzrXPgc6sXG4gICAgICAgIGVsc2U6XG4gICAgICAgICAgICBsZWZ0ID0gbWlkICsgMSAgICAgICAjIM+IzqzOvs61IM60zrXOvs65zqxcbiAgICByZXR1cm4gLTEgICAgICAgICAgICAgICAgICAgICMgzrTOtc69IM6yz4HOrc64zrfOus61XG5cbnNvcnRlZF9saXN0ID0gWzMsIDcsIDEyLCAxOSwgMjUsIDM0LCA0MSwgNTAsIDY2LCA3OF0gICMgz4DPgc6tz4DOtc65IM69zrEgzrXOr869zrHOuSDPhM6xzr7Ouc69zr/OvM63zrzOrc69zrchXG50YXJnZXQgPSA0MSAgICMgzrHOu867zqzOvs+EzrUgz4TOt869IM+EzrnOvM6uIM6xzr3Osc62zq7PhM63z4POt8+CIM66zrHOuSDOvs6xzr3Osc+Ez4HOrc6+z4TOtVxuXG5wb3MgPSBiaW5hcnlfc2VhcmNoKHNvcnRlZF9saXN0LCB0YXJnZXQpXG5pZiBwb3MgIT0gLTE6XG4gICAgcHJpbnQoZifOpM6/IHt0YXJnZXR9IM6yz4HOrc64zrfOus61IM+Dz4TOtyDOuM6tz4POtyB7cG9zfScpXG5lbHNlOlxuICAgIHByaW50KGYnzqTOvyB7dGFyZ2V0fSDOtM61zr0gzrLPgc6tzrjOt866zrUgz4PPhM63IM67zq/Pg8+EzrEnKSJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGxpbmVhcl9zZWFyY2godiwgdGFyZ2V0KTpcbiAgICBmb3IgaSBpbiByYW5nZShsZW4odikpOlxuICAgICAgICBpZiB2W2ldID09IHRhcmdldDpcbiAgICAgICAgICAgIHJldHVybiBpICAgICAgICAjIM6yz4HOrc64zrfOus61XG4gICAgcmV0dXJuIC0xICAgICAgICAgICAgICAgIyDPhs+EzqzPg86xzrzOtSDPg8+Ezr8gz4TOrc67zr/PgiAtLSDOtM61zr0gz4XPgM6sz4HPh861zrlcblxuZGF0YSA9IFsxNSwgOCwgNDIsIDQsIDE2LCAyMywgMTAwXSAgICMgzrTOtc69IM+Hz4HOtc65zqzOts61z4TOsc65IM69zrEgzrXOr869zrHOuSDPhM6xzr7Ouc69zr/OvM63zrzOrc69zrdcbnRhcmdldCA9IDE2ICAgIyDOsc67zrvOrM6+z4TOtSDPhM63zr0gz4TOuc68zq4gzrHOvc6xzrbOrs+EzrfPg863z4IgzrrOsc65IM6+zrHOvc6xz4TPgc6tzr7PhM61XG5cbnBvcyA9IGxpbmVhcl9zZWFyY2goZGF0YSwgdGFyZ2V0KVxuaWYgcG9zICE9IC0xOlxuICAgIHByaW50KGYnzqTOvyB7dGFyZ2V0fSDOss+Bzq3OuM63zrrOtSDPg8+EzrcgzrjOrc+Dzrcge3Bvc30nKVxuZWxzZTpcbiAgICBwcmludChmJ86kzr8ge3RhcmdldH0gzrTOtc69IM6yz4HOrc64zrfOus61IM+Dz4TOtyDOu86vz4PPhM6xJykifQ==
 </script>
 </div>
-<p>Δοκιμάστε τιμές <code>target</code> που <strong>δεν</strong> υπάρχουν στη λίστα (π.χ. <code>40</code>), και παρατηρήστε ότι επιστρέφεται <code>-1</code>. Οι τέσσερις μορφές παραπάνω περιγράφουν <strong>ακριβώς τον ίδιο αλγόριθμο</strong> — από τη γενική ιδέα σε φυσική γλώσσα, μέχρι τον εκτελέσιμο κώδικα· αυτή η μετάβαση, βήμα προς βήμα, είναι στην ουσία αυτό που θα εξασκούμε σε όλο το μάθημα.</p>
+<p>Δοκιμάστε ένα <code>target</code> που <strong>δεν</strong> υπάρχει (π.χ. <code>99</code>), και παρατηρήστε ότι επιστρέφεται <code>-1</code>. Οι τέσσερις μορφές παραπάνω περιγράφουν <strong>ακριβώς τον ίδιο αλγόριθμο</strong> — από τη γενική ιδέα σε φυσική γλώσσα, μέχρι τον εκτελέσιμο κώδικα.</p>
+<p>Στη χειρότερη περίπτωση (ο στόχος λείπει, ή είναι το τελευταίο στοιχείο) η γραμμική αναζήτηση ελέγχει <strong>και τα <span class="math inline">\(n\)</span> στοιχεία</strong>. Αν η λίστα είναι <strong>ταξινομημένη</strong>, μπορούμε να κάνουμε δραματικά καλύτερα: στην Εβδομάδα 5, μαζί με τον βρόχο <code>while</code>, θα δούμε τη <strong>δυαδική αναζήτηση</strong>, που βρίσκει το στοιχείο σε ελάχιστα βήματα πετώντας κάθε φορά το μισό της λίστας.</p>
 </section>
 </section>
 </section>
@@ -390,7 +411,23 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSwg
 </section>
 <section id="μεταβλητές-ως-αναφορές-references" class="level3">
 <h3 class="anchored" data-anchor-id="μεταβλητές-ως-αναφορές-references">Μεταβλητές ως αναφορές (references)</h3>
-<p>Είναι σημαντικό να καταλάβουμε τι <em>πραγματικά</em> κάνει η εκχώρηση: μια μεταβλητή στην Python δεν είναι ένα “κουτί” που περιέχει την τιμή, αλλά ένα <strong>όνομα</strong> που δείχνει (δεσμεύεται) σε ένα αντικείμενο, κάπου στη μνήμη. Η συνάρτηση <code>id(x)</code> επιστρέφει έναν μοναδικό αριθμό-ταυτότητα για το αντικείμενο στο οποίο δείχνει η <code>x</code>, και ο τελεστής <code>is</code> ελέγχει αν δύο μεταβλητές δείχνουν στο <strong>ίδιο ακριβώς</strong> αντικείμενο (σε αντίθεση με το <code>==</code>, που ελέγχει αν οι τιμές είναι ίσες):</p>
+<p>Είναι σημαντικό να καταλάβουμε τι <em>πραγματικά</em> κάνει η εκχώρηση: μια μεταβλητή στην Python δεν είναι ένα “κουτί” που περιέχει την τιμή, αλλά ένα <strong>όνομα</strong> (ετικέτα) που δείχνει σε ένα αντικείμενο, κάπου στη μνήμη.</p>
+<p>Μετά τις εντολές <code>a = 1000</code> και <code>b = a</code>, <strong>δύο</strong> ονόματα δείχνουν στο <strong>ίδιο</strong> αντικείμενο:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    a(["a"]) --&gt; obj["1000"]
+    b(["b"]) --&gt; obj
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Η συνάρτηση <code>id(x)</code> επιστρέφει έναν μοναδικό αριθμό-ταυτότητα για το αντικείμενο στο οποίο δείχνει η <code>x</code>, και ο τελεστής <code>is</code> ελέγχει αν δύο μεταβλητές δείχνουν στο <strong>ίδιο ακριβώς</strong> αντικείμενο (σε αντίθεση με το <code>==</code>, που ελέγχει αν οι τιμές είναι ίσες):</p>
 <div>
 <div id="pyodide-6" class="exercise-cell">
 
@@ -398,6 +435,21 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSwg
 <script type="pyodide-6-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSA9IDEwMDBcbmIgPSBhICAgICAgICAgICMgz4TOvyBiIM60zrXOr8+Hzr3Otc65ICjPgM+Bzr/PgiDPhM6/IM+AzrHPgc+Mzr0pIM+Dz4TOvyDOmc6UzpnOnyDOsc69z4TOuc66zrXOr868zrXOvc6/IM68zrUgz4TOvyBhXG5wcmludChhIGlzIGIsIGlkKGEpID09IGlkKGIpKSAgICMgVHJ1ZSwgVHJ1ZVxuXG5iID0gYiArIDEgICAgICAjIM60zrfOvM65zr/Phc+BzrPOtc6vz4TOsc65IM6dzpXOnyDOsc69z4TOuc66zrXOr868zrXOvc6/IM6xzrrOtc+BzrHOr86/z4XCtyDPhM6/IGEgzrTOtc69IM61z4DOt8+BzrXOrM62zrXPhM6xzrlcbnByaW50KGEsIGIpXG5wcmludChhIGlzIGIpICAjIEZhbHNlIM+AzrvOrc6/zr0gLS0gzrTOuc6xz4bOv8+BzrXPhM65zrrOrCDOsc69z4TOuc66zrXOr868zrXOvc6xIn0=
 </script>
+</div>
+<p>Η <code>b = b + 1</code> δεν “πειράζει” το <code>1000</code>: υπολογίζει το <code>1001</code> ως <strong>νέο</strong> αντικείμενο και στρέφει εκεί μόνο το όνομα <code>b</code>. Το <code>a</code> συνεχίζει να δείχνει στο αρχικό:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    a(["a"]) --&gt; obj1["1000"]
+    b(["b"]) --&gt; obj2["1001 (νέο)"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
 </div>
 <p>Επειδή οι αριθμοί (και οι συμβολοσειρές) είναι <strong>αμετάβλητοι (immutable)</strong> τύποι, κάθε “τροποποίησή” τους στην πραγματικότητα φτιάχνει ένα νέο αντικείμενο, οπότε αυτή η λεπτομέρεια συνήθως περνάει απαρατήρητη. Θα δούμε στην Εβδομάδα 4 ότι για <strong>μεταβλητούς (mutable)</strong> τύπους, όπως οι λίστες, αυτή η διάκριση ανάμεσα σε “όνομα” και “αντικείμενο” έχει πολύ πιο ορατές συνέπειες.</p>
 </section>
@@ -421,6 +473,20 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiN2Vs
 <section id="είσοδος-με-την-input" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="είσοδος-με-την-input"><span class="header-section-number">2.2</span> Είσοδος με την <code>input</code></h2>
 <p>Σε ένα κανονικό πρόγραμμα Python, η συνάρτηση <code>input('μήνυμα')</code> διαβάζει δεδομένα από το πληκτρολόγιο και <strong>πάντα επιστρέφει συμβολοσειρά</strong> — ακόμα κι αν ο χρήστης πληκτρολογήσει έναν αριθμό. Για να χρησιμοποιηθεί αριθμητικά, πρέπει να μετατραπεί με τις συναρτήσεις <code>int()</code> ή <code>float()</code>:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    kb["ο χρήστης πληκτρολογεί&lt;br&gt;25"] --&gt;|"input()"| s["'25'&lt;br&gt;str — πάντα!"]
+    s --&gt;|"int()"| n["25&lt;br&gt;int"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Δώσε την ηλικία σου: '</span>)   <span class="co"># η age είναι πάντα str</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="bu">int</span>(age)                          <span class="co"># μετατροπή σε int</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 <p>ή, πιο σύντομα, με άμεση σύνθεση των δύο κλήσεων:</p>
@@ -502,6 +568,27 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZmly
 <script type="pyodide-13-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoaW50KDUuNykpICAgICAjIDVcbnByaW50KGludCgtMy44KSkgICAgIyAtM1xucHJpbnQoZmxvYXQoNCkpICAgICAjIDQuMFxucHJpbnQoc3RyKDQyKSArIHN0cigzLjE0KSkgICAjIM+Dz4XOvc6tzr3Pic+DzrcgzrzOtc+EzqwgzrHPgM+MIM68zrXPhM6xz4TPgc6/z4DOriDPg861IHN0ciJ9
 </script>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    str["str&lt;br&gt;'42' · '3.14'"]
+    int["int&lt;br&gt;42"]
+    float["float&lt;br&gt;3.14"]
+    str --&gt;|"int()"| int
+    str --&gt;|"float()"| float
+    int --&gt;|"str()"| str
+    float --&gt;|"str()"| str
+    int --&gt;|"float()"| float
+    float --&gt;|"int() κόβει το δεκαδικό"| int
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
 </div>
 </section>
 <section id="συνηθισμένα-λάθη-1" class="level3">
@@ -675,7 +762,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJv
 <h1 data-number="3"><span class="header-section-number">3</span> Σύνοψη</h1>
 <p>Σε αυτή την εβδομάδα είδαμε:</p>
 <ul>
-<li>Την έννοια του <strong>αλγορίθμου</strong>, και τις τέσσερις μορφές περιγραφής του (φυσική γλώσσα, διάγραμμα ροής, ψευδοκώδικας, κώδικας) — με τη <strong>δυαδική αναζήτηση</strong> ως παράδειγμα αλγορίθμου.</li>
+<li>Την έννοια του <strong>αλγορίθμου</strong>, και τις τέσσερις μορφές περιγραφής του (φυσική γλώσσα, διάγραμμα ροής, ψευδοκώδικας, κώδικας) — με τη <strong>γραμμική αναζήτηση</strong> ως παράδειγμα αλγορίθμου.</li>
 <li><strong>Μεταβλητές</strong> και βασικούς τύπους δεδομένων (<code>int</code>, <code>float</code>, <code>str</code>), και ότι η Python είναι δυναμικά τυποποιημένη.</li>
 <li>Ότι μια μεταβλητή είναι στην πραγματικότητα μια <strong>αναφορά</strong> σε ένα αντικείμενο (<code>id</code>, <code>is</code>), όχι ένα “κουτί” με τιμή.</li>
 <li><strong>Είσοδο/έξοδο</strong> με <code>input</code>/<code>print</code>, και μετατροπές τύπου (<code>int()</code>, <code>float()</code>, <code>str()</code>).</li>

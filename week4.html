@@ -205,16 +205,21 @@ window.Quarto = {
     var WEEKS = 13;
     var file = (location.pathname.split('/').pop() || '').toLowerCase();
     var m = file.match(/^week(\d+)(-slides)?\.html$/);
-    if (!m) return;                       // main.html etc. -> nav stays empty (hidden)
-    var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
     var out = [];
-    if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
-    out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
-    out.push(isSlides
-      ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
-      : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
-    out.push('<span class="uoa-nav__spacer"></span>');
-    if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    if (!m) {
+      // program / index page: no prev/next, just a way into the course
+      out.push('<span class="uoa-nav__spacer"></span>');
+      out.push('<a href="week1.html" rel="next">Ξεκινήστε: Εβδομάδα 1 &#8594;</a>');
+    } else {
+      var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
+      if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
+      out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
+      out.push(isSlides
+        ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
+        : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
+      out.push('<span class="uoa-nav__spacer"></span>');
+      if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    }
     nav.innerHTML = out.join('');
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
@@ -500,7 +505,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoid2Vl
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIHNlbGVjdGlvbl9zb3J0KHYpOlxuICAgIGZvciBpIGluIHJhbmdlKGxlbih2KSAtIDEpOlxuICAgICAgICBtaW5faW5kZXggPSBpXG4gICAgICAgIGZvciBqIGluIHJhbmdlKGkgKyAxLCBsZW4odikpOlxuICAgICAgICAgICAgaWYgdltqXSA8IHZbbWluX2luZGV4XTpcbiAgICAgICAgICAgICAgICBtaW5faW5kZXggPSBqXG4gICAgICAgIHZbaV0sIHZbbWluX2luZGV4XSA9IHZbbWluX2luZGV4XSwgdltpXVxuXG5kYXRhID0gWzUsIDMsIDgsIDEsIDQsIDUsIDcsIDZdICAgIyDOsc67zrvOrM6+z4TOtSDOtc67zrXPjc64zrXPgc6xIM+EzrcgzrvOr8+Dz4TOsVxuc2VsZWN0aW9uX3NvcnQoZGF0YSlcbnByaW50KGRhdGEpIn0=
 </script>
 </div>
-<p>Ο απλούστερος αλγόριθμος <strong>αναζήτησης</strong> είναι η <strong>γραμμική (ή σειριακή) αναζήτηση</strong>: σαρώνουμε τη λίστα στοιχείο-στοιχείο και σταματάμε μόλις βρούμε αυτό που ψάχνουμε. Με <code>return</code> (ή <code>break</code>) μέσα στον <code>for</code>, η σάρωση κόβεται αμέσως — δεν χρειάζεται να φτάσουμε στο τέλος. Δουλεύει σε <strong>οποιαδήποτε</strong> λίστα, ταξινομημένη ή όχι:</p>
+<p>Ο απλούστερος αλγόριθμος <strong>αναζήτησης</strong> είναι η <strong>γραμμική (ή σειριακή) αναζήτηση</strong>, που είδαμε στην Εβδομάδα 1 ως το πρώτο μας παράδειγμα αλγορίθμου: σαρώνουμε τη λίστα στοιχείο-στοιχείο και σταματάμε μόλις βρούμε αυτό που ψάχνουμε. Με <code>return</code> (ή <code>break</code>) μέσα στον <code>for</code>, η σάρωση κόβεται αμέσως — δεν χρειάζεται να φτάσουμε στο τέλος. Δουλεύει σε <strong>οποιαδήποτε</strong> λίστα, ταξινομημένη ή όχι:</p>
 <div>
 <div id="pyodide-22" class="exercise-cell">
 

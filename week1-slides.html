@@ -232,13 +232,13 @@
 <p>Ένας αλγόριθμος περιγράφεται με <strong>φυσική γλώσσα</strong>, <strong>διάγραμμα ροής</strong>, <strong>ψευδοκώδικα</strong>, ή <strong>κώδικα</strong>.</p>
 </div>
 </section>
-<section id="παράδειγμα-δυαδική-αναζήτηση" class="slide level2">
-<h2>Παράδειγμα: Δυαδική Αναζήτηση</h2>
+<section id="παράδειγμα-γραμμική-αναζήτηση" class="slide level2">
+<h2>Παράδειγμα: Γραμμική Αναζήτηση</h2>
 <blockquote>
-<p>Δίνεται <strong>ταξινομημένη</strong> λίστα <code>v</code> και τιμή-στόχος. Βρες τη θέση της (ή διαπίστωσε ότι δεν υπάρχει).</p>
+<p>Δίνεται λίστα <code>v</code> και τιμή-στόχος. Βρες τη θέση της (ή διαπίστωσε ότι δεν υπάρχει).</p>
 </blockquote>
 <div class="fragment">
-<p>Αφελής λύση: γραμμική αναζήτηση, ένα-ένα (αργή). Επειδή η λίστα είναι ταξινομημένη: συγκρίνουμε με το <strong>μεσαίο</strong> στοιχείο, και πετάμε το μισό του χώρου αναζήτησης κάθε φορά.</p>
+<p>Σάρωση από την αρχή, στοιχείο-στοιχείο· σταματάμε μόλις βρεθεί ο στόχος. Δεν χρειάζεται ταξινομημένη λίστα.</p>
 </div>
 </section>
 <section id="ως-διάγραμμα-ροής" class="slide level2">
@@ -249,18 +249,13 @@
 <p></p><figure class=""><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart TD
-    A(["Αρχή"]) --&gt; B["αριστερά = 0
-δεξιά = n - 1"]
-    B --&gt; C{"αριστερά &lt;= δεξιά ;"}
-    C -- Όχι --&gt; H["Δεν βρέθηκε"]
-    C -- Ναι --&gt; D["μέσο = (αριστερά + δεξιά) // 2"]
-    D --&gt; E{"v[μέσο] == στόχος ;"}
-    E -- Ναι --&gt; F["Βρέθηκε στη θέση μέσο"]
-    E -- Όχι --&gt; G{"στόχος &lt; v[μέσο] ;"}
-    G -- Ναι --&gt; I["δεξιά = μέσο - 1"]
-    G -- Όχι --&gt; J["αριστερά = μέσο + 1"]
-    I --&gt; C
-    J --&gt; C
+    A(["Αρχή"]) --&gt; B["θέση = 0"]
+    B --&gt; C{"θέση &lt; μήκος(v) ;"}
+    C -- "Όχι" --&gt; H["Δεν βρέθηκε"]
+    C -- "Ναι" --&gt; D{"v[θέση] == στόχος ;"}
+    D -- "Ναι" --&gt; F["Βρέθηκε στη θέση 'θέση'"]
+    D -- "Όχι" --&gt; E["θέση = θέση + 1"]
+    E --&gt; C
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -270,43 +265,25 @@
 </section>
 <section id="ως-ψευδοκώδικας" class="slide level2">
 <h2>… ως ψευδοκώδικας</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="1-3|4|5-6|7-8|9-10|11-12|13"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href=""></a>ΔΥΑΔΙΚΗ_ΑΝΑΖΗΤΗΣΗ(v, στόχος):</span>
-<span id="cb1-2"><a href=""></a>    αριστερά ← 0</span>
-<span id="cb1-3"><a href=""></a>    δεξιά ← μήκος(v) - 1</span>
-<span id="cb1-4"><a href=""></a>    όσο αριστερά &lt;= δεξιά:</span>
-<span id="cb1-5"><a href=""></a>        μέσο ← (αριστερά + δεξιά) div 2</span>
-<span id="cb1-6"><a href=""></a>        αν v[μέσο] = στόχος:</span>
-<span id="cb1-7"><a href=""></a>            επίστρεψε μέσο</span>
-<span id="cb1-8"><a href=""></a>        αλλιώς_αν στόχος &lt; v[μέσο]:</span>
-<span id="cb1-9"><a href=""></a>            δεξιά ← μέσο - 1</span>
-<span id="cb1-10"><a href=""></a>        αλλιώς:</span>
-<span id="cb1-11"><a href=""></a>            αριστερά ← μέσο + 1</span>
-<span id="cb1-12"><a href=""></a>    επίστρεψε -1</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="1|2|3-4|5"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href=""></a>ΓΡΑΜΜΙΚΗ_ΑΝΑΖΗΤΗΣΗ(v, στόχος):</span>
+<span id="cb1-2"><a href=""></a>    για θέση από 0 έως μήκος(v) - 1:</span>
+<span id="cb1-3"><a href=""></a>        αν v[θέση] = στόχος:</span>
+<span id="cb1-4"><a href=""></a>            επίστρεψε θέση</span>
+<span id="cb1-5"><a href=""></a>    επίστρεψε -1</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ως-κώδικας-python" class="slide level2">
 <h2>… ως κώδικας Python</h2>
-<p>Ίδια δομή, γραμμή προς γραμμή:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="1-2|3|4-5|6-7|8-9|10|11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="kw">def</span> binary_search(v, target):</span>
-<span id="cb2-2"><a href=""></a>    left, right <span class="op">=</span> <span class="dv">0</span>, <span class="bu">len</span>(v) <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb2-3"><a href=""></a>    <span class="cf">while</span> left <span class="op">&lt;=</span> right:</span>
-<span id="cb2-4"><a href=""></a>        mid <span class="op">=</span> (left <span class="op">+</span> right) <span class="op">//</span> <span class="dv">2</span></span>
-<span id="cb2-5"><a href=""></a>        <span class="cf">if</span> v[mid] <span class="op">==</span> target:</span>
-<span id="cb2-6"><a href=""></a>            <span class="cf">return</span> mid</span>
-<span id="cb2-7"><a href=""></a>        <span class="cf">elif</span> target <span class="op">&lt;</span> v[mid]:</span>
-<span id="cb2-8"><a href=""></a>            right <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb2-9"><a href=""></a>        <span class="cf">else</span>:</span>
-<span id="cb2-10"><a href=""></a>            left <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb2-11"><a href=""></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<p>Τώρα, εκτελέσιμο:</p>
+<p>Πρόγευση — <code>for</code>, <code>if</code>, λίστες, <code>def</code> έρχονται στις Εβδομάδες 3–6:</p>
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
 </div>
 <script type="pyodide-1-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGJpbmFyeV9zZWFyY2godiwgdGFyZ2V0KTpcbiAgICBsZWZ0LCByaWdodCA9IDAsIGxlbih2KSAtIDFcbiAgICB3aGlsZSBsZWZ0IDw9IHJpZ2h0OlxuICAgICAgICBtaWQgPSAobGVmdCArIHJpZ2h0KSAvLyAyXG4gICAgICAgIGlmIHZbbWlkXSA9PSB0YXJnZXQ6XG4gICAgICAgICAgICByZXR1cm4gbWlkXG4gICAgICAgIGVsaWYgdGFyZ2V0IDwgdlttaWRdOlxuICAgICAgICAgICAgcmlnaHQgPSBtaWQgLSAxXG4gICAgICAgIGVsc2U6XG4gICAgICAgICAgICBsZWZ0ID0gbWlkICsgMVxuICAgIHJldHVybiAtMVxuXG5zb3J0ZWRfbGlzdCA9IFszLCA3LCAxMiwgMTksIDI1LCAzNCwgNDEsIDUwLCA2NiwgNzhdXG50YXJnZXQgPSA0MSAgICMgzrTOv866zrnOvM6sz4PPhM61IM66zrHOuSDPhM65zrzOrc+CIM+Azr/PhSDOtM61zr0gz4XPgM6sz4HPh86/z4XOvVxuXG5wb3MgPSBiaW5hcnlfc2VhcmNoKHNvcnRlZF9saXN0LCB0YXJnZXQpXG5wcmludChmJ86Yzq3Pg863OiB7cG9zfScgaWYgcG9zICE9IC0xIGVsc2UgJ86UzrXOvSDOss+Bzq3OuM63zrrOtScpIn0=
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGxpbmVhcl9zZWFyY2godiwgdGFyZ2V0KTpcbiAgICBmb3IgaSBpbiByYW5nZShsZW4odikpOlxuICAgICAgICBpZiB2W2ldID09IHRhcmdldDpcbiAgICAgICAgICAgIHJldHVybiBpXG4gICAgcmV0dXJuIC0xXG5cbmRhdGEgPSBbMTUsIDgsIDQyLCA0LCAxNiwgMjMsIDEwMF0gICAjIM+Mz4fOuSDOsc+AzrHPgc6xzq/PhM63z4TOsSDPhM6xzr7Ouc69zr/OvM63zrzOrc69zrdcbnRhcmdldCA9IDE2ICAgIyDOtM6/zrrOuc68zqzPg8+EzrUgzrrOsc65IM+EzrnOvM6tz4Igz4DOv8+FIM60zrXOvSDPhc+AzqzPgc+Hzr/Phc69XG5cbnBvcyA9IGxpbmVhcl9zZWFyY2goZGF0YSwgdGFyZ2V0KVxucHJpbnQoZifOmM6tz4POtzoge3Bvc30nIGlmIHBvcyAhPSAtMSBlbHNlICfOlM61zr0gzrLPgc6tzrjOt866zrUnKSJ9
 </script>
 </div>
+<div class="fragment">
+<p>Ταξινομημένη λίστα → <strong>δυαδική αναζήτηση</strong> (Εβδομάδα 5, με τον <code>while</code>): ελάχιστα βήματα, μισό διάστημα κάθε φορά.</p>
 </div>
 </section>
 <section>
@@ -383,7 +360,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSA9
 </section>
 <section id="είσοδος-με-input" class="slide level2">
 <h2>Είσοδος με <code>input</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>age <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Δώσε την ηλικία σου: '</span>))   <span class="co"># input() επιστρέφει πάντα str</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>age <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Δώσε την ηλικία σου: '</span>))   <span class="co"># input() επιστρέφει πάντα str</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -468,7 +445,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJv
 <section id="σύνοψη" class="slide level2">
 <h2>Σύνοψη</h2>
 <ul>
-<li class="fragment">Έννοια αλγορίθμου, τέσσερις μορφές περιγραφής, δυαδική αναζήτηση</li>
+<li class="fragment">Έννοια αλγορίθμου, τέσσερις μορφές περιγραφής, γραμμική αναζήτηση</li>
 <li class="fragment">Μεταβλητές, βασικοί τύποι (<code>int</code>, <code>float</code>, <code>str</code>), δυναμική τυποποίηση</li>
 <li class="fragment">Μεταβλητές ως <strong>αναφορές</strong> (<code>id</code>, <code>is</code>)</li>
 <li class="fragment"><code>input</code>/<code>print</code>, μετατροπές τύπου</li>

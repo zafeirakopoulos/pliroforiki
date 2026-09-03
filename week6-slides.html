@@ -192,6 +192,9 @@
   </style>
   <script type="module" src="week6-slides_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
   <link href="week6-slides_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <script src="week6-slides_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="week6-slides_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="week6-slides_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -210,6 +213,21 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="kw">def</span> όνομα_συνάρτησης(παράμετρος_1, παράμετρος_2):</span>
 <span id="cb1-2"><a href=""></a>    εντολές</span>
 <span id="cb1-3"><a href=""></a>    <span class="cf">return</span> αποτέλεσμα      <span class="co"># προαιρετικό</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A["ορίσματα · double(7)"] --&gt; F["double"] --&gt; R["τιμή · 14"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
 <div class="fragment">
 <div>
 <div id="pyodide-1" class="exercise-cell">
@@ -242,6 +260,21 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </section>
 <section id="μεταβίβαση-με-τιμή-μιας-αναφοράς" class="slide level2">
 <h2>Μεταβίβαση με τιμή μιας αναφοράς</h2>
+<p><code>data</code> και <code>lst</code> δείχνουν στην ΙΔΙΑ λίστα:</p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    data(["data"]) --&gt; L["[1, 2, 3]"]
+    lst(["lst"]) --&gt; L
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <div class="fragment">
 <div>
 <div id="pyodide-3" class="exercise-cell">

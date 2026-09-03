@@ -75,6 +75,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <style>html{ scroll-behavior: smooth; }</style>
 <script type="module" src="week6_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="week6_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script src="week6_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="week6_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="week6_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -162,16 +165,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     var WEEKS = 13;
     var file = (location.pathname.split('/').pop() || '').toLowerCase();
     var m = file.match(/^week(\d+)(-slides)?\.html$/);
-    if (!m) return;                       // main.html etc. -> nav stays empty (hidden)
-    var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
     var out = [];
-    if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
-    out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
-    out.push(isSlides
-      ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
-      : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
-    out.push('<span class="uoa-nav__spacer"></span>');
-    if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    if (!m) {
+      // program / index page: no prev/next, just a way into the course
+      out.push('<span class="uoa-nav__spacer"></span>');
+      out.push('<a href="week1.html" rel="next">Ξεκινήστε: Εβδομάδα 1 &#8594;</a>');
+    } else {
+      var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
+      if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
+      out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
+      out.push(isSlides
+        ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
+        : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
+      out.push('<span class="uoa-nav__spacer"></span>');
+      if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    }
     nav.innerHTML = out.join('');
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
@@ -208,6 +216,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> όνομα_συνάρτησης(παράμετρος_1, παράμετρος_2):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    εντολές</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> αποτέλεσμα      <span class="co"># προαιρετικό</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Μια συνάρτηση είναι ένα <strong>«μαύρο κουτί»</strong>: δίνουμε ορίσματα, παίρνουμε πίσω μια τιμή, και δεν χρειάζεται να ξέρουμε τι γίνεται μέσα:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A["ορίσματα&lt;br&gt;double(7)"] --&gt; F["double&lt;br&gt;(result = 2 * x)"]
+    F --&gt; R["επιστρεφόμενη τιμή&lt;br&gt;14"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>Ο κώδικας μιας συνάρτησης <strong>δεν</strong> εκτελείται όταν ορίζεται, παρά μόνο όταν <strong>κληθεί</strong>. Η σειρά ορισμού των συναρτήσεων μέσα σε ένα αρχείο δεν έχει σημασία, αρκεί να έχουν οριστεί πριν κληθούν.</p>
 <div>
 <div id="pyodide-1" class="exercise-cell">
@@ -237,8 +260,38 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 <p>Παραπάνω είδαμε ότι μια <em>επανεκχώρηση</em> σε μια παράμετρο δεν επηρεάζει τη μεταβλητή-όρισμα της κλήσης, αφού η Python μεταβιβάζει ορίσματα <strong>με τιμή (pass-by-value)</strong>. Όταν όμως το όρισμα είναι ένα <strong>μεταβλητό (mutable)</strong> αντικείμενο, όπως μια λίστα (Εβδομάδα 4), χρειάζεται προσοχή: το όνομα μιας λίστας είναι στην πραγματικότητα μια <strong>αναφορά (reference)</strong> στη θέση μνήμης όπου είναι αποθηκευμένα τα στοιχεία της (Εβδομάδα 1). Η “τιμή” που μεταβιβάζεται με pass-by-value είναι λοιπόν η ίδια η αναφορά — <strong>όχι</strong> ένα ολόκληρο αντίγραφο της λίστας. Αυτό έχει δύο συνέπειες:</p>
 <ul>
 <li>Αν η συνάρτηση <strong>τροποποιήσει στοιχεία</strong> της λίστας (π.χ. με <code>append</code>, ή με εκχώρηση <code>lst[i] = ...</code>), η αλλαγή είναι ορατή και έξω από τη συνάρτηση, αφού το όνομα του ορίσματος και η τοπική παράμετρος δείχνουν στην <strong>ίδια ακριβώς</strong> λίστα.</li>
-<li>Αν όμως η συνάρτηση <strong>επανεκχωρήσει</strong> μια εντελώς νέα λίστα στην παράμετρο (π.χ. <code>lst = [...]</code>), αυτό απλώς δίνει στο <em>τοπικό όνομα</em> μια νέα αναφορά, χωρίς να επηρεάζει καθόλου τη λίστα που είχε ο καλών:</li>
+<li>Αν όμως η συνάρτηση <strong>επανεκχωρήσει</strong> μια εντελώς νέα λίστα στην παράμετρο (π.χ. <code>lst = [...]</code>), αυτό απλώς δίνει στο <em>τοπικό όνομα</em> μια νέα αναφορά, χωρίς να επηρεάζει καθόλου τη λίστα που είχε ο καλών.</li>
 </ul>
+<p>Στην κλήση <code>modify_list(data)</code>, το όρισμα <code>data</code> και η παράμετρος <code>lst</code> δείχνουν στην <strong>ίδια</strong> λίστα:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    data(["data (καλών)"]) --&gt; L["[1, 2, 3]"]
+    lst(["lst (παράμετρος)"]) --&gt; L
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Το <code>lst.append(100)</code> αλλάζει αυτό το κοινό αντικείμενο (το βλέπει και το <code>data</code>). Το <code>lst = [10, 20, 30]</code> όμως στρέφει <strong>μόνο</strong> το <code>lst</code> σε νέα λίστα:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    data(["data (καλών)"]) --&gt; L["[1, 2, 3, 100]"]
+    lst(["lst (παράμετρος)"]) --&gt; N["[10, 20, 30] (νέα, τοπική)"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <div>
 <div id="pyodide-3" class="exercise-cell">
 
@@ -278,7 +331,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 
 </div>
 <script type="pyodide-6-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGJhZF9hY2N1bXVsYXRvcihpdGVtLCBoaXN0b3J5PVtdKTogICAjIM6gzqHOn86jzp/Op86XOiDOus6/zrnOvc6uIM67zq/Pg8+EzrEgzrPOuc6xIM+MzrvOtc+CIM+EzrnPgiDOus67zq7Pg861zrnPgiFcbiAgICBoaXN0b3J5LmFwcGVuZChpdGVtKVxuICAgIHJldHVybiBoaXN0b3J5XG5cbnByaW50KGJhZF9hY2N1bXVsYXRvcignYScpKSAgICMgWydhJ10gLS0gzrHOvc6xzrzOtc69z4zOvM61zr3Ov1xucHJpbnQoYmFkX2FjY3VtdWxhdG9yKCdiJykpICAgIyBbJ2EnLCAnYiddIC0tIM68zqzOu867zr/OvSDPjM+HzrkgzrHPhc+Ez4wgz4DOv8+FIM+AzrXPgc65zrzOrc69zrHOvM61ISJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGJhZF9hY2N1bXVsYXRvcihpdGVtLCBoaXN0b3J5PVtdKTogICAjIM6gzqHOn86jzp/Op86XOiDOus6/zrnOvc6uIM67zq/Pg8+EzrEgzrPOuc6xIM+MzrvOtc+CIM+EzrnPgiDOus67zq7Pg861zrnPgiFcbiAgICBoaXN0b3J5LmFwcGVuZChpdGVtKVxuICAgIHByaW50KGYnICAgKGlkIM+EzrfPgiBoaXN0b3J5OiB7aWQoaGlzdG9yeSl9KScpXG4gICAgcmV0dXJuIGhpc3RvcnlcblxucHJpbnQoYmFkX2FjY3VtdWxhdG9yKCdhJykpICAgIyBbJ2EnXSAtLSDOsc69zrHOvM61zr3PjM68zrXOvc6/XG5wcmludChiYWRfYWNjdW11bGF0b3IoJ2InKSkgICAjIFsnYScsICdiJ10gLS0gzrzOrM67zrvOv869IM+Mz4fOuSDOsc+Fz4TPjCDPgM6/z4Ugz4DOtc+BzrnOvM6tzr3Osc68zrUhXG5wcmludChiYWRfYWNjdW11bGF0b3IoJ2MnKSkgICAjIFsnYScsICdiJywgJ2MnXSAtLSDOr860zrnOvyBpZCDOus6szrjOtSDPhs6/z4HOrDogzq/OtM65zrEgzrvOr8+Dz4TOsSEifQ==
 </script>
 </div>
 <p>Η καθιερωμένη λύση είναι να χρησιμοποιήσουμε <code>None</code> ως προεπιλεγμένη τιμή, και να δημιουργήσουμε μια <strong>καινούρια</strong> λίστα μέσα στη συνάρτηση, μόνο όταν χρειάζεται:</p>

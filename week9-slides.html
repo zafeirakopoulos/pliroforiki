@@ -192,6 +192,9 @@
   </style>
   <script type="module" src="week9-slides_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
   <link href="week9-slides_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <script src="week9-slides_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="week9-slides_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="week9-slides_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -253,6 +256,26 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </div>
 <p>Χωρίς βασική περίπτωση → <strong><code>RecursionError</code></strong>. Επικαλυπτόμενα υποπροβλήματα → <strong>εκθετικός</strong> χρόνος.</p>
 </section>
+<section id="δέντρο-κλήσεων-του-fib5" class="slide level2">
+<h2>Δέντρο κλήσεων του <code>fib(5)</code></h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    F5["fib(5)"] --&gt; F4["fib(4)"] &amp; F3a["fib(3)"]
+    F4 --&gt; F3b["fib(3)"] &amp; F2a["fib(2)"]
+    F3a --&gt; F2b["fib(2)"] &amp; F1a["fib(1)"]
+    F3b --&gt; F2c["fib(2)"] &amp; F1b["fib(1)"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><code>fib(3)</code> ×2, <code>fib(2)</code> ×3 — οι επικαλύψεις πολλαπλασιάζονται εκθετικά.</p>
+</section>
 <section id="memoization-με-functools.lru_cache" class="slide level2">
 <h2>Memoization με <code>functools.lru_cache</code></h2>
 <div>
@@ -279,6 +302,28 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </section>
 <section id="ταξινόμηση-με-συγχώνευση" class="slide level2">
 <h2>Ταξινόμηση με συγχώνευση</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A["38 27 43 3 · 9 82 10"] --&gt; B["38 27 43 3"] &amp; C["9 82 10"]
+    B --&gt; D["38 27"] &amp; E["43 3"]
+    C --&gt; F["9"] &amp; G["82 10"]
+    D &amp; E --&gt; BM["3 27 38 43"]
+    F &amp; G --&gt; CM["9 10 82"]
+    BM &amp; CM --&gt; AM["3 9 10 27 38 43 82"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Κάτω: χώρισε στη μέση. Πάνω: συγχώνευσε ταξινομημένα.</p>
+</section>
+<section id="merge-sort-ο-κώδικας" class="slide level2">
+<h2>Merge sort — ο κώδικας</h2>
 <p>Διαίρει, λύσε αναδρομικά, συγχώνευσε — γραμμή προς γραμμή:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="1|2-3|4|5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="kw">def</span> mergesort(x):</span>
 <span id="cb1-2"><a href=""></a>    <span class="cf">if</span> <span class="bu">len</span>(x) <span class="op">==</span> <span class="dv">1</span>:              <span class="co"># βασική περίπτωση</span></span>

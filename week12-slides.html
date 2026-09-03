@@ -192,6 +192,9 @@
   </style>
   <script type="module" src="week12-slides_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
   <link href="week12-slides_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <script src="week12-slides_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="week12-slides_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="week12-slides_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -231,6 +234,22 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 </section>
 <section id="μεταθέσεις-αναδρομικά" class="slide level2">
 <h2>Μεταθέσεις: αναδρομικά</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    R["perm(abc)"] --&gt; A["a + perm(bc)"] &amp; B["b + perm(ac)"] &amp; C["c + perm(ab)"]
+    A --&gt; A1["abc"] &amp; A2["acb"]
+    B --&gt; B1["bac"] &amp; B2["bca"]
+    C --&gt; C1["cab"] &amp; C2["cba"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>Για κάθε δυνατό πρώτο στοιχείο, μεταθέτουμε αναδρομικά τα υπόλοιπα:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="1-2|3-4|5-8|9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="kw">def</span> all_permutations(elements):</span>
 <span id="cb2-2"><a href=""></a>    <span class="cf">if</span> <span class="bu">len</span>(elements) <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
