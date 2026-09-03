@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Προσαρμογή σε διαδραστική μορφή (Τμήμα Μαθηματικών, ΕΚΠΑ)">
 
-<title>141.CS</title>
+<title>Πληροφορική Ι</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -99,10 +98,84 @@ window.Quarto = {
 </nav>
 </div>
 <main class="content" id="quarto-document-content">
+<style>
+  .uoa-header {
+    max-width: 900px;
+    margin: 0 auto 1.4rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 2px solid #2F80C0;
+  }
+  .uoa-header__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .uoa-header__brand a { display: inline-flex; }
+  .uoa-header__logo { height: 48px; width: auto; }
+  .uoa-header__dept { font-size: 1.05rem; font-weight: 600; color: #2F80C0; }
+  .uoa-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.65rem;
+    font-size: 0.85rem;
+  }
+  .uoa-nav:empty { display: none; }
+  .uoa-nav a {
+    padding: 0.28rem 0.65rem;
+    border: 1px solid #2F80C0;
+    border-radius: 4px;
+    color: #2F80C0;
+    background: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .uoa-nav a:hover, .uoa-nav a:focus-visible { background: #2F80C0; color: #fff; }
+  .uoa-nav__spacer { flex: 1 1 0; }
+  @media (max-width: 600px) {
+    .uoa-header__brand { flex-direction: column; text-align: center; gap: 0.4rem; }
+    .uoa-nav { justify-content: center; }
+    .uoa-nav__spacer { display: none; }
+  }
+</style>
+<div class="uoa-header">
+  <div class="uoa-header__brand">
+    <a href="main.html" aria-label="Αρχική σελίδα / Πρόγραμμα μαθήματος">
+      <img class="uoa-header__logo" src="uoa-logo.svg" alt="Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών">
+    </a>
+    <span class="uoa-header__dept">Τμήμα Μαθηματικών</span>
+  </div>
+  <nav class="uoa-nav" id="uoa-nav" aria-label="Πλοήγηση σημειώσεων"></nav>
+</div>
+<script>
+(function () {
+  function build() {
+    var nav = document.getElementById('uoa-nav');
+    if (!nav) return;
+    var WEEKS = 13;
+    var file = (location.pathname.split('/').pop() || '').toLowerCase();
+    var m = file.match(/^week(\d+)(-slides)?\.html$/);
+    if (!m) return;                       // main.html etc. -> nav stays empty (hidden)
+    var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
+    var out = [];
+    if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
+    out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
+    out.push(isSlides
+      ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
+      : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
+    out.push('<span class="uoa-nav__spacer"></span>');
+    if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    nav.innerHTML = out.join('');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">141.CS</h1>
+<h1 class="title">Πληροφορική Ι</h1>
 <p class="subtitle lead">Εβδομάδα 11 · Ευκλείδειος Αλγόριθμος, Ακριβής Υπολογισμός, Συνεχή Κλάσματα</p>
 </div>
 
@@ -110,12 +183,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Συγγραφέας</div>
-    <div class="quarto-title-meta-contents">
-             <p>Προσαρμογή σε διαδραστική μορφή (Τμήμα Μαθηματικών, ΕΚΠΑ) </p>
-          </div>
-  </div>
     
   
     

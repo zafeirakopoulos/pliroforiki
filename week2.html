@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Προσαρμογή σε διαδραστική μορφή (Τμήμα Μαθηματικών, ΕΚΠΑ)">
 
-<title>141.CS</title>
+<title>Πληροφορική Ι</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,6 +40,9 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 <script type="module" src="week2_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="week2_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script src="week2_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="week2_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="week2_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -91,20 +93,101 @@ window.Quarto = {
   <li><a href="#συμβολοσειρές-ως-αλληλουχίες-χαρακτήρων" id="toc-συμβολοσειρές-ως-αλληλουχίες-χαρακτήρων" class="nav-link" data-scroll-target="#συμβολοσειρές-ως-αλληλουχίες-χαρακτήρων"><span class="header-section-number">2.1</span> Συμβολοσειρές ως αλληλουχίες χαρακτήρων</a></li>
   <li><a href="#μέθοδοι-συμβολοσειρών" id="toc-μέθοδοι-συμβολοσειρών" class="nav-link" data-scroll-target="#μέθοδοι-συμβολοσειρών"><span class="header-section-number">2.2</span> Μέθοδοι συμβολοσειρών</a></li>
   <li><a href="#κωδικοποίηση-χαρακτήρων-ord-και-chr" id="toc-κωδικοποίηση-χαρακτήρων-ord-και-chr" class="nav-link" data-scroll-target="#κωδικοποίηση-χαρακτήρων-ord-και-chr"><span class="header-section-number">2.3</span> Κωδικοποίηση χαρακτήρων: <code>ord</code> και <code>chr</code></a></li>
-  <li><a href="#χαρακτηριστικό-της-python-έναντι-.join" id="toc-χαρακτηριστικό-της-python-έναντι-.join" class="nav-link" data-scroll-target="#χαρακτηριστικό-της-python-έναντι-.join"><span class="header-section-number">2.4</span> Χαρακτηριστικό της Python: <code>+=</code> έναντι <code>''.join()</code></a></li>
+  <li><a href="#δομημένη-εκτύπωση-f-strings" id="toc-δομημένη-εκτύπωση-f-strings" class="nav-link" data-scroll-target="#δομημένη-εκτύπωση-f-strings"><span class="header-section-number">2.4</span> Δομημένη εκτύπωση: f-strings</a></li>
   </ul></li>
-  <li><a href="#όγκος-σφαίρας-και-άλλων-στερεών" id="toc-όγκος-σφαίρας-και-άλλων-στερεών" class="nav-link" data-scroll-target="#όγκος-σφαίρας-και-άλλων-στερεών"><span class="header-section-number">3</span> Όγκος σφαίρας και άλλων στερεών</a></li>
-  <li><a href="#μετατροπή-fahrenheit-celsius" id="toc-μετατροπή-fahrenheit-celsius" class="nav-link" data-scroll-target="#μετατροπή-fahrenheit-celsius"><span class="header-section-number">4</span> Μετατροπή Fahrenheit ⇄ Celsius</a></li>
-  <li><a href="#ο-κρυπτογράφος-του-καίσαρα" id="toc-ο-κρυπτογράφος-του-καίσαρα" class="nav-link" data-scroll-target="#ο-κρυπτογράφος-του-καίσαρα"><span class="header-section-number">5</span> Ο κρυπτογράφος του Καίσαρα</a></li>
-  <li><a href="#σύνοψη" id="toc-σύνοψη" class="nav-link" data-scroll-target="#σύνοψη"><span class="header-section-number">6</span> Σύνοψη</a></li>
+  <li><a href="#βιβλιοθήκες-και-η-βιβλιοθήκη-math" id="toc-βιβλιοθήκες-και-η-βιβλιοθήκη-math" class="nav-link" data-scroll-target="#βιβλιοθήκες-και-η-βιβλιοθήκη-math"><span class="header-section-number">3</span> Βιβλιοθήκες και η βιβλιοθήκη <code>math</code></a>
+  <ul class="collapse">
+  <li><a href="#η-εντολή-import" id="toc-η-εντολή-import" class="nav-link" data-scroll-target="#η-εντολή-import"><span class="header-section-number">3.1</span> Η εντολή <code>import</code></a></li>
+  <li><a href="#σταθερές-και-βασικές-συναρτήσεις" id="toc-σταθερές-και-βασικές-συναρτήσεις" class="nav-link" data-scroll-target="#σταθερές-και-βασικές-συναρτήσεις"><span class="header-section-number">3.2</span> Σταθερές και βασικές συναρτήσεις</a></li>
+  <li><a href="#ρίζες-λογάριθμοι-και-εκθετική" id="toc-ρίζες-λογάριθμοι-και-εκθετική" class="nav-link" data-scroll-target="#ρίζες-λογάριθμοι-και-εκθετική"><span class="header-section-number">3.3</span> Ρίζες, λογάριθμοι και εκθετική</a></li>
+  <li><a href="#τριγωνομετρικές-συναρτήσεις" id="toc-τριγωνομετρικές-συναρτήσεις" class="nav-link" data-scroll-target="#τριγωνομετρικές-συναρτήσεις"><span class="header-section-number">3.4</span> Τριγωνομετρικές συναρτήσεις</a></li>
+  </ul></li>
+  <li><a href="#όγκος-σφαίρας-και-άλλων-στερεών" id="toc-όγκος-σφαίρας-και-άλλων-στερεών" class="nav-link" data-scroll-target="#όγκος-σφαίρας-και-άλλων-στερεών"><span class="header-section-number">4</span> Όγκος σφαίρας και άλλων στερεών</a></li>
+  <li><a href="#μετατροπή-fahrenheit-celsius" id="toc-μετατροπή-fahrenheit-celsius" class="nav-link" data-scroll-target="#μετατροπή-fahrenheit-celsius"><span class="header-section-number">5</span> Μετατροπή Fahrenheit ⇄ Celsius</a></li>
+  <li><a href="#το-κρυπτοσύστημα-του-καίσαρα" id="toc-το-κρυπτοσύστημα-του-καίσαρα" class="nav-link" data-scroll-target="#το-κρυπτοσύστημα-του-καίσαρα"><span class="header-section-number">6</span> Το κρυπτοσύστημα του Καίσαρα</a></li>
+  <li><a href="#σύνοψη" id="toc-σύνοψη" class="nav-link" data-scroll-target="#σύνοψη"><span class="header-section-number">7</span> Σύνοψη</a></li>
   </ul>
 </nav>
 </div>
 <main class="content" id="quarto-document-content">
+<style>
+  .uoa-header {
+    max-width: 900px;
+    margin: 0 auto 1.4rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 2px solid #2F80C0;
+  }
+  .uoa-header__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .uoa-header__brand a { display: inline-flex; }
+  .uoa-header__logo { height: 48px; width: auto; }
+  .uoa-header__dept { font-size: 1.05rem; font-weight: 600; color: #2F80C0; }
+  .uoa-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.65rem;
+    font-size: 0.85rem;
+  }
+  .uoa-nav:empty { display: none; }
+  .uoa-nav a {
+    padding: 0.28rem 0.65rem;
+    border: 1px solid #2F80C0;
+    border-radius: 4px;
+    color: #2F80C0;
+    background: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .uoa-nav a:hover, .uoa-nav a:focus-visible { background: #2F80C0; color: #fff; }
+  .uoa-nav__spacer { flex: 1 1 0; }
+  @media (max-width: 600px) {
+    .uoa-header__brand { flex-direction: column; text-align: center; gap: 0.4rem; }
+    .uoa-nav { justify-content: center; }
+    .uoa-nav__spacer { display: none; }
+  }
+</style>
+<div class="uoa-header">
+  <div class="uoa-header__brand">
+    <a href="main.html" aria-label="Αρχική σελίδα / Πρόγραμμα μαθήματος">
+      <img class="uoa-header__logo" src="uoa-logo.svg" alt="Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών">
+    </a>
+    <span class="uoa-header__dept">Τμήμα Μαθηματικών</span>
+  </div>
+  <nav class="uoa-nav" id="uoa-nav" aria-label="Πλοήγηση σημειώσεων"></nav>
+</div>
+<script>
+(function () {
+  function build() {
+    var nav = document.getElementById('uoa-nav');
+    if (!nav) return;
+    var WEEKS = 13;
+    var file = (location.pathname.split('/').pop() || '').toLowerCase();
+    var m = file.match(/^week(\d+)(-slides)?\.html$/);
+    if (!m) return;                       // main.html etc. -> nav stays empty (hidden)
+    var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
+    var out = [];
+    if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
+    out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
+    out.push(isSlides
+      ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
+      : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
+    out.push('<span class="uoa-nav__spacer"></span>');
+    if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    nav.innerHTML = out.join('');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">141.CS</h1>
+<h1 class="title">Πληροφορική Ι</h1>
 <p class="subtitle lead">Εβδομάδα 2 · Πράξεις και Συμβολοσειρές</p>
 </div>
 
@@ -112,12 +195,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Συγγραφέας</div>
-    <div class="quarto-title-meta-contents">
-             <p>Προσαρμογή σε διαδραστική μορφή (Τμήμα Μαθηματικών, ΕΚΠΑ) </p>
-          </div>
-  </div>
     
   
     
@@ -169,16 +246,22 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Η προτεραιότητα των πράξεων είναι: πρώτα οι παρενθέσεις, μετά η ύψωση σε δύναμη (<code>**</code>, δεξιά προς αριστερά), μετά πολλαπλασιασμός/διαίρεση/υπόλοιπο (<code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>, αριστερά προς δεξιά), και τέλος πρόσθεση/αφαίρεση:</p>
+<p>Η προτεραιότητα των πράξεων είναι:</p>
+<ol type="1">
+<li>παρενθέσεις</li>
+<li>ύψωση σε δύναμη (<code>**</code>, δεξιά προς αριστερά)</li>
+<li>πολλαπλασιασμός / διαίρεση / υπόλοιπο (<code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>, αριστερά προς δεξιά)</li>
+<li>πρόσθεση / αφαίρεση</li>
+</ol>
 <div>
 <div id="pyodide-1" class="exercise-cell">
 
 </div>
 <script type="pyodide-1-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoMTUgKyA1IC8gMikgICAgICMgz4DPgc+Oz4TOsSDOtyDOtM65zrHOr8+BzrXPg863OiAxNSArIDIuNVxucHJpbnQoNSArIDEyIC8gMyAqIDIpICMgzrTOuc6xzq/Pgc61z4POtywgzrzOtc+Ezqwgz4DOv867zrvOsc+AzrvOsc+DzrnOsc+DzrzPjM+COiA1ICsgNC4wKjJcbnByaW50KDQgKiogMyAqKiAyKSAgICAjIM60zrXOvs65zqwgz4DPgc6/z4IgzrHPgc65z4PPhM61z4HOrDogNCoqKDMqKjIpID0gNCoqOVxucHJpbnQoMiArIDMgKiA0IC0gMSkgICMgz4DOv867zrvOsc+AzrvOsc+DzrnOsc+DzrzPjM+CIM+Az4HPjs+EzrE6IDIgKyAxMiAtIDFcbnByaW50KCgyICsgMykgKiAoNCAtIDEpKSAgICMgzr/OuSDPgM6xz4HOtc69zrjOrc+DzrXOuc+CIM6tz4fOv8+Fzr0gz4DOrM69z4TOsSDPgM+Bzr/PhM61z4HOsc65z4zPhM63z4TOsVxucHJpbnQoLTIgKiogMikgICAgICAgICAjIM+Az4HOv8+Dzr/Ph86uOiDOtyDPjc+Iz4nPg863IM+DzrUgzrTPjc69zrHOvM63IM+Az4HOv863zrPOtc6vz4TOsc65IM+Ezr/PhSDOvM6/zr3Osc60zrnOsc6vzr/PhSAnLScsIM6sz4HOsSAtKDIqKjIpID0gLTRcbnByaW50KDcgJSAzICsgMiAqIDUpICAgIyDPhc+Az4zOu86/zrnPgM6/IM66zrHOuSDPgM6/zrvOu86xz4DOu86xz4POuc6xz4POvM+Mz4Igz4DPgc65zr0gz4TOt869IM+Az4HPjM+DzrjOtc+DzrdcbnByaW50KDIwIC8vIDMgJSAyKSAgICAgIyDOsc66zq3Pgc6xzrnOsSDOtM65zrHOr8+BzrXPg863IM66zrHOuSDPhc+Az4zOu86/zrnPgM6/LCDOsc+BzrnPg8+EzrXPgc6sIM+Az4HOv8+CIM60zrXOvs65zqw6ICgyMCAvLyAzKSAlIDIifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoMTUgKyA1IC8gMikgICAgICMgz4DPgc+Oz4TOsSDOtyDOtM65zrHOr8+BzrXPg863OiAxNSArIDIuNVxucHJpbnQoNSArIDEyIC8gMyAqIDIpICMgzrTOuc6xzq/Pgc61z4POtywgzrzOtc+Ezqwgz4DOv867zrvOsc+AzrvOsc+DzrnOsc+DzrzPjM+COiA1ICsgNC4wKjJcbnByaW50KDQgKiogMyAqKiAyKSAgICAjIM60zrXOvs65zqwgz4DPgc6/z4IgzrHPgc65z4PPhM61z4HOrDogNCoqKDMqKjIpID0gNCoqOVxucHJpbnQoMiArIDMgKiA0IC0gMSkgICMgz4DOv867zrvOsc+AzrvOsc+DzrnOsc+DzrzPjM+CIM+Az4HPjs+EzrE6IDIgKyAxMiAtIDFcbnByaW50KCgyICsgMykgKiAoNCAtIDEpKSAgICMgzr/OuSDPgM6xz4HOtc69zrjOrc+DzrXOuc+CIM6tz4fOv8+Fzr0gz4DOrM69z4TOsSDPgM+Bzr/PhM61z4HOsc65z4zPhM63z4TOsVxucHJpbnQoLTIgKiogMikgICAgICAgICAjIM+Az4HOv8+Dzr/Ph86uOiDOtyDPjc+Iz4nPg863IM+DzrUgzrTPjc69zrHOvM63IM+Az4HOv863zrPOtc6vz4TOsc65IM+Ezr/PhSAnLScsIM6sz4HOsSAtKDIqKjIpID0gLTRcbnByaW50KDcgJSAzICsgMiAqIDUpICAgIyDPhc+Az4zOu86/zrnPgM6/IM66zrHOuSDPgM6/zrvOu86xz4DOu86xz4POuc6xz4POvM+Mz4Igz4DPgc65zr0gz4TOt869IM+Az4HPjM+DzrjOtc+DzrdcbnByaW50KDIwIC8vIDMgJSAyKSAgICAgIyDOsc66zq3Pgc6xzrnOsSDOtM65zrHOr8+BzrXPg863IM66zrHOuSDPhc+Az4zOu86/zrnPgM6/LCDOsc+BzrnPg8+EzrXPgc6sIM+Az4HOv8+CIM60zrXOvs65zqw6ICgyMCAvLyAzKSAlIDIifQ==
 </script>
 </div>
-<p>Τέλος, οι <strong>τελεστές επαυξημένης εκχώρησης</strong> (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>//=</code>, <code>%=</code>, <code>**=</code>) συντομεύουν εκχωρήσεις που περιλαμβάνουν τη μεταβλητή που ενημερώνεται, π.χ. <code>a += x</code> είναι το ίδιο με <code>a = a + x</code>:</p>
+<p>Οι <strong>τελεστές επαυξημένης εκχώρησης</strong> (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>//=</code>, <code>%=</code>, <code>**=</code>) συντομεύουν εκχωρήσεις που περιλαμβάνουν τη μεταβλητή που ενημερώνεται, π.χ. <code>a += x</code> είναι το ίδιο με <code>a = a + x</code>:</p>
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
@@ -275,22 +358,143 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJp
 </div>
 <p>Αυτή η αντιστοιχία χαρακτήρα-κωδικού είναι και η βάση της <strong>λεξικογραφικής σύγκρισης</strong> συμβολοσειρών, που θα δούμε στην Εβδομάδα 3: το <code>'a' &lt; 'b'</code> ισχύει επειδή <code>ord('a') &lt; ord('b')</code>.</p>
 </section>
-<section id="χαρακτηριστικό-της-python-έναντι-.join" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="χαρακτηριστικό-της-python-έναντι-.join"><span class="header-section-number">2.4</span> Χαρακτηριστικό της Python: <code>+=</code> έναντι <code>''.join()</code></h2>
-<p>Ο παρακάτω κώδικας χρησιμοποιεί έναν βρόχο <code>for</code> (θα τον μελετήσουμε αναλυτικά σε λίγες εβδομάδες — προς το παρόν αρκεί να ξέρετε ότι επαναλαμβάνει το εσωτερικό του block μία φορά για κάθε στοιχείο της λίστας <code>parts</code>). Επειδή οι συμβολοσειρές είναι αμετάβλητες, κάθε <code>result += p</code> μέσα σε αυτόν τον βρόχο <strong>δεν</strong> προσθέτει στο υπάρχον αντικείμενο — φτιάχνει ένα ολοκαίνουργιο, ελαφρώς μεγαλύτερο αντίγραφο, και πετάει το παλιό. Για λίγες επαναλήψεις αυτό δεν έχει σημασία, αλλά σε μεγάλο πλήθος επαναλήψεων γίνεται αισθητά αργό. Το πιο <strong>ιδιωματικό (Pythonic)</strong> τρόπος είναι να μαζέψουμε τα κομμάτια σε μια λίστα, και να τα ενώσουμε <strong>μία</strong> φορά στο τέλος με τη μέθοδο <code>''.join(...)</code>:</p>
+<section id="δομημένη-εκτύπωση-f-strings" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="δομημένη-εκτύπωση-f-strings"><span class="header-section-number">2.4</span> Δομημένη εκτύπωση: f-strings</h2>
+<p>Πολύ συχνά θέλουμε να τυπώσουμε ένα μήνυμα που <strong>συνδυάζει</strong> σταθερό κείμενο με τιμές μεταβλητών, ελέγχοντας ταυτόχρονα <em>πώς</em> εμφανίζονται (πόσα δεκαδικά, σε τι πλάτος, με τι στοίχιση). Ο σύγχρονος τρόπος στην Python είναι οι <strong>f-strings</strong>: μια συμβολοσειρά με το πρόθεμα <code>f</code>, μέσα στην οποία ό,τι βρίσκεται σε άγκιστρα <code>{ }</code> αποτιμάται και μπαίνει στη θέση του.</p>
 <div>
 <div id="pyodide-11" class="exercise-cell">
 
 </div>
 <script type="pyodide-11-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicGFydHMgPSBbJ0hlbGxvJywgJyAnLCAnV29ybGQnLCAnIScsICcgJywgJ86azrHOu863zrzOrc+BzrEnXVxuXG4jIM6xz4HOs8+Mz4Igz4TPgc+Mz4DOv8+COiDOvM6vzrEgzr3Orc6xIM+Dz4XOvM6yzr/Ou86/z4POtc65z4HOrCDPg861IM66zqzOuM61IM61z4DOsc69zqzOu863z4jOtyDPhM6/z4UgZm9yXG5yZXN1bHQgPSAnJ1xuZm9yIHAgaW4gcGFydHM6XG4gICAgcmVzdWx0ICs9IHBcbnByaW50KHJlc3VsdClcblxuIyDOuc60zrnPic68zrHPhM65zrrPjM+CIM+Ez4HPjM+Azr/PgjogzrzOr86xIM68z4zOvc6/IM6tzr3Pic+DzrcsIM+Dz4TOvyDPhM6tzrvOv8+CXG5yZXN1bHQyID0gJycuam9pbihwYXJ0cylcbnByaW50KHJlc3VsdDIpXG5wcmludChyZXN1bHQgPT0gcmVzdWx0MikifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibmFtZSA9ICfOhs69zr3OsSdcbnNjb3JlID0gOTEuMzc1XG5jb3VudCA9IDdcblxuIyDOnM6tz4POsSDPg8+EzrEgzqzOs866zrnPg8+Ez4HOsSDOvM+AzrHOr869zrXOuSDOn86gzp/Omc6RzpTOl86gzp/OpM6VIM6tzrrPhs+BzrHPg863IFB5dGhvbjpcbnByaW50KGYnzpcge25hbWV9IM6tzrvPhc+DzrUge2NvdW50fSDOsc+Az4wgz4TOsSAxMCAtLSDPgM6/z4POv8+Dz4TPjCB7Y291bnQgLyAxMDouMCV9LicpXG5wcmludChmJ86fIM60zrnPgM67zqzPg865zr/PgiDOss6xzrjOvM+Mz4IgzrjOsSDOrs+EzrHOvSB7c2NvcmUgKiAyfS4nKSJ9
 </script>
 </div>
-<p>Και οι δύο δίνουν το ίδιο αποτέλεσμα — η διαφορά είναι στην απόδοση όταν το πλήθος των κομματιών γίνεται πολύ μεγάλο, και στο ότι το <code>''.join(...)</code> εκφράζει πιο άμεσα την πρόθεσή μας (“ένωσε αυτά τα κομμάτια”), χωρίς να χρειάζεται καν ρητός βρόχος.</p>
+<p>Μετά από <code>:</code> μέσα στα άγκιστρα δίνουμε μια <strong>προδιαγραφή μορφής</strong>: <code>.2f</code> για πλήθος δεκαδικών, έναν αριθμό για ελάχιστο πλάτος πεδίου, <code>&lt;</code> <code>^</code> <code>&gt;</code> για στοίχιση (αριστερά / κέντρο / δεξιά), <code>0</code> για συμπλήρωση με μηδενικά, <code>,</code> για διαχωριστικό χιλιάδων:</p>
+<div>
+<div id="pyodide-12" class="exercise-cell">
+
+</div>
+<script type="pyodide-12-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2NvcmUgPSA5MS4zNzVcblxucHJpbnQoZidbe3Njb3JlOi4yZn1dJykgICAgICAjIFs5MS4zOF0gICAgICAtLSAyIM60zrXOus6xzrTOuc66zqwsIM68zrUgz4PPhM+Bzr/Os86zz4XOu86/z4DOv86vzrfPg863XG5wcmludChmJ1t7c2NvcmU6MTAuMmZ9XScpICAgICMgWyAgICAgOTEuMzhdIC0tIM+DzrUgz4DOtc60zq/OvyDPgM67zqzPhM6/z4XPgiAxMCAozrTOtc6+zrnOrCDPg8+Ezr/Or8+HzrnPg863KVxucHJpbnQoZidbe1wizobOvc69zrFcIjo8MTB9XScpICAgICAjIFvOhs69zr3OsSAgICAgIF0gLS0gzrHPgc65z4PPhM61z4HOriDPg8+Ezr/Or8+HzrnPg863IM+DzrUgz4DOu86sz4TOv8+CIDEwXG5wcmludChmJ1t7XCLOhs69zr3OsVwiOl4xMH1dJykgICAgICMgWyAgIM6Gzr3Ovc6xICAgXSAtLSDOus61zr3PhM+BzqzPgc65z4POvM6xXG5wcmludChmJ1t7NzowM2R9XScpICAgICAgICAgICMgWzAwN10gICAgICAgIC0tIM6xzrrOrc+BzrHOuc6/z4IgzrzOtSDOvM63zrTOtc69zrnOus6sIM68z4DPgc6/z4PPhM6sXG5wcmludChmJ1t7MTIzNDU2NzosfV0nKSAgICAgICMgWzEsMjM0LDU2N10gIC0tIM60zrnOsc+Hz4nPgc65z4PPhM65zrrPjCDPh865zrvOuc6szrTPic69In0=
+</script>
+</div>
+<p>Μερικές ακόμα χρήσιμες μορφές — «πινακάκι» με στοιχισμένες στήλες, άλλες βάσεις αρίθμησης, και η μορφή <code>{έκφραση=}</code> που τυπώνει μαζί το όνομα και την τιμή (βολικό στον εντοπισμό σφαλμάτων):</p>
+<div>
+<div id="pyodide-13" class="exercise-cell">
+
+</div>
+<script type="pyodide-13-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoZid7XCLOoM+MzrvOt1wiOjwxMn17XCLCsENcIjo+N30nKVxucHJpbnQoZid7XCLOkc64zq7Ovc6xXCI6PDEyfXszMS40Oj43LjFmfScpXG5wcmludChmJ3tcIs6YzrXPg8+DzrHOu86/zr3Or866zrdcIjo8MTJ9ezI4Ljc1Oj43LjFmfScpXG5cbm4gPSAyNTVcbnByaW50KGYne259IM+Dz4TOvyDOtM+FzrHOtM65zrrPjDoge246Yn0sIM+Dz4TOvyDOtM61zrrOsc61zr7Osc60zrnOus+MOiB7bjp4fScpXG5cbnggPSAzXG5wcmludChmJ3t4ICsgMSA9IH0nKSAgICAgICMgeCArIDEgPSA0In0=
+</script>
+</div>
+<p>Θα συναντήσετε και δύο παλαιότερους τρόπους: τη μορφοποίηση τύπου <em>printf</em> με τον τελεστή <code>%</code> (<code>'%.2f' % score</code>) και τη μέθοδο <code>str.format()</code> (<code>'{:.2f}'.format(score)</code>). Κάνουν την ίδια δουλειά, αλλά οι f-strings είναι πιο ευανάγνωστες και ο προτιμώμενος τρόπος από την Python 3.6 και μετά — θα τις χρησιμοποιούμε παντού από την Εβδομάδα 3 και έπειτα (και ήδη στις εφαρμογές αυτής της εβδομάδας, παρακάτω).</p>
 </section>
 </section>
-<section id="όγκος-σφαίρας-και-άλλων-στερεών" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Όγκος σφαίρας και άλλων στερεών</h1>
+<section id="βιβλιοθήκες-και-η-βιβλιοθήκη-math" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Βιβλιοθήκες και η βιβλιοθήκη <code>math</code></h1>
+<p>Η Python “από μόνη της” ξέρει τους τελεστές <code>+</code>, <code>*</code>, <code>**</code> κ.λπ., αλλά <strong>δεν</strong> ξέρει έτοιμες τη ρίζα, τον λογάριθμο ή το ημίτονο. Τέτοιες συναρτήσεις είναι οργανωμένες σε <strong>βιβλιοθήκες (libraries)</strong>: αρχεία με έτοιμο κώδικα που φορτώνουμε μόνο όταν τους χρειαζόμαστε. Μια βιβλιοθήκη που έρχεται μαζί με την Python λέγεται και <strong>module</strong> — και το πιο βασικό για μαθηματικά είναι το <code>math</code>.</p>
+<section id="η-εντολή-import" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="η-εντολή-import"><span class="header-section-number">3.1</span> Η εντολή <code>import</code></h2>
+<p>Για να χρησιμοποιήσουμε μια βιβλιοθήκη, την <strong>εισάγουμε</strong> με την εντολή <code>import</code>. Η συνηθισμένη μορφή φέρνει ολόκληρο το module κάτω από το όνομά του· έπειτα προσπελαύνουμε το περιεχόμενό του με την <strong>τελεία</strong> (<code>module.όνομα</code>):</p>
+<div>
+<div id="pyodide-14" class="exercise-cell">
+
+</div>
+<script type="pyodide-14-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcblxucHJpbnQobWF0aC5zcXJ0KDIpKSAgICAjIM+EzrXPhM+BzrHOs8+Jzr3Ouc66zq4gz4HOr862zrFcbnByaW50KG1hdGgucGkpICAgICAgICAgIyDOtyDPg8+EzrHOuM61z4HOrCDPgCAtLSDOrc69zrEgz4zOvc6/zrzOsSDPgM6/z4UgXCLOts61zrlcIiDOvM6tz4POsSDPg8+Ezr8gbWF0aCJ9
+</script>
+</div>
+<p>Το <code>math.sqrt</code> διαβάζεται «η <code>sqrt</code> <strong>από το</strong> <code>math</code>». Το πρόθεμα <code>math.</code> ξεκαθαρίζει από πού προέρχεται το όνομα, ώστε δύο διαφορετικές βιβλιοθήκες να μπορούν να έχουν συνάρτηση με το ίδιο όνομα χωρίς σύγκρουση.</p>
+<p>Υπάρχουν και δύο παραλλαγές της <code>import</code>:</p>
+<div>
+<div id="pyodide-15" class="exercise-cell">
+
+</div>
+<script type="pyodide-15-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZnJvbSBtYXRoIGltcG9ydCBzcXJ0LCBwaSAgICAgIyDPhs6tz4HOtSDOnM6fzp3OnyDOsc+Fz4TOrCDPhM6xIM6/zr3PjM68zrHPhM6xIC0tIM+EzrEgzrPPgc6sz4bOv8+FzrzOtSDPh8+Jz4HOr8+CIM+Az4HPjM64zrXOvM6xXG5wcmludChzcXJ0KDIpLCBwaSlcblxuaW1wb3J0IG1hdGggYXMgbSAgICAgICAgICAgICAgIyDOtM+Oz4POtSDPg8+Ezr8gbW9kdWxlIM6tzr3OsSDPg8+Nzr3PhM6/zrzOvyDPiM61z4XOtM+Ozr3Phc68zr9cbnByaW50KG0uY29zKDApKSJ9
+</script>
+</div>
+<ul>
+<li><code>from math import sqrt</code> — γράφουμε σκέτο <code>sqrt(2)</code>. Βολικό, αλλά αν αργότερα κάνουμε <code>import</code> και άλλο module που έχει κι αυτό <code>sqrt</code>, το ένα «σκεπάζει» το άλλο.</li>
+<li><code>import math as m</code> — χρήσιμο για βιβλιοθήκες με μεγάλο όνομα· θα δούμε το <code>import matplotlib.pyplot as plt</code> στην Εβδομάδα 10.</li>
+</ul>
+<p>Αποφεύγουμε το <code>from math import *</code> (φέρνει <em>όλα</em> τα ονόματα μαζί): γεμίζει το πρόγραμμα με ονόματα άγνωστης προέλευσης.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    P["το πρόγραμμά μας"] --&gt;|"import math"| M["module math
+pi · e · tau
+sqrt · pow · isqrt · hypot
+log · log2 · log10 · exp
+sin · cos · tan · radians · degrees
+floor · ceil · factorial · gcd"]
+    M --&gt;|"math.sqrt(2)"| R["1.4142135..."]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="σταθερές-και-βασικές-συναρτήσεις" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="σταθερές-και-βασικές-συναρτήσεις"><span class="header-section-number">3.2</span> Σταθερές και βασικές συναρτήσεις</h2>
+<p>Το <code>math</code> περιέχει τις σταθερές που χρειαζόμαστε συχνότερα, καθώς και συναρτήσεις για ρίζες, δυνάμεις και στρογγυλοποίηση προς ακέραιο:</p>
+<div>
+<div id="pyodide-16" class="exercise-cell">
+
+</div>
+<script type="pyodide-16-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcblxuIyDPg8+EzrHOuM61z4HOrc+CXG5wcmludChtYXRoLnBpLCBtYXRoLmUsIG1hdGgudGF1KSAgICAgIyDPgCwgIGUsICDPhCA9IDLPgFxucHJpbnQobWF0aC5pbmYsIG1hdGgubmFuKSAgICAgICAgICAgICMgzqzPgM61zrnPgc6/LCAgXCLOtM61zr0gzrXOr869zrHOuSDOsc+BzrnOuM68z4zPglwiXG5cbiMgz4HOr862zrXPgiDOus6xzrkgzrTPhc69zqzOvM61zrnPglxucHJpbnQobWF0aC5zcXJ0KDE0NCkpICAgICMgMTIuMCAgLS0gz4DOrM69z4TOsSBmbG9hdFxucHJpbnQobWF0aC5pc3FydCgxNDQpKSAgICMgMTIgICAgLS0gzrHOus6tz4HOsc65zrEgz4HOr862zrEgzrHOus61z4HOsc6vzr/PhVxucHJpbnQobWF0aC5wb3coMiwgMTApKSAgICMgMTAyNC4wXG5wcmludChtYXRoLmh5cG90KDMsIDQpKSAgIyA1LjAgICAtLSBzcXJ0KDMqKjIgKyA0KioyKSwgzrcgz4XPgM6/z4TOtc6vzr3Ov8+Fz4POsVxuXG4jIM+Dz4TPgc6/zrPOs8+FzrvOv8+Azr/Or863z4POtyDPgM+Bzr/PgiDOsc66zq3Pgc6xzrnOv1xucHJpbnQobWF0aC5mbG9vcigyLjcpLCBtYXRoLmNlaWwoMi4xKSwgbWF0aC50cnVuYygtMi43KSkgICAjIDIgIDMgIC0yXG5cbiMgzrHPgM6xz4HOr864zrzOt8+DzrdcbnByaW50KG1hdGguZmFjdG9yaWFsKDUpKSAgICMgMTIwXG5wcmludChtYXRoLmdjZCgyNCwgMzYpKSAgICAjIDEyICAtLSDOvM6tzrPOuc+Dz4TOv8+CIM66zr/Ouc69z4zPgiDOtM65zrHOuc+Bzq3PhM63z4IifQ==
+</script>
+</div>
+</section>
+<section id="ρίζες-λογάριθμοι-και-εκθετική" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="ρίζες-λογάριθμοι-και-εκθετική"><span class="header-section-number">3.3</span> Ρίζες, λογάριθμοι και εκθετική</h2>
+<p>Η <code>math.log(x)</code> είναι ο <strong>φυσικός</strong> λογάριθμος (βάση <code>e</code>). Με δεύτερο όρισμα δίνουμε άλλη βάση, ενώ οι <code>log2</code> και <code>log10</code> είναι έτοιμες συντομεύσεις. Η <code>math.exp(x)</code> υπολογίζει το <code>e**x</code>:</p>
+<div>
+<div id="pyodide-17" class="exercise-cell">
+
+</div>
+<script type="pyodide-17-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcblxucHJpbnQobWF0aC5sb2cobWF0aC5lKSkgICAgIyDPhs+Fz4POuc66z4zPgiDOu86/zrPOrM+BzrnOuM68zr/PgjogMS4wXG5wcmludChtYXRoLmxvZyg4LCAyKSkgICAgICAjIM67zr/Os86sz4HOuc64zrzOv8+CIM68zrUgzrLOrM+DzrcgMjogMy4wXG5wcmludChtYXRoLmxvZzIoMTAyNCkpICAgICAjIDEwLjBcbnByaW50KG1hdGgubG9nMTAoMTAwMCkpICAgICMgMy4wXG5wcmludChtYXRoLmV4cCgxKSkgICAgICAgICAjIGUgKiogMVxuXG4jIM63IM64zrXOvM61zrvOuc+OzrTOt8+CIM+EzrHPhc+Ez4zPhM63z4TOsSDPhM6/z4UgzrvOv86zzrHPgc6vzrjOvM6/z4U6IGxvZyhhwrdiKSA9IGxvZyhhKSArIGxvZyhiKVxuYSwgYiA9IDYsIDdcbnByaW50KG1hdGguaXNjbG9zZShtYXRoLmxvZyhhICogYiksIG1hdGgubG9nKGEpICsgbWF0aC5sb2coYikpKSJ9
+</script>
+</div>
+<p>Οι τρεις αυτές συναρτήσεις έχουν πολύ διαφορετική «ταχύτητα ανάπτυξης» — ας τις δούμε στο ίδιο γράφημα (με το <code>matplotlib</code>, που θα γνωρίσουμε αναλυτικά στην Εβδομάδα 10):</p>
+<div>
+<div id="pyodide-18" class="exercise-cell">
+
+</div>
+<script type="pyodide-18-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcbmltcG9ydCBtYXRwbG90bGliLnB5cGxvdCBhcyBwbHRcblxueHMgPSBbaSAvIDIwIGZvciBpIGluIHJhbmdlKDEsIDEwMSldICAgICMgMC4wNSwgMC4xMCwgLi4uLCA1LjBcblxucGx0LnBsb3QoeHMsIFttYXRoLnNxcnQoeCkgZm9yIHggaW4geHNdLCBsYWJlbD0nbWF0aC5zcXJ0KHgpJylcbnBsdC5wbG90KHhzLCBbbWF0aC5sb2coeCkgZm9yIHggaW4geHNdLCBsYWJlbD0nbWF0aC5sb2coeCkgICjPhs+Fz4POuc66z4zPgiknKVxucGx0LnBsb3QoeHMsIFttYXRoLmV4cCh4IC8gMykgZm9yIHggaW4geHNdLCBsYWJlbD0nbWF0aC5leHAoeC8zKScpXG5wbHQuYXhobGluZSgwLCBjb2xvcj0nZ3JheScsIGxpbmV3aWR0aD0wLjgpXG5wbHQueGxhYmVsKCd4Jyk7IHBsdC5sZWdlbmQoKTsgcGx0LnRpdGxlKCfOoc6vzrbOsSwgzrvOv86zzqzPgc65zrjOvM6/z4IsIM61zrrOuM61z4TOuc66zq4nKVxucGx0LnNob3coKSJ9
+</script>
+</div>
+</section>
+<section id="τριγωνομετρικές-συναρτήσεις" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="τριγωνομετρικές-συναρτήσεις"><span class="header-section-number">3.4</span> Τριγωνομετρικές συναρτήσεις</h2>
+<p>Ένα σημείο-παγίδα: οι <code>math.sin</code>, <code>math.cos</code>, <code>math.tan</code> δουλεύουν σε <strong>ακτίνια</strong>, όχι σε μοίρες. Οι <code>math.radians</code> και <code>math.degrees</code> κάνουν τη μετατροπή:</p>
+<div>
+<div id="pyodide-19" class="exercise-cell">
+
+</div>
+<script type="pyodide-19-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcblxucHJpbnQobWF0aC5yYWRpYW5zKDE4MCkpICAgICAgICAjIDE4MMKwIM+DzrUgzrHOus+Ezq/Ovc65zrEgLT4gz4BcbnByaW50KG1hdGguZGVncmVlcyhtYXRoLnBpKSkgICAgIyDPgCDOsc66z4TOr869zrnOsSDPg861IM68zr/Or8+BzrXPgiAtPiAxODAuMFxuXG5wcmludChtYXRoLnNpbihtYXRoLnBpIC8gNikpICAgICMgzrfOvCgzMMKwKSA9IDAuNSAgKM68zrUgzrzOuc66z4HPjCDPg8+GzqzOu868zrEgz4PPhM+Bzr/Os86zz4XOu86/z4DOv86vzrfPg863z4IpXG5wcmludChtYXRoLmNvcygwKSkgICAgICAgICAgICAgICMgMS4wXG5wcmludChtYXRoLnRhbihtYXRoLnBpIC8gNCkpICAgICMgfjEuMFxuXG4jIM6zz4nOvc6vzrEgzrHPgM+MIM+Dz4XOvc+EzrXPhM6xzrPOvM6tzr3Otc+CICh4LCB5KSwgz4PPhM6/IM+Dz4nPg8+Ez4wgz4TOtc+EzrHPgc+EzrfOvM+Mz4HOuc6/XG5wcmludChtYXRoLmRlZ3JlZXMobWF0aC5hdGFuMigxLCAxKSkpICAgICMgNDUuMCJ9
+</script>
+</div>
+<div>
+<div id="pyodide-20" class="exercise-cell">
+
+</div>
+<script type="pyodide-20-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcbmltcG9ydCBtYXRwbG90bGliLnB5cGxvdCBhcyBwbHRcblxuZGVnID0gbGlzdChyYW5nZSgwLCAzNjEsIDIpKVxucmFkID0gW21hdGgucmFkaWFucyhkKSBmb3IgZCBpbiBkZWddXG5cbnBsdC5wbG90KGRlZywgW21hdGguc2luKHQpIGZvciB0IGluIHJhZF0sIGxhYmVsPSdzaW4nKVxucGx0LnBsb3QoZGVnLCBbbWF0aC5jb3ModCkgZm9yIHQgaW4gcmFkXSwgbGFiZWw9J2NvcycpXG5wbHQueGxhYmVsKCfOvM6/zq/Pgc61z4InKTsgcGx0LmxlZ2VuZCgpOyBwbHQuZ3JpZChUcnVlLCBhbHBoYT0wLjMpXG5wbHQudGl0bGUoJ86czq/OsSDPgM67zq7Pgc63z4Igz4DOtc+BzrnPg8+Ez4HOv8+Gzq4nKVxucGx0LnNob3coKSJ9
+</script>
+</div>
+</section>
+</section>
+<section id="όγκος-σφαίρας-και-άλλων-στερεών" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Όγκος σφαίρας και άλλων στερεών</h1>
 <p>Με απλές αριθμητικές πράξεις μπορούμε να υπολογίσουμε τον όγκο βασικών στερεών σωμάτων, δεδομένης της ακτίνας <span class="math inline">\(r\)</span> (και, όπου χρειάζεται, του ύψους <span class="math inline">\(h\)</span>):</p>
 <p><span class="math display">\[
 V_{\text{σφαίρα}} = \frac{4}{3}\pi r^3, \qquad
@@ -298,65 +502,101 @@ V_{\text{κύλινδρος}} = \pi r^2 h, \qquad
 V_{\text{κώνος}} = \frac{1}{3}\pi r^2 h.
 \]</span></p>
 <div>
-<div id="pyodide-12" class="exercise-cell">
+<div id="pyodide-21" class="exercise-cell">
 
 </div>
-<script type="pyodide-12-contents">
+<script type="pyodide-21-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG1hdGhcblxuciA9IDMuMCAgICAjIM6xzrrPhM6vzr3OsSwgz4POtSDOtc66zrHPhM6/z4PPhM6sIC0tIM6xzrvOu86szr7PhM61IM61zrvOtc+NzrjOtc+BzrFcbmggPSA4LjAgICAgIyDPjc+Izr/PgiAozrzPjM69zr8gzrPOuc6xIM66z43Ou865zr3OtM+Bzr8vzrrPjs69zr8pXG5cbnNwaGVyZV92b2x1bWUgPSAoNC8zKSAqIG1hdGgucGkgKiByKiozXG5jeWxpbmRlcl92b2x1bWUgPSBtYXRoLnBpICogcioqMiAqIGhcbmNvbmVfdm9sdW1lID0gKDEvMykgKiBtYXRoLnBpICogcioqMiAqIGhcblxucHJpbnQoZifOjM6zzrrOv8+CIM+Dz4bOsc6vz4HOsc+CIM6xzrrPhM6vzr3Osc+CIHtyfTogICAge3NwaGVyZV92b2x1bWU6LjJmfSBjbcKzJylcbnByaW50KGYnzozOs866zr/PgiDOus+FzrvOr869zrTPgc6/z4UgKHI9e3J9LCBoPXtofSk6IHtjeWxpbmRlcl92b2x1bWU6LjJmfSBjbcKzJylcbnByaW50KGYnzozOs866zr/PgiDOus+Ozr3Ov8+FIChyPXtyfSwgaD17aH0pOiAgICAge2NvbmVfdm9sdW1lOi4yZn0gY23CsycpIn0=
 </script>
 </div>
 <p>Παρατηρήστε ότι ο κώνος έχει πάντα το <span class="math inline">\(\frac{1}{3}\)</span> του όγκου του κυλίνδρου με ίδια βάση και ύψος — ας το επαληθεύσουμε ρητά στον κώδικα, αντί απλά να το διαβάσουμε στην έξοδο:</p>
 <div>
-<div id="pyodide-13" class="exercise-cell">
+<div id="pyodide-22" class="exercise-cell">
 
 </div>
-<script type="pyodide-13-contents">
+<script type="pyodide-22-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoY29uZV92b2x1bWUsIGN5bGluZGVyX3ZvbHVtZSAvIDMpXG5wcmludChjb25lX3ZvbHVtZSA9PSBjeWxpbmRlcl92b2x1bWUgLyAzKSAgICAgICAgICAjIM65z4PPjM+EzrfPhM6xIGZsb2F0cyAtLSDPg8+Fzr3Ors64z4nPgiDOtc+AzrnOus6vzr3OtM+Fzr3OtyAozpXOss60zr/OvM6szrTOsSAxMClcbnByaW50KG1hdGguaXNjbG9zZShjb25lX3ZvbHVtZSwgY3lsaW5kZXJfdm9sdW1lIC8gMykpICAgIyDOvyDOsc+Dz4bOsc67zq3Pg8+EzrXPgc6/z4Igz4TPgc+Mz4DOv8+CIM+Dz43Os866z4HOuc+DzrfPgiBmbG9hdHMifQ==
 </script>
 </div>
 <p>Δοκιμάστε διαφορετικά <code>r</code> και <code>h</code> παραπάνω και ξανατρέξτε: η ισότητα <code>cone_volume == cylinder_volume / 3</code> “τυχαίνει” να ισχύει ακριβώς εδώ, αλλά γενικά, όταν συγκρίνουμε αποτελέσματα πράξεων κινητής υποδιαστολής, προτιμάμε το <code>math.isclose(...)</code> αντί για το <code>==</code>, ακριβώς επειδή δύο μαθηματικά ίσες ποσότητες μπορεί να υπολογιστούν με ελαφρώς διαφορετική σειρά πράξεων, και να καταλήξουν σε ελαφρώς διαφορετικό αποτέλεσμα λόγω στρογγυλοποίησης.</p>
 </section>
-<section id="μετατροπή-fahrenheit-celsius" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Μετατροπή Fahrenheit ⇄ Celsius</h1>
+<section id="μετατροπή-fahrenheit-celsius" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Μετατροπή Fahrenheit ⇄ Celsius</h1>
 <p>Οι κλίμακες Κελσίου (<span class="math inline">\(C\)</span>) και Φαρενάιτ (<span class="math inline">\(F\)</span>) συνδέονται με τον γραμμικό τύπο</p>
 <p><span class="math display">\[
 F = \frac{9}{5}C + 32 \quad \Longleftrightarrow \quad C = \frac{5}{9}(F - 32).
 \]</span></p>
 <div>
-<div id="pyodide-14" class="exercise-cell">
+<div id="pyodide-23" class="exercise-cell">
 
 </div>
-<script type="pyodide-14-contents">
+<script type="pyodide-23-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY2Vsc2l1cyA9IDI1LjAgICAjIM6xzrvOu86szr7PhM61IM+EzrcgzrjOtc+BzrzOv866z4HOsc+Dzq/OsSDPg861IM6azrXOu8+Dzq/Ov8+FXG5mYWhyZW5oZWl0ID0gY2Vsc2l1cyAqIDkvNSArIDMyXG5wcmludChmJ3tjZWxzaXVzfcKwQyA9IHtmYWhyZW5oZWl0fcKwRicpXG5cbmZhaHJlbmhlaXQyID0gOTguNiAgICMgzrrOsc65IM+Az4HOv8+CIM+EzrfOvSDOsc69z4TOr864zrXPhM63IM66zrHPhM61z43OuM+Fzr3Pg863XG5jZWxzaXVzMiA9IChmYWhyZW5oZWl0MiAtIDMyKSAqIDUvOVxucHJpbnQoZid7ZmFocmVuaGVpdDJ9wrBGID0ge2NlbHNpdXMyOi4yZn3CsEMnKSJ9
 </script>
 </div>
 <p>Δοκιμάστε το χαρακτηριστικό σημείο όπου οι δύο κλίμακες συμφωνούν: για <span class="math inline">\(C = -40\)</span>, βρείτε ότι και το <code>fahrenheit</code> βγαίνει <span class="math inline">\(-40\)</span>.</p>
 </section>
-<section id="ο-κρυπτογράφος-του-καίσαρα" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Ο κρυπτογράφος του Καίσαρα</h1>
-<p>Ο <strong>κρυπτογράφος του Καίσαρα</strong> είναι μια από τις αρχαιότερες γνωστές μεθόδους κρυπτογράφησης: κάθε γράμμα του μηνύματος αντικαθίσταται από το γράμμα που βρίσκεται <span class="math inline">\(k\)</span> θέσεις μετά, στο κυκλικά επαναλαμβανόμενο αλφάβητο (μετά το <code>Z</code> ξαναγυρνάμε στο <code>A</code>). Αν αντιστοιχίσουμε στο <code>A</code> το <code>0</code>, στο <code>B</code> το <code>1</code>, …, στο <code>Z</code> το <code>25</code>, τότε η κρυπτογράφηση ενός γράμματος με αριθμό θέσης <span class="math inline">\(p\)</span> είναι μια πράξη <strong>αρθμητικής υπολοίπου (modular arithmetic)</strong>:</p>
+<section id="το-κρυπτοσύστημα-του-καίσαρα" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Το κρυπτοσύστημα του Καίσαρα</h1>
+<p>Το <strong>κρυπτοσύστημα του Καίσαρα</strong> είναι μια από τις αρχαιότερες γνωστές μεθόδους κρυπτογράφησης: κάθε γράμμα του μηνύματος αντικαθίσταται από το γράμμα που βρίσκεται <span class="math inline">\(k\)</span> θέσεις μετά, στο κυκλικά επαναλαμβανόμενο αλφάβητο (μετά το <code>Z</code> ξαναγυρνάμε στο <code>A</code>). Αν αντιστοιχίσουμε στο <code>A</code> το <code>0</code>, στο <code>B</code> το <code>1</code>, …, στο <code>Z</code> το <code>25</code>, τότε η κρυπτογράφηση ενός γράμματος με αριθμό θέσης <span class="math inline">\(p\)</span> είναι μια πράξη <strong>αριθμητικής υπολοίπου (modular arithmetic)</strong>:</p>
 <p><span class="math display">\[
 E(p) = (p + k) \bmod 26.
 \]</span></p>
-<p>Χρησιμοποιώντας τις <code>ord</code> και <code>chr</code> μπορούμε να υλοποιήσουμε την κρυπτογράφηση και την αποκρυπτογράφηση απευθείας πάνω σε αλφαβητικούς χαρακτήρες, αφήνοντας κενά και σημεία στίξης αμετάβλητα. Ο κώδικας εξετάζει τους χαρακτήρες του μηνύματος έναν-έναν με έναν βρόχο <code>for</code>, όπως και παραπάνω, χτίζοντας το αποτέλεσμα με <code>result += ...</code> σε μια νέα, τοπική μεταβλητή <code>result</code> σε κάθε κλήση:</p>
+<p>Για κλειδί <span class="math inline">\(k = 3\)</span>, το <code>A</code> γίνεται <code>D</code>, το <code>B</code> γίνεται <code>E</code>, … και κοντά στο τέλος του αλφαβήτου η ολίσθηση «τυλίγεται» πίσω στην αρχή χάρη στο <code>mod 26</code>:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
 <div>
-<div id="pyodide-15" class="exercise-cell">
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    subgraph P ["απλό γράμμα  (θέση p)"]
+        direction TB
+        pA["A · 0"]
+        pB["B · 1"]
+        pX["X · 23"]
+        pY["Y · 24"]
+        pZ["Z · 25"]
+    end
+    subgraph C ["κρυπτογράφημα  ((p + 3) mod 26)"]
+        direction TB
+        cD["D · 3"]
+        cE["E · 4"]
+        cA["A · 0"]
+        cB["B · 1"]
+        cC["C · 2"]
+    end
+    pA --&gt; cD
+    pB --&gt; cE
+    pX --&gt; cA
+    pY --&gt; cB
+    pZ --&gt; cC
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Χρησιμοποιώντας τις <code>ord</code> και <code>chr</code> μπορούμε να υλοποιήσουμε την κρυπτογράφηση και την αποκρυπτογράφηση απευθείας πάνω σε αλφαβητικούς χαρακτήρες, αφήνοντας κενά και σημεία στίξης αμετάβλητα. Ο κώδικας εξετάζει τους χαρακτήρες του μηνύματος έναν-έναν με έναν βρόχο <code>for</code> (θα τον μελετήσουμε αναλυτικά στην Εβδομάδα 4), χτίζοντας σταδιακά το αποτέλεσμα στην τοπική μεταβλητή <code>result</code>:</p>
+<div>
+<div id="pyodide-24" class="exercise-cell">
 
 </div>
-<script type="pyodide-15-contents">
+<script type="pyodide-24-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVmIGNhZXNhcl9zaGlmdCh0ZXh0LCBrKTpcbiAgICByZXN1bHQgPSAnJ1xuICAgIGZvciBjaCBpbiB0ZXh0OlxuICAgICAgICBpZiBjaC5pc2FscGhhKCk6XG4gICAgICAgICAgICBiYXNlID0gb3JkKCdBJykgaWYgY2guaXN1cHBlcigpIGVsc2Ugb3JkKCdhJylcbiAgICAgICAgICAgIHNoaWZ0ZWQgPSAob3JkKGNoKSAtIGJhc2UgKyBrKSAlIDI2XG4gICAgICAgICAgICByZXN1bHQgKz0gY2hyKGJhc2UgKyBzaGlmdGVkKVxuICAgICAgICBlbHNlOlxuICAgICAgICAgICAgcmVzdWx0ICs9IGNoICAgIyDOus61zr3OrCwgz4POt868zrXOr86xIM+Dz4TOr86+zrfPgiDOui7Ou8+ALiDOvM6tzr3Ov8+Fzr0gz4nPgiDOrc+Hzr/Phc69XG4gICAgcmV0dXJuIHJlc3VsdFxuXG5tZXNzYWdlID0gJ01lZXQgbWUgYXQgZGF3bicgICAjIM6xzrvOu86szr7PhM61IM+Ezr8gzrzOrs69z4XOvM6xXG5rID0gMyAgICAgICAgICAgICAgICAgICAgICAgICAgIyDOsc67zrvOrM6+z4TOtSDPhM6/IM66zrvOtc65zrTOryDOv867zq/Pg864zrfPg863z4JcblxuZW5jcnlwdGVkID0gY2Flc2FyX3NoaWZ0KG1lc3NhZ2UsIGspXG5kZWNyeXB0ZWQgPSBjYWVzYXJfc2hpZnQoZW5jcnlwdGVkLCAtaykgICAjIM6xz4DOv866z4HPhc+Az4TOv86zz4HOrM+GzrfPg863OiDOv867zq/Pg864zrfPg863IM+Az4HOv8+CIM+EzrEgz4DOr8+Dz4lcblxucHJpbnQoJ86Rz4HPh865zrrPjCDOvM6uzr3Phc68zrE6ICcsIG1lc3NhZ2UpXG5wcmludCgnzprPgc+Fz4DPhM6/zrPPgc6xz4bOt868zq3Ovc6/OicsIGVuY3J5cHRlZClcbnByaW50KCfOkc+Azr/Ous+Bz4XPgM+Ezr/Os8+BzrHPhs63zrzOrc69zr86JywgZGVjcnlwdGVkKSJ9
 </script>
 </div>
 <p>Παρατηρήστε ότι η αποκρυπτογράφηση είναι απλώς μια κρυπτογράφηση με αντίθετο κλειδί, <code>-k</code>, χάρη στην αριθμητική υπολοίπου (το πηλίκο <code>%</code> στην Python δίνει πάντα μη αρνητικό αποτέλεσμα για θετικό διαιρέτη, οπότε η ολίσθηση “τυλίγεται” σωστά και προς τις δύο κατευθύνσεις). Δοκιμάστε <code>k = 13</code> — είναι ο γνωστός αλγόριθμος <strong>ROT13</strong>, όπου η κρυπτογράφηση είναι η δική της αντίστροφη συνάρτηση (<code>caesar_shift(caesar_shift(text, 13), 13) == text</code>)!</p>
 </section>
-<section id="σύνοψη" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Σύνοψη</h1>
+<section id="σύνοψη" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Σύνοψη</h1>
 <p>Σε αυτή την εβδομάδα είδαμε:</p>
 <ul>
 <li><strong>Αριθμητικούς τελεστές</strong>, προτεραιότητα πράξεων, και τελεστές επαυξημένης εκχώρησης.</li>
 <li>Δύο συνηθισμένα σφάλματα: <code>ZeroDivisionError</code>, και <strong>υπερχείλιση (overflow)</strong> — πώς αναπαρίστανται ακέραιοι και <code>float</code> στη μνήμη, και γιατί μόνο ο δεύτερος υπερχειλίζει.</li>
 <li><strong>Συμβολοσειρές</strong>: δείκτες, τεμαχισμός, αμεταβλητότητα, τον τελεστή <code>in</code>, μεθόδους (<code>strip</code>, <code>split</code>, <code>replace</code>, …), και τις <code>ord</code>/<code>chr</code>.</li>
-<li>Το χαρακτηριστικό <code>+=</code> έναντι <code>''.join()</code>: τεχνική για πιο αποδοτική κατασκευή μεγάλων συμβολοσειρών.</li>
+<li><strong>Βιβλιοθήκες</strong> και η εντολή <code>import</code> (τρεις μορφές: <code>import math</code>, <code>from math import ...</code>, <code>import math as m</code>), και το πρόβλημα του <code>from ... import *</code>.</li>
+<li>Η βιβλιοθήκη <strong><code>math</code></strong>: σταθερές (<code>pi</code>, <code>e</code>, <code>tau</code>), ρίζες και δυνάμεις (<code>sqrt</code>, <code>isqrt</code>, <code>hypot</code>), λογάριθμοι (<code>log</code>, <code>log2</code>, <code>log10</code>, <code>exp</code>), τριγωνομετρικές (<code>sin</code>/<code>cos</code>/<code>tan</code> — σε <strong>ακτίνια</strong>, με <code>radians</code>/<code>degrees</code> για μετατροπή), και βοηθητικές (<code>floor</code>, <code>ceil</code>, <code>factorial</code>, <code>gcd</code>, <code>isclose</code>).</li>
+<li><strong>Μαθηματικές εφαρμογές</strong>: όγκοι στερεών, μετατροπή θερμοκρασίας Fahrenheit ⇄ Celsius, και το κρυπτοσύστημα του Καίσαρα ως αριθμητική υπολοίπου (<code>%</code>).</li>
 </ul>
 <hr>
 <p><a href="main.html">⤺ Πίσω στην αρχική σελίδα / πρόγραμμα μαθήματος</a> &nbsp;·&nbsp; <a href="week2-slides.html">Διαφάνειες αυτής της εβδομάδας</a></p>
@@ -364,7 +604,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGVm
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTE1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE1LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTExIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTExLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl85ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzkgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTI0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIxIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIxLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE5IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTkgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE5LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTktY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xOSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE4IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTggPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE4LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xOCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE3IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTcgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE3LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTctY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE2IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTYgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE2LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTYtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE1LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTExIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTExLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl85ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzkgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">

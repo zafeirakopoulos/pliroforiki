@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Προσαρμογή σε διαδραστική μορφή (Τμήμα Μαθηματικών, ΕΚΠΑ)">
 
-<title>141.CS</title>
+<title>Πληροφορική Ι</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,7 +118,12 @@ window.Quarto = {
   <ul>
   <li><a href="#λογικοί-τελεστές-και-η-εντολή-if" id="toc-λογικοί-τελεστές-και-η-εντολή-if" class="nav-link active" data-scroll-target="#λογικοί-τελεστές-και-η-εντολή-if"><span class="header-section-number">1</span> Λογικοί Τελεστές και η Εντολή If</a>
   <ul class="collapse">
-  <li><a href="#λογικές-εκφράσεις" id="toc-λογικές-εκφράσεις" class="nav-link" data-scroll-target="#λογικές-εκφράσεις"><span class="header-section-number">1.1</span> Λογικές εκφράσεις</a></li>
+  <li><a href="#λογικές-εκφράσεις" id="toc-λογικές-εκφράσεις" class="nav-link" data-scroll-target="#λογικές-εκφράσεις"><span class="header-section-number">1.1</span> Λογικές εκφράσεις</a>
+  <ul class="collapse">
+  <li><a href="#οι-τιμές-true-και-false" id="toc-οι-τιμές-true-και-false" class="nav-link" data-scroll-target="#οι-τιμές-true-και-false">Οι τιμές <code>True</code> και <code>False</code></a></li>
+  <li><a href="#κάθε-τιμή-είναι-αληθής-ή-ψευδής" id="toc-κάθε-τιμή-είναι-αληθής-ή-ψευδής" class="nav-link" data-scroll-target="#κάθε-τιμή-είναι-αληθής-ή-ψευδής">Κάθε τιμή είναι “αληθής” ή “ψευδής”</a></li>
+  <li><a href="#οι-and-or-επιστρέφουν-τιμή-όχι-μόνο-truefalse" id="toc-οι-and-or-επιστρέφουν-τιμή-όχι-μόνο-truefalse" class="nav-link" data-scroll-target="#οι-and-or-επιστρέφουν-τιμή-όχι-μόνο-truefalse">Οι <code>and</code> / <code>or</code> επιστρέφουν τιμή, όχι μόνο <code>True</code>/<code>False</code></a></li>
+  </ul></li>
   <li><a href="#η-εντολή-if" id="toc-η-εντολή-if" class="nav-link" data-scroll-target="#η-εντολή-if"><span class="header-section-number">1.2</span> Η εντολή <code>if</code></a></li>
   <li><a href="#χαρακτηριστικό-της-python-δεσμευμένη-έκφραση-if-conditional-expression" id="toc-χαρακτηριστικό-της-python-δεσμευμένη-έκφραση-if-conditional-expression" class="nav-link" data-scroll-target="#χαρακτηριστικό-της-python-δεσμευμένη-έκφραση-if-conditional-expression"><span class="header-section-number">1.3</span> Χαρακτηριστικό της Python: δεσμευμένη έκφραση if (conditional expression)</a></li>
   <li><a href="#επίλυση-δευτεροβάθμιας-εξίσωσης" id="toc-επίλυση-δευτεροβάθμιας-εξίσωσης" class="nav-link" data-scroll-target="#επίλυση-δευτεροβάθμιας-εξίσωσης"><span class="header-section-number">1.4</span> Επίλυση δευτεροβάθμιας εξίσωσης</a></li>
@@ -129,10 +133,84 @@ window.Quarto = {
 </nav>
 </div>
 <main class="content" id="quarto-document-content">
+<style>
+  .uoa-header {
+    max-width: 900px;
+    margin: 0 auto 1.4rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 2px solid #2F80C0;
+  }
+  .uoa-header__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .uoa-header__brand a { display: inline-flex; }
+  .uoa-header__logo { height: 48px; width: auto; }
+  .uoa-header__dept { font-size: 1.05rem; font-weight: 600; color: #2F80C0; }
+  .uoa-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.65rem;
+    font-size: 0.85rem;
+  }
+  .uoa-nav:empty { display: none; }
+  .uoa-nav a {
+    padding: 0.28rem 0.65rem;
+    border: 1px solid #2F80C0;
+    border-radius: 4px;
+    color: #2F80C0;
+    background: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .uoa-nav a:hover, .uoa-nav a:focus-visible { background: #2F80C0; color: #fff; }
+  .uoa-nav__spacer { flex: 1 1 0; }
+  @media (max-width: 600px) {
+    .uoa-header__brand { flex-direction: column; text-align: center; gap: 0.4rem; }
+    .uoa-nav { justify-content: center; }
+    .uoa-nav__spacer { display: none; }
+  }
+</style>
+<div class="uoa-header">
+  <div class="uoa-header__brand">
+    <a href="main.html" aria-label="Αρχική σελίδα / Πρόγραμμα μαθήματος">
+      <img class="uoa-header__logo" src="uoa-logo.svg" alt="Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών">
+    </a>
+    <span class="uoa-header__dept">Τμήμα Μαθηματικών</span>
+  </div>
+  <nav class="uoa-nav" id="uoa-nav" aria-label="Πλοήγηση σημειώσεων"></nav>
+</div>
+<script>
+(function () {
+  function build() {
+    var nav = document.getElementById('uoa-nav');
+    if (!nav) return;
+    var WEEKS = 13;
+    var file = (location.pathname.split('/').pop() || '').toLowerCase();
+    var m = file.match(/^week(\d+)(-slides)?\.html$/);
+    if (!m) return;                       // main.html etc. -> nav stays empty (hidden)
+    var n = parseInt(m[1], 10), isSlides = !!m[2], ext = isSlides ? '-slides.html' : '.html';
+    var out = [];
+    if (n > 1) out.push('<a href="week' + (n - 1) + ext + '" rel="prev">&#8592; Εβδομάδα ' + (n - 1) + '</a>');
+    out.push('<a href="main.html">&#8962; Πρόγραμμα μαθήματος</a>');
+    out.push(isSlides
+      ? '<a href="week' + n + '.html">Πλήρεις σημειώσεις</a>'
+      : '<a href="week' + n + '-slides.html">Διαφάνειες</a>');
+    out.push('<span class="uoa-nav__spacer"></span>');
+    if (n < WEEKS) out.push('<a href="week' + (n + 1) + ext + '" rel="next">Εβδομάδα ' + (n + 1) + ' &#8594;</a>');
+    nav.innerHTML = out.join('');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">141.CS</h1>
+<h1 class="title">Πληροφορική Ι</h1>
 <p class="subtitle lead">Εβδομάδα 3 · Λογικοί Τελεστές και η Εντολή If</p>
 </div>
 
@@ -140,12 +218,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Συγγραφέας</div>
-    <div class="quarto-title-meta-contents">
-             <p>Προσαρμογή σε διαδραστική μορφή (Τμήμα Μαθηματικών, ΕΚΠΑ) </p>
-          </div>
-  </div>
     
   
     
@@ -224,6 +296,57 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSwg
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9IDAuNVxuXG5wcmludCgwIDw9IHggPCAxKSAgICAgICAgICAgICAgICAgICAgICAgICAgIyDOsc67z4XPg865zrTPic+Ezq4gz4PPjc6zzrrPgc65z4POtyAtLSDPg8+Fzr3Ov8+Az4TOuc66z4xcbnByaW50KDAgPD0geCBhbmQgeCA8IDEpICAgICAgICAgICAgICAgICAgICAjIM65z4POv860z43Ovc6xzrzOvywgzrPPgc6xzrzOvM6tzr3OvyDOvM61IGFuZFxucHJpbnQoKDAgPD0geCA8IDEpID09ICgwIDw9IHggYW5kIHggPCAxKSkgICMgVHJ1ZSAtLSDPgM+BzqzOs868zrHPhM65IM65z4POv860z43Ovc6xzrzOsSJ9
 </script>
 </div>
+<section id="οι-τιμές-true-και-false" class="level3">
+<h3 class="anchored" data-anchor-id="οι-τιμές-true-και-false">Οι τιμές <code>True</code> και <code>False</code></h3>
+<p>Οι δύο λογικές τιμές είναι στην πραγματικότητα ειδικοί ακέραιοι: το <code>True</code> “είναι” <code>1</code> και το <code>False</code> “είναι” <code>0</code>.</p>
+<p>Έτσι μπορούν να μπουν και σε αριθμητικές πράξεις, κάτι απρόσμενα χρήσιμο όταν θέλουμε να <strong>μετρήσουμε</strong> πόσες συνθήκες ισχύουν:</p>
+<div>
+<div id="pyodide-4" class="exercise-cell">
+
+</div>
+<script type="pyodide-4-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoMSA9PSAxLjApICAgICAgIyBUcnVlICAtLSDOr860zrnOsSDOsc+BzrnOuM68zrfPhM65zrrOriDPhM65zrzOriAozr8gz4TPjc+Azr/PgiDOtM61zr0gz4DOtc65z4HOrM62zrXOuSDOtc60z44pXG5wcmludCgxID09ICcxJykgICAgICAjIEZhbHNlIC0tIM6xz4HOuc64zrzPjM+CIM66zrHOuSDPg8+FzrzOss6/zrvOv8+DzrXOuc+BzqwgzrTOtc69IM61zq/Ovc6xzrkgz4DOv8+Ezq0gzq/Pg86xXG5wcmludChUcnVlID09IDEpICAgICAjIFRydWVcbnByaW50KFRydWUgKyBUcnVlICsgRmFsc2UpICAgIyAyICAtLSBcIs68zrXPhM+BzqzOtc65XCIgz4DPjM+DzrXPgiDPg8+Fzr3OuM6uzrrOtc+CIM6yzrPOrs66zrHOvSDOsc67zrfOuM61zq/PgiJ9
+</script>
+</div>
+</section>
+<section id="κάθε-τιμή-είναι-αληθής-ή-ψευδής" class="level3">
+<h3 class="anchored" data-anchor-id="κάθε-τιμή-είναι-αληθής-ή-ψευδής">Κάθε τιμή είναι “αληθής” ή “ψευδής”</h3>
+<p>Δεν είναι μόνο ο τύπος <code>bool</code> που μπορεί να παίξει ρόλο συνθήκης — <strong>κάθε</strong> τιμή της Python έχει μια λογική ερμηνεία:</p>
+<ul>
+<li>θεωρούνται <strong>ψευδείς</strong> (<code>False</code>) το <code>0</code>, το <code>0.0</code>, η κενή συμβολοσειρά <code>''</code> και το <code>None</code></li>
+<li><strong>οτιδήποτε άλλο</strong> θεωρείται <strong>αληθές</strong> (<code>True</code>)</li>
+</ul>
+<p>Το βλέπουμε ρητά με τη συνάρτηση <code>bool(...)</code>:</p>
+<div>
+<div id="pyodide-5" class="exercise-cell">
+
+</div>
+<script type="pyodide-5-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoYm9vbCgwKSwgYm9vbCgtMSksIGJvb2woMy4xNCkpICAgICAgIyBGYWxzZSBUcnVlIFRydWVcbnByaW50KGJvb2woJycpLCBib29sKCcgJyksIGJvb2woJ8+Mz4fOuScpKSAgICMgRmFsc2UgVHJ1ZSBUcnVlICAtLSDPhM6/ICcgJyDOlM6Vzp0gzrXOr869zrHOuSDOus61zr3PjCFcbnByaW50KGJvb2woTm9uZSkpICAgICAgICAgICAgICAgICAgICAgICAgICAjIEZhbHNlIn0=
+</script>
+</div>
+</section>
+<section id="οι-and-or-επιστρέφουν-τιμή-όχι-μόνο-truefalse" class="level3">
+<h3 class="anchored" data-anchor-id="οι-and-or-επιστρέφουν-τιμή-όχι-μόνο-truefalse">Οι <code>and</code> / <code>or</code> επιστρέφουν τιμή, όχι μόνο <code>True</code>/<code>False</code></h3>
+<p>Ένα λιγότερο γνωστό στοιχείο: οι <code>and</code> και <code>or</code> επιστρέφουν <strong>ένα από τα δύο ορίσματά τους</strong> — αυτό που καθόρισε το αποτέλεσμα — και όχι απαραίτητα ένα καθαρό <code>True</code>/<code>False</code>:</p>
+<div>
+<div id="pyodide-6" class="exercise-cell">
+
+</div>
+<script type="pyodide-6-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoMyBhbmQgNSkgICAgICAjIDUgICAtLSDOus6xzrkgz4TOsSDOtM+Nzr8gzrHOu863zrjOriAgLT4gIM61z4DOuc+Dz4TPgc6tz4bOtc65IM+Ezr8gzrTOtc+Nz4TOtc+Bzr9cbnByaW50KDAgYW5kIDUpICAgICAgIyAwICAgLS0gz4TOvyDPgM+Bz47PhM6/IM+IzrXPhc60zq3PgiAgIC0+ICDOtc+AzrnPg8+Ez4HOrc+GzrXOuSDOsc+Fz4TPjCAoz4TOvyA1IM60zrXOvSDOsc+Azr/PhM65zrzOrM+EzrHOuSlcbnByaW50KCcnIG9yICfPgM+Bzr/Otc+AzrnOu86/zrPOricpICAgICAgICMgJ8+Az4HOv861z4DOuc67zr/Os86uJ1xucHJpbnQoJ86Gzr3Ovc6xJyBvciAnz4DPgc6/zrXPgM65zrvOv86zzq4nKSAgICMgJ86Gzr3Ovc6xJyJ9
+</script>
+</div>
+<p>Αυτό, μαζί με το short-circuit, μας προστατεύει και από σφάλματα: αν το αριστερό μέλος ενός <code>and</code> είναι ψευδές, το δεξί δεν αποτιμάται καθόλου.</p>
+<div>
+<div id="pyodide-7" class="exercise-cell">
+
+</div>
+<script type="pyodide-7-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9IDBcbnByaW50KHggIT0gMCBhbmQgMTAgLyB4ID4gMSkgICAjIEZhbHNlIC0tIM+Ezr8gMTAgLyB4IM6UzpXOnSDPhc+Azr/Ou86/zrPOr862zrXPhM6xzrk6IM66zrHOvc6tzr3OsSBaZXJvRGl2aXNpb25FcnJvclxuXG55ID0gNFxucHJpbnQoeSAhPSAwIGFuZCAxMCAvIHkgPiAxKSAgICMgVHJ1ZSAgLS0gzrXOtM+OIM+Ezr8gzrTOtc6+zq8gzrzOrc67zr/PgiDPjM69z4TPic+CIM6xz4DOv8+EzrnOvM6sz4TOsc65In0=
+</script>
+</div>
+</section>
 </section>
 <section id="η-εντολή-if" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="η-εντολή-if"><span class="header-section-number">1.2</span> Η εντολή <code>if</code></h2>
@@ -236,43 +359,50 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoieCA9
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    εντολές               <span class="co"># εκτελείται αν όλες οι παραπάνω συνθήκες είναι False</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Το <code>elif</code> και το <code>else</code> είναι προαιρετικά, και μπορούν να υπάρχουν όσα <code>elif</code> χρειάζονται. Στην Python, τα όρια ενός μπλοκ κώδικα <strong>δεν</strong> δηλώνονται με άγκιστρα, αλλά με τη <strong>στοίχιση (indentation)</strong> — η ίδια στήλη έναρξης σηματοδοτεί το ίδιο μπλοκ.</p>
 <div>
-<div id="pyodide-4" class="exercise-cell">
+<div id="pyodide-8" class="exercise-cell">
 
 </div>
-<script type="pyodide-4-contents">
+<script type="pyodide-8-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2NvcmUgPSA3OCAgICMgzrHOu867zqzOvs+EzrUgz4TOtyDOss6xzrjOvM6/zrvOv86zzq/OsSDOus6xzrkgzr7Osc69zrHPhM+Bzq3Ovs+EzrVcblxuaWYgc2NvcmUgPiA5MDpcbiAgICBncmFkZSA9ICdBJ1xuZWxpZiBzY29yZSA+IDgwOlxuICAgIGdyYWRlID0gJ0InXG5lbGlmIHNjb3JlID4gNzA6XG4gICAgZ3JhZGUgPSAnQydcbmVsaWYgc2NvcmUgPiA2MDpcbiAgICBncmFkZSA9ICdEJ1xuZWxzZTpcbiAgICBncmFkZSA9ICdGJ1xuXG5wcmludChmJ86czrUgzrLOsc64zrzOv867zr/Os86vzrEge3Njb3JlfSDPg8+EzrEgMTAwLCDOvyDOss6xzrjOvM+Mz4IgzrXOr869zrHOuToge2dyYWRlfScpIn0=
 </script>
 </div>
-<p>Αφού μια συνθήκη αξιολογείται ήδη σε <code>True</code>/<code>False</code>, μια μεταβλητή τύπου <code>bool</code> μπορεί να χρησιμοποιηθεί απευθείας ως συνθήκη: το <code>if test:</code> είναι ισοδύναμο με το <code>if test == True:</code>, και το <code>if not(test):</code> με το <code>if test == False:</code>.</p>
+<p>Αφού μια συνθήκη αποτιμάται ήδη σε <code>True</code>/<code>False</code>, μια μεταβλητή τύπου <code>bool</code> μπορεί να χρησιμοποιηθεί <strong>απευθείας</strong> ως συνθήκη, χωρίς ρητή σύγκριση.</p>
+<p>Δηλαδή:</p>
+<ul>
+<li>το <code>if test:</code> είναι ισοδύναμο με το <code>if test == True:</code></li>
+<li>το <code>if not test:</code> είναι ισοδύναμο με το <code>if test == False:</code></li>
+</ul>
+<p>Η σκέτη μορφή είναι και η προτιμώμενη — το <code>== True</code> είναι περιττό.</p>
 <p>Οι συμβολοσειρές (Εβδομάδα 2) συγκρίνονται με τους ίδιους σχεσιακούς τελεστές: το <code>==</code>/<code>!=</code> ελέγχει ταύτιση, ενώ το <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> συγκρίνει <strong>λεξικογραφικά</strong>, με βάση τον κωδικό ASCII/Unicode κάθε χαρακτήρα, μέχρι την πρώτη διαφορά (ή μέχρι το τέλος της κοντύτερης συμβολοσειράς, αν η μία είναι πρόθεμα της άλλης):</p>
 <div>
-<div id="pyodide-5" class="exercise-cell">
+<div id="pyodide-9" class="exercise-cell">
 
 </div>
-<script type="pyodide-5-contents">
+<script type="pyodide-9-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicHJpbnQoJ2EnIDwgJ2InKSAgICAgICAgICAgICMgVHJ1ZTogzr8gzrrPic60zrnOus+Mz4Igz4TOv8+FICdhJyDOtc6vzr3Osc65IM68zrnOus+Bz4zPhM61z4HOv8+CXG5wcmludCgnSGVsbG8nID4gJ0hlbGwnKSAgICAgIyBUcnVlOiDPhM6/ICdIZWxsbycgzrXOr869zrHOuSDPgM65zr8gzrzOsc66z4HPjSDOsc67zrvOrCDOsc+Bz4fOr862zrXOuSDOr860zrnOsVxucHJpbnQoJ01hcmtvcycgPiAnTWFyaW9zJykgICMgVHJ1ZTogz4TOvyAnaycgzq3Ph861zrkgzrzOtc6zzrHOu8+Nz4TOtc+Bzr8gzrrPic60zrnOus+MIM6xz4DPjCDPhM6/ICdpJ1xucHJpbnQoJ2FwcGxlJyA8ICdCYW5hbmEnKSAgICMgRmFsc2U6IM+Ezr8gz4DOtc62z4wgJ2EnIM6tz4fOtc65IM6czpXOk86RzpvOpc6kzpXOoc6fIM66z4nOtM65zrrPjCDOsc+Az4wgz4TOvyDOus61z4bOsc67zrHOr86/ICdCJyJ9
 </script>
 </div>
-<p>Το τελευταίο παράδειγμα είναι ένα συνηθισμένο “παγίδα”: στον πίνακα ASCII/Unicode, <strong>όλα</strong> τα κεφαλαία γράμματα (<code>A</code>-<code>Z</code>) έχουν μικρότερο κωδικό από <strong>όλα</strong> τα πεζά (<code>a</code>-<code>z</code>) — άρα η λεξικογραφική σύγκριση <strong>δεν</strong> συμπίπτει πάντα με την αλφαβητική σειρά που θα περιμέναμε, αν τα δύο strings δεν έχουν το ίδιο “κεφαλαίο/πεζό” προφίλ.</p>
+<p>Το τελευταίο παράδειγμα είναι μια συνηθισμένη “παγίδα”: στον πίνακα ASCII/Unicode, <strong>όλα</strong> τα κεφαλαία γράμματα (<code>A</code>-<code>Z</code>) έχουν μικρότερο κωδικό από <strong>όλα</strong> τα πεζά (<code>a</code>-<code>z</code>).</p>
+<p>Άρα η λεξικογραφική σύγκριση <strong>δεν</strong> συμπίπτει πάντα με την αλφαβητική σειρά που θα περιμέναμε, όταν τα δύο strings δεν έχουν το ίδιο “κεφαλαίο/πεζό” προφίλ.</p>
 </section>
 <section id="χαρακτηριστικό-της-python-δεσμευμένη-έκφραση-if-conditional-expression" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="χαρακτηριστικό-της-python-δεσμευμένη-έκφραση-if-conditional-expression"><span class="header-section-number">1.3</span> Χαρακτηριστικό της Python: δεσμευμένη έκφραση if (conditional expression)</h2>
 <p>Όταν το μόνο που θέλουμε είναι να επιλέξουμε <strong>μία από δύο τιμές</strong> ανάλογα με μια συνθήκη, η πλήρης <code>if</code>/<code>else</code> με τα μπλοκ της είναι μερικές φορές υπερβολική. Η Python προσφέρει μια συνοπτική <strong>δεσμευμένη έκφραση if</strong> (γνωστή και ως <em>ternary expression</em>), που επιστρέφει μία τιμή ή την άλλη μέσα σε μία μόνο γραμμή:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>τιμή_αν_αληθές <span class="cf">if</span> συνθήκη <span class="cf">else</span> τιμή_αν_ψευδές</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 <div>
-<div id="pyodide-6" class="exercise-cell">
+<div id="pyodide-10" class="exercise-cell">
 
 </div>
-<script type="pyodide-6-contents">
+<script type="pyodide-10-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2NvcmUgPSA1NVxuXG5yZXN1bHQgPSAnzqDOrc+BzrHPg861z4InIGlmIHNjb3JlID49IDUwIGVsc2UgJ86az4zPgM63zrrOtc+CJ1xucHJpbnQocmVzdWx0KVxuXG4jIM6Zz4POv860z43Ovc6xzrzOvywgzrzOtSDPgM67zq7Pgc63IGlmL2Vsc2U6XG5pZiBzY29yZSA+PSA1MDpcbiAgICByZXN1bHQgPSAnzqDOrc+BzrHPg861z4InXG5lbHNlOlxuICAgIHJlc3VsdCA9ICfOms+Mz4DOt866zrXPgidcbnByaW50KHJlc3VsdCkifQ==
 </script>
 </div>
 <p>Ένα συγγενικό ιδίωμα χρησιμοποιεί τον τελεστή <code>or</code> για να δώσει μια <strong>προεπιλεγμένη τιμή</strong> όταν μια μεταβλητή είναι “κενή” (π.χ. κενή συμβολοσειρά, <code>0</code>, ή <code>None</code> — τιμές που η Python θεωρεί <code>False</code> όταν χρησιμοποιούνται ως συνθήκη):</p>
 <div>
-<div id="pyodide-7" class="exercise-cell">
+<div id="pyodide-11" class="exercise-cell">
 
 </div>
-<script type="pyodide-7-contents">
+<script type="pyodide-11-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibmFtZSA9ICcnICAgICMgz4Auz4cuIM+Az4HOv8+Dzr/OvM6/zrnPjs69zrXOuSDOus61zr3OriDOtc6vz4POv860zr8gz4fPgc6uz4PPhM63XG5cbmRpc3BsYXlfbmFtZSA9IG5hbWUgb3IgJ86GzrPOvc+Jz4PPhM6/z4Igz4fPgc6uz4PPhM63z4InICAgIyDOsc69IM+Ezr8gbmFtZSDOtc6vzr3Osc65IFwizrrOtc69z4xcIiwgz4fPgc63z4POuc68zr/PgM6/zq/Ot8+DzrUgz4TOvyDOtM61zr7OryDOvM6tzrvOv8+CXG5wcmludChkaXNwbGF5X25hbWUpIn0=
 </script>
 </div>
@@ -290,10 +420,10 @@ x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
 \]</span></p>
 <p>Η διακρίνουσα <span class="math inline">\(\Delta = b^2 - 4ac\)</span> καθορίζει <strong>πόσες</strong> πραγματικές ρίζες υπάρχουν: δύο αν <span class="math inline">\(\Delta &gt; 0\)</span>, μία (διπλή) αν <span class="math inline">\(\Delta = 0\)</span>, και καμία αν <span class="math inline">\(\Delta &lt; 0\)</span> (αφού η τετραγωνική ρίζα αρνητικού αριθμού δεν ορίζεται στους πραγματικούς). Τώρα που έχουμε την <code>if</code>, μπορούμε επιτέλους να διαχειριστούμε <strong>και τις τρεις</strong> περιπτώσεις σωστά, αντί να υποθέτουμε ότι <span class="math inline">\(\Delta \ge 0\)</span> (δεν έχουμε δει ακόμα συναρτήσεις — θα τις μάθουμε στην Εβδομάδα 6 — οπότε προς το παρόν επαναλαμβάνουμε τον ίδιο κώδικα για τρεις διαφορετικές τριάδες συντελεστών <code>a</code>, <code>b</code>, <code>c</code>, μία-μία, στο ίδιο κελί):</p>
 <div>
-<div id="pyodide-8" class="exercise-cell">
+<div id="pyodide-12" class="exercise-cell">
 
 </div>
-<script type="pyodide-8-contents">
+<script type="pyodide-12-contents">
 eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSwgYiwgYyA9IDEsIC0zLCAtNCAgICMgzrTOv866zrnOvM6uIDE6IHheMiAtIDN4IC0gNCA9ICh4LTQpKHgrMSkgIC0+ICDOlCA+IDBcbmRpc2NyaW1pbmFudCA9IGIqKjIgLSA0KmEqY1xuXG5pZiBkaXNjcmltaW5hbnQgPiAwOlxuICAgIHNxcnRfZGlzYyA9IGRpc2NyaW1pbmFudCAqKiAwLjVcbiAgICB4MSA9ICgtYiArIHNxcnRfZGlzYykgLyAoMiphKVxuICAgIHgyID0gKC1iIC0gc3FydF9kaXNjKSAvICgyKmEpXG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSB7ZGlzY3JpbWluYW50fSA+IDAgIC0+ICDOtM+Nzr8gz4HOr862zrXPgjogeDEgPSB7eDE6LjRmfSwgeDIgPSB7eDI6LjRmfScpXG5lbGlmIGRpc2NyaW1pbmFudCA9PSAwOlxuICAgIHggPSAtYiAvICgyKmEpXG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSAwICAtPiAgzrzOr86xIM60zrnPgM67zq4gz4HOr862zrE6IHggPSB7eDouNGZ9JylcbmVsc2U6XG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSB7ZGlzY3JpbWluYW50fSA8IDAgIC0+ICDOus6xzrzOr86xIM+Az4HOsc6zzrzOsc+EzrnOus6uIM+Bzq/Ots6xJylcblxuYSwgYiwgYyA9IDEsIC00LCA0ICAgICMgzrTOv866zrnOvM6uIDI6IHheMiAtIDR4ICsgNCA9ICh4LTIpXjIgIC0+ICDOlCA9IDBcbmRpc2NyaW1pbmFudCA9IGIqKjIgLSA0KmEqY1xuXG5pZiBkaXNjcmltaW5hbnQgPiAwOlxuICAgIHNxcnRfZGlzYyA9IGRpc2NyaW1pbmFudCAqKiAwLjVcbiAgICB4MSA9ICgtYiArIHNxcnRfZGlzYykgLyAoMiphKVxuICAgIHgyID0gKC1iIC0gc3FydF9kaXNjKSAvICgyKmEpXG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSB7ZGlzY3JpbWluYW50fSA+IDAgIC0+ICDOtM+Nzr8gz4HOr862zrXPgjogeDEgPSB7eDE6LjRmfSwgeDIgPSB7eDI6LjRmfScpXG5lbGlmIGRpc2NyaW1pbmFudCA9PSAwOlxuICAgIHggPSAtYiAvICgyKmEpXG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSAwICAtPiAgzrzOr86xIM60zrnPgM67zq4gz4HOr862zrE6IHggPSB7eDouNGZ9JylcbmVsc2U6XG4gICAgcHJpbnQoZidhPXthfSwgYj17Yn0sIGM9e2N9OiAgzpQgPSB7ZGlzY3JpbWluYW50fSA8IDAgIC0+ICDOus6xzrzOr86xIM+Az4HOsc6zzrzOsc+EzrnOus6uIM+Bzq/Ots6xJylcblxuYSwgYiwgYyA9IDEsIDAsIDEgICAgICMgzrTOv866zrnOvM6uIDM6IHheMiArIDEgPSAwICAtPiAgzpQgPCAwXG5kaXNjcmltaW5hbnQgPSBiKioyIC0gNCphKmNcblxuaWYgZGlzY3JpbWluYW50ID4gMDpcbiAgICBzcXJ0X2Rpc2MgPSBkaXNjcmltaW5hbnQgKiogMC41XG4gICAgeDEgPSAoLWIgKyBzcXJ0X2Rpc2MpIC8gKDIqYSlcbiAgICB4MiA9ICgtYiAtIHNxcnRfZGlzYykgLyAoMiphKVxuICAgIHByaW50KGYnYT17YX0sIGI9e2J9LCBjPXtjfTogIM6UID0ge2Rpc2NyaW1pbmFudH0gPiAwICAtPiAgzrTPjc6/IM+Bzq/Ots61z4I6IHgxID0ge3gxOi40Zn0sIHgyID0ge3gyOi40Zn0nKVxuZWxpZiBkaXNjcmltaW5hbnQgPT0gMDpcbiAgICB4ID0gLWIgLyAoMiphKVxuICAgIHByaW50KGYnYT17YX0sIGI9e2J9LCBjPXtjfTogIM6UID0gMCAgLT4gIM68zq/OsSDOtM65z4DOu86uIM+Bzq/Ots6xOiB4ID0ge3g6LjRmfScpXG5lbHNlOlxuICAgIHByaW50KGYnYT17YX0sIGI9e2J9LCBjPXtjfTogIM6UID0ge2Rpc2NyaW1pbmFudH0gPCAwICAtPiAgzrrOsc68zq/OsSDPgM+BzrHOs868zrHPhM65zrrOriDPgc6vzrbOsScpIn0=
 </script>
 </div>
@@ -304,10 +434,10 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSwg
 <h1 data-number="2"><span class="header-section-number">2</span> Σύνοψη</h1>
 <p>Σε αυτή την εβδομάδα είδαμε:</p>
 <ul>
-<li><strong>Σχεσιακούς και λογικούς τελεστές</strong> (<code>==</code>, <code>&lt;</code>, <code>and</code>, <code>or</code>, <code>not</code>), short-circuit αξιολόγηση, και αλυσιδωτές συγκρίσεις.</li>
+<li><strong>Σχεσιακούς και λογικούς τελεστές</strong> (<code>==</code>, <code>&lt;</code>, <code>and</code>, <code>or</code>, <code>not</code>), short-circuit αποτίμηση, και αλυσιδωτές συγκρίσεις.</li>
+<li>Ότι <code>True</code>/<code>False</code> είναι ειδικοί ακέραιοι, και ότι <strong>κάθε</strong> τιμή είναι truthy ή falsy (<code>bool(...)</code>).</li>
 <li>Την εντολή <strong><code>if</code>/<code>elif</code>/<code>else</code></strong>, και τη λεξικογραφική σύγκριση συμβολοσειρών.</li>
 <li>Τη <strong>δεσμευμένη έκφραση if</strong> (<code>x if συνθήκη else y</code>) και το ιδίωμα <code>or</code> για προεπιλεγμένες τιμές.</li>
-<li>Γιατί ο επαναλαμβανόμενος κώδικας (τρεις φορές το ίδιο if/elif/else) είναι ένα από τα κίνητρα για τις <strong>συναρτήσεις</strong>, που έρχονται στην Εβδομάδα 6.</li>
 </ul>
 <hr>
 <p><a href="main.html">⤺ Πίσω στην αρχική σελίδα / πρόγραμμα μαθήματος</a> &nbsp;·&nbsp; <a href="week3-slides.html">Διαφάνειες αυτής της εβδομάδας</a></p>
@@ -315,7 +445,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYSwg
 eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
 </script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTEyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTExIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTExLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl85ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzkgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8xID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzEgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJweW9kaWRlT2pzID0ge1xuICBjb25zdCB7XG4gICAgUHlvZGlkZUV2YWx1YXRvcixcbiAgICBQeW9kaWRlRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUHl0aG9uLFxuICAgIHN0YXJ0UHlvZGlkZVdvcmtlcixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoLFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gUHlvZGlkZSBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICBsZXQgcHlvZGlkZVByb21pc2UgPSAoYXN5bmMgKCkgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgUHlvZGlkZWA7XG4gICAgY29uc3QgcHlvZGlkZSA9IGF3YWl0IHN0YXJ0UHlvZGlkZVdvcmtlcihkYXRhLm9wdGlvbnMpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiBtaWNyb3BpcGA7XG4gICAgYXdhaXQgcHlvZGlkZS5sb2FkUGFja2FnZShcIm1pY3JvcGlwXCIpO1xuICAgIGNvbnN0IG1pY3JvcGlwID0gYXdhaXQgcHlvZGlkZS5weWltcG9ydChcIm1pY3JvcGlwXCIpO1xuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIG1pY3JvcGlwLmluc3RhbGwocGtnKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcbiAgICBhd2FpdCBtaWNyb3BpcC5kZXN0cm95KCk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICBhd2FpdCBweW9kaWRlLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgICAgaWYgKGUuZXJybm8gIT09IDIwKSB7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICAgICAgY29uc3QgZXJyb3JUZXh0ID0gYXdhaXQgcHlvZGlkZS5fbW9kdWxlLlVURjhUb1N0cmluZyhlcnJvclRleHRQdHIpO1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHRyeSB7XG4gICAgICAgIHJldHVybiBhd2FpdCBweW9kaWRlLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgIGlmIChlLm5hbWUgIT09IFwiRXJybm9FcnJvclwiKSB0aHJvdyBlO1xuICAgICAgICBjb25zdCBlcnJvclRleHRQdHIgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuX3N0cmVycm9yKGUuZXJybm8pO1xuICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvciAke2UuZXJybm99IFwiJHtlcnJvclRleHR9XCIuYCk7XG4gICAgICB9XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFB5b2RpZGUgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUHl0aG9uKHB5b2RpZGUpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHB5b2RpZGU7XG4gIH0pKCkuY2F0Y2goKGVycikgPT4ge1xuICAgIHN0YXR1c1RleHQuc3R5bGUuY29sb3IgPSBcInZhcigtLWV4ZXJjaXNlLWVkaXRvci1obC1lciwgI0FEMDAwMClcIjtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gZXJyLm1lc3NhZ2U7XG4gICAgLy9pbmRpY2F0b3JDb250YWluZXIucXVlcnlTZWxlY3RvcihcIi5zcGlubmVyLWdyb3dcIikuY2xhc3NMaXN0LmFkZChcImQtbm9uZVwiKTtcbiAgICB0aHJvdyBlcnI7XG4gIH0pO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgcHlvZGlkZVByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFB5b2RpZGVFdmFsdWF0b3IocHlvZGlkZSwgY29udGV4dCk7XG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHlvZGlkZVByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gICAgcHJvY2VzcyxcbiAgfTtcbn1cbiJ9XX0=
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">
