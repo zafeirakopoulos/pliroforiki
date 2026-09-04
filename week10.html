@@ -242,7 +242,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1w
 </section>
 <section id="οπτικοποίηση-με-το-matplotlib" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="οπτικοποίηση-με-το-matplotlib"><span class="header-section-number">1.2</span> Οπτικοποίηση με το <code>matplotlib</code></h2>
-<p>Μέχρι τώρα, όποτε θέλαμε να “δούμε” πώς μεταβάλλεται μια ποσότητα, καταφεύγαμε σε πρόχειρα γραφήματα από αστερίσκους. Η βιβλιοθήκη <strong><code>matplotlib</code></strong> — η πιο διαδεδομένη βιβλιοθήκη γραφημάτων της Python — μας επιτρέπει να φτιάχνουμε <strong>πραγματικά</strong> γραφήματα. Συνήθως εισάγουμε το υπο-module <code>pyplot</code> ως <code>plt</code> (πάγια σύμβαση). Ένα γράφημα γραμμής φτιάχνεται με <code>plt.plot(x, y)</code>, ένα διάγραμμα διασποράς με <code>plt.scatter(x, y)</code>, και η <code>plt.show()</code> το εμφανίζει· οι <code>xlabel</code>, <code>ylabel</code>, <code>title</code> και <code>legend</code> προσθέτουν επεξηγήσεις:</p>
+<p>Το <code>matplotlib</code> το γνωρίσαμε ήδη στην Εβδομάδα 1: <code>plt.plot(x, y)</code> για γράφημα γραμμής, <code>plt.scatter</code> για διάγραμμα διασποράς, <code>plt.bar</code> για ραβδόγραμμα, και οι <code>xlabel</code> / <code>ylabel</code> / <code>title</code> / <code>legend</code> για επεξηγήσεις.</p>
+<p>Εδώ πάμε λίγο βαθύτερα — <strong>πολλαπλές σειρές</strong> στο ίδιο γράφημα, <strong>λογαριθμικές κλίμακες</strong>, και <strong>εικόνες</strong> (<code>imshow</code>) — τα εργαλεία που θα χρειαστούμε σε όλη την εβδομάδα:</p>
 <div>
 <div id="pyodide-2" class="exercise-cell">
 
