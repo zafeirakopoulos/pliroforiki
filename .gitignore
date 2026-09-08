@@ -9,7 +9,9 @@ pliroforiki/
 *_files/
 
 # Reference PDFs (third-party / copyrighted — not course source)
-resources/
+# Anchored: an unanchored 'resources/' also matched _extensions/*/live/resources/,
+# which silently excluded the quarto-live filter deps and broke fresh clones.
+/resources/
 
 # Legacy monolith: keep the .qmd, drop its build artifacts
 _archive/*.html
@@ -17,3 +19,6 @@ _archive/*_files/
 
 .claude/
 .DS_Store
+
+/.quarto/
+**/*.quarto_ipynb
