@@ -1,0 +1,135 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 13"
+subtitle: "Λεξικά (Dictionaries)"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Δημιουργία και πρόσβαση
+
+Λίστα: δείκτες `0,1,2,…` → τιμές. Λεξικό: **κλειδιά της επιλογής μας** → τιμές.
+
+```{mermaid}
+flowchart LR
+    k0["'Chris'"] --> w0["'555-1111'"]
+    k1["'Kate'"] --> w1["'555-2222'"]
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+phonebook = {'Chris': '555-1111', 'Kate': '555-2222'}
+
+print(phonebook['Chris'])   # πρόσβαση με κλειδί
+print(len(phonebook))
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+print(phonebook['Kathryn'])   # KeyError!
+```
+:::
+
+## `in` και `get`
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+print('Chris' in phonebook)
+print(phonebook.get('Kathryn', 'Δεν βρέθηκε'))   # χωρίς σφάλμα
+```
+:::
+
+## Τροποποίηση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+contacts = {'Chris': '555-1111', 'Kate': '555-2222'}
+contacts['Jo'] = '555-3333'      # προσθήκη
+contacts['Chris'] = '555-9999'   # ενημέρωση
+del contacts['Kate']              # διαγραφή
+print(contacts)
+```
+:::
+
+## Επανάληψη & κατανόηση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+for name, number in phonebook.items():
+    print(f'{name}: {number}')
+
+squares = {x: x**2 for x in range(1, 6)}
+print(squares)
+```
+:::
+
+## Εφαρμογή: καταμέτρηση συχνοτήτων
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+text = 'το μεγαλο ψαρι τρωει το μικρο ψαρι'
+frequency = {}
+for ch in text:
+    if ch != ' ':
+        frequency[ch] = frequency.get(ch, 0) + 1
+
+for ch, count in sorted(frequency.items(), key=lambda item: -item[1]):
+    print(f'{ch}: {count}')
+```
+:::
+
+## Memoization με λεξικό
+
+Το λεξικό `cache` θυμάται τα αποτελέσματα — δεν ξαναϋπολογίζονται:
+
+```{.python code-line-numbers="1-2|3-4|5|6-7"}
+def fib_memo(n, cache={}):
+    if n in cache:
+        return cache[n]
+    result = 1 if n <= 2 else fib_memo(n-1, cache) + fib_memo(n-2, cache)
+    cache[n] = result
+    return result
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def fib_memo(n, cache={}):
+    if n in cache:
+        return cache[n]
+    result = 1 if n <= 2 else fib_memo(n-1, cache) + fib_memo(n-2, cache)
+    cache[n] = result
+    return result
+
+print(fib_memo(50))
+```
+:::
+
+::: {.fragment}
+Τι κάνει "από μέσα" το `lru_cache` (Εβδομάδα 9).
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- Λεξικά: δημιουργία, πρόσβαση, `KeyError`, `in`/`get`
+- Τροποποίηση: προσθήκη, ενημέρωση, διαγραφή
+- `keys()`/`values()`/`items()`, λεξικά με κατανόηση
+- Καταμέτρηση συχνοτήτων, memoization με λεξικό
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week13.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)

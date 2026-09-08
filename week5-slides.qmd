@@ -1,0 +1,187 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 5"
+subtitle: "Ο Βρόχος While · Ακέραιες Διαμερίσεις"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Η εντολή `while`
+
+```python
+while συνθήκη:
+    εντολές
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+money = 1000.0
+rate = 0.05
+goal = 2 * money
+years = 0
+while money < goal:
+    money *= 1 + rate
+    years += 1
+print(f'Χρειάζονται {years} χρόνια.')
+```
+:::
+
+::: {.fragment}
+`while` ελέγχει τη συνθήκη *πριν* από κάθε επανάληψη· γενικεύει τον `for`.
+:::
+
+## Sentinel & `while True` + `break`
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+data = [3.0, 7.5, 2.0, 9.0, -1]   # -1 = sentinel (τέλος)
+total, i = 0.0, 0
+value = data[i]
+while value != -1:
+    total += value
+    i += 1
+    value = data[i]
+print(total)
+```
+:::
+
+::: {.fragment}
+`while True:` + `break` = ισοδύναμο ενός **do-while** (εκτελείται τουλάχιστον μία φορά).
+:::
+
+## Δυαδική αναζήτηση
+
+Ταξινομημένη λίστα · παράθυρο `[αριστερά..δεξιά]` · μισό κάθε βήμα · πλήθος επαναλήψεων άγνωστο → `while`
+
+```{mermaid}
+flowchart LR
+    C{"αριστερά ≤ δεξιά ;"} -- όχι --> H["-1"]
+    C -- ναι --> M["μέσο = (αρ+δε)//2"]
+    M --> E{"v[μέσο] ; στόχος"}
+    E -- "=" --> F["μέσο"]
+    E -- "στόχος <" --> L["δεξιά = μέσο-1"] --> C
+    E -- "στόχος >" --> R["αριστερά = μέσο+1"] --> C
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def binary_search(v, target):
+    left, right = 0, len(v) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if v[mid] == target:
+            return mid
+        elif target < v[mid]:
+            right = mid - 1
+        else:
+            left = mid + 1
+    return -1
+
+print(binary_search([3, 7, 12, 19, 25, 34, 41, 50], 41))   # ~log₂(n) βήματα
+```
+:::
+
+# Ακέραιες Διαμερίσεις
+
+## Τι είναι μια διαμέριση
+
+$4 = 4 = 3+1 = 2+2 = 2+1+1 = 1+1+1+1$ → $p(4)=5$ (η σειρά δεν μετράει).
+
+## Naive παραγωγή με ρητή στοίβα
+
+Χωρίς αναδρομή: εμείς διαχειριζόμαστε τη στοίβα ρητά, γραμμή προς γραμμή:
+
+```{.python code-line-numbers="1-3|4-6|7-9|10"}
+def all_partitions_naive(n):
+    results = []
+    stack = [(n, n, [])]
+    while stack:
+        remaining, max_part, chosen = stack.pop()
+        if remaining == 0:
+            results.append(chosen)
+            continue
+        for first in range(1, min(remaining, max_part) + 1):
+            stack.append((remaining - first, first, chosen + [first]))
+    return results
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def all_partitions_naive(n):
+    results = []
+    stack = [(n, n, [])]
+    while stack:
+        remaining, max_part, chosen = stack.pop()
+        if remaining == 0:
+            results.append(chosen)
+            continue
+        for first in range(1, min(remaining, max_part) + 1):
+            stack.append((remaining - first, first, chosen + [first]))
+    return results
+
+for p in all_partitions_naive(5):
+    print(p)
+```
+:::
+
+## Δυναμικός προγραμματισμός: αποδοτική καταμέτρηση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def partition_counts(N):
+    dp = [0] * (N + 1)
+    dp[0] = 1
+    for part in range(1, N + 1):
+        for i in range(part, N + 1):
+            dp[i] += dp[i - part]
+    return dp
+
+p = partition_counts(20)
+print(p)
+```
+:::
+
+::: {.fragment}
+`dp[i]` = πλήθος τρόπων να γραφτεί το `i` ως άθροισμα μερών `{1,...,part}` — χωρίς να παράγουμε καμία λίστα ρητά.
+:::
+
+## Υπολογιστική επαλήθευση σε κλίμακα
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+N = 200
+p = partition_counts(N)
+
+all_divisible = all(p[5*n + 4] % 5 == 0 for n in range((N - 4) // 5 + 1))
+print('Όλα διαιρετά με το 5:', all_divisible)
+```
+:::
+
+::: {.fragment}
+Ελέγχουμε ένα μοτίβο σε **εκατοντάδες** περιπτώσεις υπολογιστικά, πριν/αντί για αυστηρή απόδειξη.
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- Βρόχος `while`, ιδίωμα `while True` + `break`
+- Δυαδική αναζήτηση: ~log₂(n) βήματα, μισό διάστημα κάθε φορά
+- Naive παραγωγή με ρητή στοίβα (προσομοίωση αναδρομής)
+- Δυναμικός προγραμματισμός: πίνακας `dp` για αποδοτική καταμέτρηση
+- Υπολογιστική επαλήθευση ενός μοτίβου σε μεγάλη κλίμακα
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week5.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)

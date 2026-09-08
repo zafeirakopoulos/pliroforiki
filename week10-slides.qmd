@@ -1,0 +1,362 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 10"
+subtitle: "Αριθμητικός Υπολογισμός, Γραφήματα και Προσομοιώσεις"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Προσέγγιση του π: Monte Carlo
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import random
+
+n = 20000
+hits = 0
+for i in range(n):
+    x = random.uniform(-1, 1)
+    y = random.uniform(-1, 1)
+    if x**2 + y**2 <= 1:
+        hits += 1
+
+print(f'π ≈ {4 * hits / n}')
+```
+:::
+
+::: {.fragment}
+Τυχαία δειγματοληψία → αριθμητική εκτίμηση. Σύγκλιση $\sim 1/\sqrt{n}$ (αργή).
+:::
+
+## `matplotlib`, βαθύτερα
+
+Τα βασικά (`plot`/`scatter`/`bar`) από την Εβδομάδα 1. Εδώ: πολλαπλές σειρές, λογαριθμικές κλίμακες, `imshow`.
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import math
+import matplotlib.pyplot as plt
+
+x = [i / 20 for i in range(0, 126)]
+plt.plot(x, [math.sin(v) for v in x], label='sin')
+plt.plot(x, [math.cos(v) for v in x], label='cos')
+plt.legend(); plt.xlabel('x')
+plt.show()
+```
+:::
+
+## Monte Carlo, οπτικά
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+random.seed(0)
+xs_in, ys_in, xs_out, ys_out = [], [], [], []
+for i in range(2000):
+    x, y = random.uniform(-1, 1), random.uniform(-1, 1)
+    (xs_in if x**2+y**2 <= 1 else xs_out).append(x)
+    (ys_in if x**2+y**2 <= 1 else ys_out).append(y)
+
+plt.scatter(xs_in, ys_in, s=5, label='μέσα')
+plt.scatter(xs_out, ys_out, s=5, label='έξω')
+plt.gca().set_aspect('equal')
+plt.legend()
+plt.show()
+```
+:::
+
+## Η μέθοδος του Αρχιμήδη
+
+Παγιδεύει το $\pi$ ανάμεσα σε περίμετρο εγγεγραμμένου/περιγεγραμμένου πολυγώνου:
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def archimedes_pi(doublings):
+    a, b, sides = 2 * math.sqrt(3), 3.0, 6
+    for _ in range(doublings):
+        a = (2 * a * b) / (a + b)   # αρμονικός μέσος
+        b = math.sqrt(a * b)        # γεωμετρικός μέσος
+        sides *= 2
+    return a, b, sides
+
+upper, lower, sides = archimedes_pi(10)
+print(f'{sides} πλευρές, εύρος: {upper - lower:.2e}')
+```
+:::
+
+## Ρυθμός σύγκλισης: Αρχιμήδης
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+doublings_list = list(range(1, 15))
+gaps = [archimedes_pi(d)[0] - archimedes_pi(d)[1] for d in doublings_list]
+
+plt.plot(doublings_list, gaps, marker='o')
+plt.yscale('log')
+plt.xlabel('διπλασιασμοί'); plt.ylabel('εύρος (log)')
+plt.show()
+```
+:::
+
+::: {.fragment}
+Ευθεία γραμμή σε λογαριθμική κλίμακα = **εκθετική** σύγκλιση.
+:::
+
+## `float32` έναντι `float64`
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import struct
+
+def to_float32(x):
+    return struct.unpack('f', struct.pack('f', x))[0]
+
+print(math.pi)
+print(to_float32(math.pi))
+```
+:::
+
+::: {.fragment}
+`double`: 53 bits significand ≈ 15-17 δεκαδικά ψηφία. `single`: 24 bits ≈ 7.
+:::
+
+## Σύγκριση σφαλμάτων
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def archimedes_pi_precision(doublings, round_fn):
+    a, b = round_fn(2*math.sqrt(3)), round_fn(3.0)
+    for _ in range(doublings):
+        a = round_fn((2*a*b)/(a+b))
+        b = round_fn(math.sqrt(a*b))
+    return (a + b) / 2
+
+rng = list(range(1, 41))
+err32 = [abs(archimedes_pi_precision(d, to_float32) - math.pi) for d in rng]
+err64 = [abs(archimedes_pi_precision(d, lambda x: x) - math.pi) for d in rng]
+
+plt.plot(rng, err32, label='float32')
+plt.plot(rng, err64, label='float64')
+plt.yscale('log'); plt.legend()
+plt.show()
+```
+:::
+
+::: {.fragment}
+`float32` "κολλάει" — **απώλεια σημαντικών ψηφίων** (catastrophic cancellation).
+:::
+
+## Newton-Raphson
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def newton(f, fprime, x0, epsilon=1e-12, max_iter=100):
+    x = x0
+    for i in range(max_iter):
+        fx = f(x)
+        if abs(fx) < epsilon:
+            return x, i
+        x = x - fx / fprime(x)
+    return x, max_iter
+
+root, iters = newton(lambda x: x**3 - 2, lambda x: 3*x**2, x0=1.0)
+print(f'Ρίζα: {root}, σε {iters} επαναλήψεις')
+```
+:::
+
+::: {.fragment}
+Γενική μέθοδος: δουλεύει για **οποιαδήποτε** παραγωγίσιμη $f$.
+:::
+
+## Διχοτόμηση (bisection)
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def bisection(f, a, b, epsilon=1e-10, max_iter=100):
+    for i in range(max_iter):
+        mid = (a + b) / 2
+        if abs(f(mid)) < epsilon:
+            return mid, i
+        if f(a) * f(mid) < 0:
+            b = mid
+        else:
+            a = mid
+    return (a + b) / 2, max_iter
+
+root, iters = bisection(lambda x: x**3 - 2, 0, 2)
+print(f'Ρίζα: {root}, σε {iters} επαναλήψεις')
+```
+:::
+
+::: {.fragment}
+Δεν χρειάζεται παράγωγο· εγγυημένη σύγκλιση, αλλά πιο αργή (γραμμική).
+:::
+
+## Σειρές Taylor
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def exp_taylor(x, n_terms):
+    return sum(x**k / math.factorial(k) for k in range(n_terms))
+
+print(exp_taylor(1.0, 15), math.exp(1.0))
+```
+:::
+
+::: {.fragment}
+Προσέγγιση συνάρτησης με **πεπερασμένο άθροισμα όρων**.
+:::
+
+## Σύγκλιση Taylor, οπτικά
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def sin_taylor(x, n_terms):
+    return sum((-1)**k * x**(2*k+1) / math.factorial(2*k+1) for k in range(n_terms))
+
+xv = [i/20 for i in range(-126, 127)]
+plt.plot(xv, [math.sin(v) for v in xv], color='black', label='sin(x)')
+for n in [1, 2, 3, 5]:
+    plt.plot(xv, [sin_taylor(v, n) for v in xv], label=f'{n} όροι')
+plt.ylim(-2, 2); plt.legend()
+plt.show()
+```
+:::
+
+## Monte Carlo: πρόβλημα γενεθλίων
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def simulate_birthday(k, trials, days=365):
+    collisions = 0
+    for _ in range(trials):
+        birthdays = [random.randint(1, days) for _ in range(k)]
+        if len(set(birthdays)) < k:
+            collisions += 1
+    return collisions / trials
+
+print(simulate_birthday(23, 5000))   # ~0.5
+```
+:::
+
+::: {.fragment}
+Σύγκριση προσομοίωσης με ακριβή, κλειστό τύπο.
+:::
+
+## Monte Carlo: ολοκλήρωση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def monte_carlo_integral(f, a, b, n):
+    return (b - a) * sum(f(random.uniform(a, b)) for _ in range(n)) / n
+
+print(monte_carlo_integral(math.sin, 0, math.pi, 100000))   # ακριβές: 2
+```
+:::
+
+::: {.fragment}
+Γενικεύεται εύκολα σε πολλές διαστάσεις.
+:::
+
+## Monte Carlo: Monty Hall
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def monty_hall_trial(switch):
+    doors = [0, 1, 2]
+    car = random.choice(doors)
+    choice = random.choice(doors)
+    remaining = [d for d in doors if d != choice and d != car]
+    host_opens = random.choice(remaining)
+    final = [d for d in doors if d != choice and d != host_opens][0] if switch else choice
+    return final == car
+
+trials = 20000
+print(sum(monty_hall_trial(True) for _ in range(trials)) / trials)   # ~0.667
+```
+:::
+
+## Μιγαδικοί αριθμοί & Mandelbrot
+
+$z_0=0,\ z_{n+1}=z_n^2+c$ — φραγμένο ή όχι; βήμα-βήμα:
+
+```{.python code-line-numbers="1-2|3-6|7"}
+def mandelbrot_escape(c, max_iter):
+    z = 0
+    for n in range(max_iter):
+        if abs(z) > 2:
+            return n
+        z = z * z + c
+    return max_iter
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def mandelbrot_escape(c, max_iter):
+    z = 0
+    for n in range(max_iter):
+        if abs(z) > 2:
+            return n
+        z = z * z + c
+    return max_iter
+
+print(mandelbrot_escape(2 + 2j, 100))   # διαφεύγει γρήγορα
+```
+:::
+
+## Οπτικοποίηση Mandelbrot
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def mandelbrot_grid(w, h, max_iter, xmin=-2.5, xmax=1.0, ymin=-1.25, ymax=1.25):
+    grid = []
+    for row in range(h):
+        y = ymin + (ymax-ymin)*row/(h-1)
+        grid.append([mandelbrot_escape(complex(xmin+(xmax-xmin)*col/(w-1), y), max_iter)
+                     for col in range(w)])
+    return grid
+
+plt.imshow(mandelbrot_grid(250, 250, 50), cmap='inferno')
+plt.show()
+```
+:::
+
+::: {.fragment}
+Αλγόριθμος **χρόνου διαφυγής (escape-time)** πάνω σε πλέγμα σημείων.
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- Προσομοίωση Monte Carlo · Γραφήματα με `matplotlib`
+- Επαναληπτικές μέθοδοι σύγκλισης (Αρχιμήδης)
+- `float32` έναντι `float64`, σφάλματα στρογγύλευσης
+- Newton-Raphson, διχοτόμηση — εύρεση ρίζας συνάρτησης
+- Προσέγγιση με πεπερασμένο άθροισμα όρων (Taylor)
+- Monte Carlo σε προβλήματα πιθανότητας
+- Αλγόριθμος χρόνου διαφυγής (Mandelbrot)
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week10.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)

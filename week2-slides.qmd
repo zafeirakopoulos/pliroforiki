@@ -1,0 +1,257 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 2"
+subtitle: "Πράξεις και Συμβολοσειρές"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Αριθμητικοί τελεστές
+
+| Τελεστής | Πράξη |
+|:---:|:---|
+| `+` `-` `*` | πρόσθεση, αφαίρεση, πολλαπλασιασμός |
+| `/` | διαίρεση (πάντα `float`) |
+| `//` | ακέραια διαίρεση |
+| `%` | υπόλοιπο |
+| `**` | ύψωση σε δύναμη |
+
+::: {.fragment}
+Προτεραιότητα: παρενθέσεις → `**` (δεξιά→αριστερά) → `*` `/` `//` `%` → `+` `-`.
+:::
+
+## Προτεραιότητα στην πράξη
+
+```{pyodide}
+#| autorun: true
+print(4 ** 3 ** 2)    # δεξιά προς αριστερά: 4**(3**2)
+print((2 + 3) * (4 - 1))   # παρενθέσεις πρώτα
+print(-2 ** 2)         # -(2**2) = -4, όχι (-2)**2
+print(20 // 3 % 2)     # αριστερά προς δεξιά: (20 // 3) % 2
+```
+
+## Επαυξημένη εκχώρηση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+a = 10
+a += 5     # a = a + 5
+a -= 3
+a *= 2
+a /= 4
+print(a)
+```
+:::
+
+::: {.fragment}
+`+=` `-=` `*=` `/=` `//=` `%=` `**=`
+:::
+
+## `ZeroDivisionError` και υπερχείλιση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+big = 2 ** 1000
+print(big > 0)   # οι int της Python δεν υπερχειλίζουν ΠΟΤΕ
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+print(10.0 ** 400)   # OverflowError -- τα float όμως έχουν όριο
+```
+:::
+
+::: {.fragment}
+::: {.callout-note}
+`x / 0` → `ZeroDivisionError`. Άλλες γλώσσες έχουν ακέραιους σταθερού μεγέθους που υπερχειλίζουν αθόρυβα — η Python όχι.
+:::
+:::
+
+# Συμβολοσειρές
+
+## Δείκτες και τεμαχισμός
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+text = 'Hello there'
+
+print(text[0], text[4])
+print(text[:5])
+print(text[6:])
+print(text[::-1])          # αντιστροφή
+print('there' in text)     # True
+```
+:::
+
+::: {.fragment}
+Οι συμβολοσειρές είναι **αμετάβλητες**: `text[0] = 'x'` → `TypeError`.
+:::
+
+## Μέθοδοι συμβολοσειρών
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+raw = '   Καλημέρα Κόσμε!   '
+
+print(raw.strip())
+print(raw.strip().upper())
+print(raw.strip().lower().find('κόσμε'))
+print('17/12/2015'.split('/'))
+print('Hello there'.replace('there', 'world'))
+```
+:::
+
+## Δομημένη εκτύπωση: f-strings
+
+Πρόθεμα `f` · οποιαδήποτε έκφραση μέσα σε `{ }` · μορφή μετά από `:`
+
+```{pyodide}
+#| autorun: true
+name, score, count = 'Άννα', 91.375, 7
+print(f'Η {name} έλυσε {count}/10 -- {count / 10:.0%}')
+print(f'[{score:.2f}]  [{score:10.2f}]  [{name:<8}]  [{7:03d}]  [{1234567:,}]')
+```
+
+::: {.fragment}
+Παλιότεροι τρόποι: `'%.2f' % score` (τύπου *printf*), `'{:.2f}'.format(score)`.
+Οι f-strings (Python 3.6+) είναι ο προτιμώμενος — από την Εβδομάδα 3 παντού.
+:::
+
+## `ord` και `chr`
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+print(ord('A'), chr(65))   # κωδικός <-> χαρακτήρας
+```
+:::
+
+::: {.fragment}
+Βάση της **λεξικογραφικής σύγκρισης**: `'a' < 'b'` επειδή `ord('a') < ord('b')`.
+:::
+
+# Βιβλιοθήκες
+
+## Η εντολή `import`
+
+```{pyodide}
+#| autorun: true
+import math               # όλο το module  ->  math.sqrt, math.pi
+from math import sqrt, pi  # μόνο αυτά       ->  sqrt(2), pi
+import math as m           # ψευδώνυμο       ->  m.cos(0)
+print(math.sqrt(2), sqrt(2), m.pi)
+```
+
+::: {.fragment}
+Αποφεύγουμε το `from math import *` — γεμίζει το πρόγραμμα με ονόματα άγνωστης προέλευσης.
+:::
+
+## Η βιβλιοθήκη `math`
+
+```{pyodide}
+#| autorun: true
+import math
+print(math.pi, math.e, math.tau)
+print(math.sqrt(2), math.isqrt(144), math.hypot(3, 4))
+print(math.log(8, 2), math.log10(1000), math.exp(1))
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import math
+# τριγωνομετρικές -- σε ΑΚΤΙΝΙΑ (radians / degrees για μετατροπή)
+print(math.sin(math.pi / 6))            # 0.5
+print(math.degrees(math.atan2(1, 1)))   # 45.0
+```
+:::
+
+# Εφαρμογές
+
+## Όγκος στερεών
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import math
+
+r, h = 3.0, 8.0
+sphere_volume = (4/3) * math.pi * r**3
+cylinder_volume = math.pi * r**2 * h
+cone_volume = (1/3) * math.pi * r**2 * h
+
+print(f'{sphere_volume:.2f}  {cylinder_volume:.2f}  {cone_volume:.2f}')
+print(math.isclose(cone_volume, cylinder_volume / 3))
+```
+:::
+
+## Fahrenheit ⇄ Celsius
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+celsius = 25.0
+fahrenheit = celsius * 9/5 + 32
+print(f'{celsius}°C = {fahrenheit}°F')
+```
+:::
+
+## Το κρυπτοσύστημα του Καίσαρα
+
+Βήμα-βήμα: μετατόπιση κάθε γράμματος, modulo 26:
+
+```{.python code-line-numbers="1|2-3|4-5|6-7|8-9|10"}
+def caesar_shift(text, k):
+    result = ''
+    for ch in text:
+        if ch.isalpha():
+            base = ord('A') if ch.isupper() else ord('a')
+            result += chr(base + (ord(ch) - base + k) % 26)
+        else:
+            result += ch
+    return result
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def caesar_shift(text, k):
+    result = ''
+    for ch in text:
+        if ch.isalpha():
+            base = ord('A') if ch.isupper() else ord('a')
+            result += chr(base + (ord(ch) - base + k) % 26)
+        else:
+            result += ch
+    return result
+
+msg = 'Meet me at dawn'
+enc = caesar_shift(msg, 3)
+print(enc, '->', caesar_shift(enc, -3))
+```
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- Αριθμητικοί τελεστές, προτεραιότητα, επαυξημένη εκχώρηση
+- `ZeroDivisionError`, υπερχείλιση: αναπαράσταση ακεραίων/`float`
+- Συμβολοσειρές: δείκτες, τεμαχισμός, αμεταβλητότητα, μέθοδοι, `ord`/`chr`
+- **f-strings**: `f'{x:.2f}'`, στοίχιση, βάσεις — δομημένη εκτύπωση
+- Βιβλιοθήκες: `import` (τρεις μορφές) και το `math` (`sqrt`, `log`, `sin`/`cos`, ...)
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week2.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)

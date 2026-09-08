@@ -1,0 +1,164 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 7"
+subtitle: "Συναρτήσεις (Μέρος Β΄): Έτοιμες Συναρτήσεις, Εμβέλεια"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Modules: `math` και `random`
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import math
+print(math.sqrt(2), math.factorial(5), math.pi)
+
+import random
+print(random.randint(1, 6))       # προσομοίωση ζαριού
+print(random.uniform(-1, 1))
+```
+:::
+
+::: {.fragment}
+`abs()`, `pow()`, `round()` είναι απευθείας διαθέσιμα (δεν χρειάζονται `import`).
+:::
+
+## Τοπικές & καθολικές μεταβλητές
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+x = 50   # καθολική
+
+def change_x():
+    global x
+    x = 2
+
+print('Πριν:', x)
+change_x()
+print('Μετά:', x)
+```
+:::
+
+::: {.fragment}
+Χωρίς `global`, η `x = 2` θα δημιουργούσε **νέα τοπική** μεταβλητή.
+:::
+
+## `global` μόνο για επανεκχώρηση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+totals = []
+
+def record(x):
+    totals.append(x)   # ΤΡΟΠΟΠΟΙΗΣΗ -- δεν χρειάζεται 'global'
+
+record(10)
+record(20)
+print(totals)
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+counter = 0
+
+def increment():
+    counter += 1   # UnboundLocalError: θεωρείται τοπική εκχώρηση
+
+increment()
+```
+:::
+
+## Χειρισμός σφαλμάτων: `try` / `except`
+
+```{pyodide}
+#| autorun: true
+for v in ['42', 'εκατό', '7']:
+    try:
+        print(v, '->', int(v))
+    except ValueError:
+        print(v, '-> δεν είναι ακέραιος, το παραλείπω')
+```
+
+::: {.fragment}
+`else:` αν δεν υπήρξε σφάλμα · `finally:` πάντα. Πιάνουμε **συγκεκριμένους** τύπους.
+:::
+
+## `raise`: σηκώνουμε δικό μας σφάλμα
+
+```{pyodide}
+#| autorun: true
+def factorial(n):
+    if n < 0:
+        raise ValueError(f'όχι για αρνητικό n (δόθηκε {n})')
+    r = 1
+    for k in range(2, n + 1):
+        r *= k
+    return r
+
+try:
+    factorial(-3)
+except ValueError as e:
+    print('Πιάστηκε:', e)
+```
+
+## Επαναληπτική αριθμητική μέθοδος
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def newton_sqrt(a, epsilon=1e-10):
+    x = a
+    steps = 0
+    while abs(x - a/x) > epsilon * x:
+        x = (x + a/x) / 2
+        steps += 1
+    return x, steps
+
+approx, steps = newton_sqrt(2.0)
+print(f'√2 ≈ {approx}, σε {steps} επαναλήψεις')
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import math
+import matplotlib.pyplot as plt
+
+x, errs = 2.0, []
+for _ in range(7):
+    errs.append(abs(x - math.sqrt(2)))
+    x = (x + 2/x) / 2
+
+plt.semilogy(range(len(errs)), errs, marker='o')
+plt.xlabel('επανάληψη'); plt.ylabel('σφάλμα'); plt.title('Τετραγωνική σύγκλιση')
+plt.show()
+```
+:::
+
+::: {.fragment}
+Σωστά δεκαδικά ψηφία **διπλασιάζονται** σε κάθε βήμα.
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- Modules πρότυπης βιβλιοθήκης (`math`, `random`), `import`
+- Τοπικές/καθολικές μεταβλητές, πότε χρειάζεται το `global`
+- Χειρισμός σφαλμάτων: `try`/`except`/`finally`, `raise`
+- Πρώτη επαναληπτική αριθμητική μέθοδος προσέγγισης
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week7.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)

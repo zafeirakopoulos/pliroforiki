@@ -1,0 +1,37 @@
+# Quarto project config for the "Πληροφορική Ι" interactive lecture notes.
+#
+# Sources live at the repo root: main.qmd, week1..week13.qmd, week1..week13-slides.qmd
+# Each .qmd carries its own `format:` block (live-html for notes, live-revealjs for
+# slides), so this file only wires up project-wide rendering and a shared output dir.
+#
+# Underscore-prefixed paths are ignored by Quarto automatically:
+#   _site/       build output (this file's output-dir)
+#   _extensions/ vendored r-wasm/live (Pyodide) extension
+#   _archive/    plirofiki1.* — the original monolith, superseded by the week split
+# `pliroforiki/` (the deploy repo) and `resources/` (PDFs) hold no .qmd, so nothing
+# there is rendered.
+#
+# Build:   quarto render
+# Preview: quarto preview        (serves the whole site with live reload)
+# Deploy:  ./deploy.sh           (render + sync into pliroforiki/), then
+#          cd pliroforiki && git add -A && git commit && git push
+
+project:
+  type: default
+  output-dir: _site
+  resources:
+    - uoa-logo.svg
+
+lang: el
+
+# Shared branding, merged into every document's own `format:` block:
+#   notes  (live-html)     -> University of Athens banner injected above the title
+#   slides (live-revealjs) -> logo in the slide corner + department in the footer
+format:
+  html:
+    include-before-body: _uoa-header.html
+  live-html:
+    include-before-body: _uoa-header.html
+  live-revealjs:
+    logo: uoa-logo.svg
+    footer: "Τμήμα Μαθηματικών, ΕΚΠΑ"

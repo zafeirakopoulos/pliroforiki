@@ -1,0 +1,63 @@
+Lets add titles:
+- week2 is Operations and strings
+- week3 is Logic operator and If
+- week4 is For and WHile
+- week5 is For and WHile
+- week6 is matrices 
+- week7 is functions 
+- week8 is functions 
+- week9 is recursion
+- week10 is numerical algorithms
+- week11 is symbolic algorithms
+- week12 is combinatorics
+
+We have to rearrange some of the content to fit the titles now.
+
+Add more examples with code that the students can run interactively. 
+Both of usage and of common mistakes.
+
+Except for the existing applications, we will add 
+the following: 
+- week2 is Operations and strings"
+  * Volume of sphere and other solids. 
+  * Temperature from Fahrenheit to Celcious and vice versa
+
+- week3 is Logic operator and If
+    * Solving 2nd degree equation
+    
+
+- week4 is For and WHile / Lists
+    * Primality / Eratosthenes
+
+
+- week5 is For and WHile
+    * 
+    * Ramanujan+MacMahon
+
+- week6 is functions 
+
+- week7 is functions 
+
+- week6 is matrices 
+    * Matrix operations 
+    * addition, multiplication, transposition, determinant
+    * Linear System of equations 
+    * Gauss
+
+- week9 is recursion
+    * Fibonacci
+
+- week10 is numerical algorithms
+    * pi approximation
+
+- week11 is symbolic algorithms
+    * Euclidean algorithm 
+
+- week12 is combinatorics
+    * Permutations and counting
+
+
+
+
+
+

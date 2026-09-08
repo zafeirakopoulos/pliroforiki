@@ -1,0 +1,148 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 6"
+subtitle: "Συναρτήσεις (Μέρος Α΄)"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Ορισμός και κλήση
+
+```python
+def όνομα_συνάρτησης(παράμετρος_1, παράμετρος_2):
+    εντολές
+    return αποτέλεσμα      # προαιρετικό
+```
+
+::: {.fragment}
+```{mermaid}
+flowchart LR
+    A["ορίσματα · double(7)"] --> F["double"] --> R["τιμή · 14"]
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def double(x):
+    return 2 * x
+
+def main():
+    value = 7
+    print('Διπλάσιο:', double(value))
+
+main()
+```
+:::
+
+::: {.fragment}
+Ο κώδικας μιας συνάρτησης εκτελείται **μόνο όταν κληθεί**.
+:::
+
+## `return` και πολλαπλές τιμές
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def divide(a, b):
+    quotient = a // b
+    remainder = a % b
+    return quotient, remainder
+
+q, r = divide(17, 5)
+print(f'17 = {q}*5 + {r}')
+```
+:::
+
+::: {.fragment}
+Χωρίς `return`, μια συνάρτηση επιστρέφει `None`.
+:::
+
+## Μεταβίβαση με τιμή μιας αναφοράς
+
+`data` και `lst` δείχνουν στην ΙΔΙΑ λίστα:
+
+```{mermaid}
+flowchart LR
+    data(["data"]) --> L["[1, 2, 3]"]
+    lst(["lst"]) --> L
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def modify_list(lst):
+    lst.append(100)              # τροποποιεί την ΙΔΙΑ λίστα -- θα φανεί έξω
+    lst = [10, 20, 30]           # επανεκχώρηση -- ΔΕΝ θα φανεί έξω
+
+data = [1, 2, 3]
+modify_list(data)
+print(data)   # [1, 2, 3, 100]
+```
+:::
+
+::: {.fragment}
+**Τροποποίηση** στοιχείων φαίνεται έξω· **επανεκχώρηση** της παραμέτρου όχι.
+:::
+
+## Προεπιλεγμένες τιμές & keyword arguments
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def bar(a, b=5, c=10):
+    print('a =', a, ', b =', b, ', c =', c)
+
+bar(100, 2)
+bar(100, c=3)
+bar(a=50, c=60, b=70)
+```
+:::
+
+## Παγίδα: μεταβλητά προεπιλεγμένα ορίσματα
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def bad_accumulator(item, history=[]):   # ΠΡΟΣΟΧΗ!
+    history.append(item)
+    return history
+
+print(bad_accumulator('a'))   # ['a']
+print(bad_accumulator('b'))   # ['a', 'b'] -- μάλλον απροσδόκητο!
+```
+:::
+
+::: {.fragment}
+Λύση: `history=None`, και δημιουργία νέας λίστας μέσα στη συνάρτηση:
+
+```{pyodide}
+#| autorun: true
+def good_accumulator(item, history=None):
+    if history is None:
+        history = []
+    history.append(item)
+    return history
+
+print(good_accumulator('a'))   # ['a']
+print(good_accumulator('b'))   # ['b'] -- σωστά, ανεξάρτητη κλήση
+```
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- Ορισμός/κλήση συνάρτησης, παράμετροι/ορίσματα, `return`
+- Μεταβίβαση με τιμή μιας αναφοράς: τροποποίηση έναντι επανεκχώρησης
+- Προεπιλεγμένες τιμές, ορίσματα με λέξη-κλειδί
+- Παγίδα μεταβλητών προεπιλεγμένων ορισμάτων
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week6.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)

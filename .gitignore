@@ -1,0 +1,19 @@
+# Quarto build output / cache
+_site/
+.quarto/
+
+# The deploy repo (its own git repo; holds only rendered HTML)
+pliroforiki/
+
+# Per-document rendered asset folders
+*_files/
+
+# Reference PDFs (third-party / copyrighted — not course source)
+resources/
+
+# Legacy monolith: keep the .qmd, drop its build artifacts
+_archive/*.html
+_archive/*_files/
+
+.claude/
+.DS_Store

@@ -1,0 +1,182 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 3"
+subtitle: "Λογικοί Τελεστές και η Εντολή If"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Σχεσιακοί και λογικοί τελεστές
+
+| Μαθηματικά | Python |
+|:---:|:---:|
+| `=` `<` `<=` `>` `>=` `≠` | `==` `<` `<=` `>` `>=` `!=` |
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+a, b, c = 2, 4, 6
+print(c >= 6 and a > 3)   # False
+print(a >= -1 or a <= b)  # True
+print(not (a > 2))        # True
+```
+:::
+
+::: {.fragment}
+`and`/`or` έχουν **short-circuit** αποτίμηση.
+:::
+
+## Αλυσιδωτές συγκρίσεις
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+x = 0.5
+print(0 <= x < 1)                          # συνοπτικό
+print(0 <= x and x < 1)                    # ισοδύναμο
+print((0 <= x < 1) == (0 <= x and x < 1))  # True
+```
+:::
+
+::: {.fragment}
+::: {.callout-important}
+`x != 2 or x != 3` είναι **πάντα** `True`! Το σωστό: `x != 2 and x != 3`.
+:::
+:::
+
+## Truthy / falsy · `and`/`or` επιστρέφουν τιμή
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+print(True + True + False)          # 2  -- bool = ειδικός int
+print(bool(0), bool(''), bool(None))   # False False False -- ό,τι άλλο -> True
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+print(3 and 5)                  # 5   -- επιστρέφει όρισμα, όχι σκέτο True/False
+print('' or 'προεπιλογή')       # 'προεπιλογή'
+print(0 != 0 and 10 / 0 > 1)    # False -- short-circuit: το 10/0 δεν αποτιμάται
+```
+:::
+
+## Η εντολή `if`
+
+```python
+if συνθήκη:
+    εντολές
+elif άλλη_συνθήκη:
+    εντολές
+else:
+    εντολές
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+score = 78
+if score > 90:
+    grade = 'A'
+elif score > 80:
+    grade = 'B'
+elif score > 70:
+    grade = 'C'
+else:
+    grade = 'F'
+print(f'Βαθμός: {grade}')
+```
+:::
+
+## Λεξικογραφική σύγκριση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+print('a' < 'b')            # True
+print('Markos' > 'Marios')  # True: 'k' > 'i'
+print('apple' < 'Banana')   # False! -- 'a' πεζό έχει ΜΕΓΑΛΥΤΕΡΟ κωδικό από 'B'
+```
+:::
+
+::: {.fragment}
+Όλα τα κεφαλαία προηγούνται όλων των πεζών στον πίνακα ASCII/Unicode.
+:::
+
+## Δεσμευμένη έκφραση if (ternary)
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+score = 55
+result = 'Πέρασες' if score >= 50 else 'Κόπηκες'
+print(result)
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+name = ''
+display_name = name or 'Άγνωστος χρήστης'   # ιδίωμα or για προεπιλογή
+print(display_name)
+```
+:::
+
+## Εφαρμογή: δευτεροβάθμια εξίσωση
+
+::: {.fragment}
+Πρώτα, μόνο η περίπτωση $\Delta > 0$:
+
+```{pyodide}
+#| autorun: true
+a, b, c = 1, -3, -4
+discriminant = b**2 - 4*a*c
+
+if discriminant > 0:
+    sqrt_disc = discriminant ** 0.5
+    x1 = (-b + sqrt_disc) / (2*a)
+    x2 = (-b - sqrt_disc) / (2*a)
+    print(f'Δύο ρίζες: x1={x1:.2f}, x2={x2:.2f}')
+```
+:::
+
+::: {.fragment}
+Προσθέτουμε **και τις τρεις** περιπτώσεις — δεν "σκάει" ποτέ πια:
+
+```{pyodide}
+#| autorun: true
+a, b, c = 1, -3, -4
+discriminant = b**2 - 4*a*c
+
+if discriminant > 0:
+    sqrt_disc = discriminant ** 0.5
+    x1 = (-b + sqrt_disc) / (2*a)
+    x2 = (-b - sqrt_disc) / (2*a)
+    print(f'Δύο ρίζες: x1={x1:.2f}, x2={x2:.2f}')
+elif discriminant == 0:
+    print(f'Μία διπλή ρίζα: x={-b/(2*a):.2f}')
+else:
+    print('Καμία πραγματική ρίζα')
+```
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- Σχεσιακοί/λογικοί τελεστές, short-circuit, αλυσιδωτές συγκρίσεις
+- `True`/`False` ως ακέραιοι· truthy / falsy τιμές, `bool(...)`
+- `if`/`elif`/`else`, λεξικογραφική σύγκριση
+- Δεσμευμένη έκφραση if, ιδίωμα `or`
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week3.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)

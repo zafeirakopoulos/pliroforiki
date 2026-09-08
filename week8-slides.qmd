@@ -1,0 +1,221 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 8"
+subtitle: "Πίνακες και Γραμμική Παλινδρόμηση"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Πίνακες ως λίστες λιστών
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+A = [[1, 2, 3],
+     [4, 5, 6]]     # πίνακας 2x3
+
+def shape(M):
+    return len(M), len(M[0])
+
+def print_matrix(M):
+    for row in M:
+        print(row)
+
+print(shape(A))
+print(A[1][2])   # γραμμή 1, στήλη 2
+```
+:::
+
+## Παγίδα: `[[0]*cols]*rows`
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+rows, cols = 3, 3
+good = [[0] * cols for _ in range(rows)]   # ΣΩΣΤΟ
+print_matrix(good)
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+bad = [[0] * cols] * rows   # ΛΑΘΟΣ -- ίδια εσωτερική λίστα!
+bad[0][0] = 99
+print_matrix(bad)   # το 99 σε ΟΛΕΣ τις γραμμές
+
+print(bad[0] is bad[1])   # True -- ίδιο αντικείμενο
+```
+:::
+
+## Πρόσθεση & πολλαπλασιασμός
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def mat_mul(A, B):
+    rows_a, cols_a = shape(A)
+    rows_b, cols_b = shape(B)
+    result = [[0] * cols_b for _ in range(rows_a)]
+    for i in range(rows_a):
+        for j in range(cols_b):
+            result[i][j] = sum(A[i][k] * B[k][j] for k in range(cols_a))
+    return result
+
+A = [[1, 2], [3, 4]]
+B = [[5, 6], [7, 8]]
+print_matrix(mat_mul(A, B))
+```
+:::
+
+::: {.fragment}
+::: {.callout-important}
+$A \cdot B \neq B \cdot A$ γενικά.
+:::
+:::
+
+## Ανάστροφος & ορίζουσα
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def det2(A):
+    return A[0][0]*A[1][1] - A[0][1]*A[1][0]
+
+def det3(A):
+    a, b, c = A[0]; d, e, f = A[1]; g, h, i = A[2]
+    return a*(e*i - f*h) - b*(d*i - f*g) + c*(d*h - e*g)
+
+M3 = [[6, 1, 1], [4, -2, 5], [2, 8, 7]]
+print('det =', det3(M3))
+```
+:::
+
+## Αλγόριθμος απαλοιφής Gauss
+
+**Ευθεία απαλοιφή** (→ άνω τριγωνική μορφή) + **αντικατάσταση προς τα πίσω**, γραμμή προς γραμμή:
+
+```{.python code-line-numbers="1-2|3-4|5-8|9-12"}
+def gauss_solve(A, b):
+    n = len(A)
+    M = [A[i][:] + [b[i]] for i in range(n)]   # επαυξημένος πίνακας
+    for col in range(n):
+        pivot_row = max(range(col, n), key=lambda r: abs(M[r][col]))
+        M[col], M[pivot_row] = M[pivot_row], M[col]
+        for row in range(col + 1, n):
+            factor = M[row][col] / M[col][col]
+            for k in range(col, n + 1):
+                M[row][k] -= factor * M[col][k]
+    x = [0] * n
+    for row in range(n - 1, -1, -1):
+        s = M[row][n] - sum(M[row][col] * x[col] for col in range(row + 1, n))
+        x[row] = s / M[row][row]
+    return x
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def gauss_solve(A, b):
+    n = len(A)
+    M = [A[i][:] + [b[i]] for i in range(n)]
+    for col in range(n):
+        pivot_row = max(range(col, n), key=lambda r: abs(M[r][col]))
+        M[col], M[pivot_row] = M[pivot_row], M[col]
+        for row in range(col + 1, n):
+            factor = M[row][col] / M[col][col]
+            for k in range(col, n + 1):
+                M[row][k] -= factor * M[col][k]
+    x = [0] * n
+    for row in range(n - 1, -1, -1):
+        s = M[row][n] - sum(M[row][col] * x[col] for col in range(row + 1, n))
+        x[row] = s / M[row][row]
+    return x
+
+A = [[2, 1, -1], [-3, -1, 2], [-2, 1, 2]]
+b = [8, -11, -3]
+print(gauss_solve(A, b))
+```
+:::
+
+## Αναγωγή σε ήδη γνωστό πρόβλημα
+
+Προσαρμογή δεδομένων σε καμπύλη = ένα ακόμα γραμμικό σύστημα (κανονικές εξισώσεις) — λύνεται με **την ίδια** `gauss_solve`:
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import random
+random.seed(2)
+n = 40
+xs = [random.uniform(-5, 5) for _ in range(n)]
+ys = [1 - 2*x + 0.5*x**2 + random.gauss(0, 1) for x in xs]
+
+degree = 3
+X = [[x**power for power in range(degree)] for x in xs]
+XtX = [[sum(X[i][r]*X[i][c] for i in range(n)) for c in range(degree)] for r in range(degree)]
+Xty = [sum(X[i][r]*ys[i] for i in range(n)) for r in range(degree)]
+
+beta = gauss_solve(XtX, Xty)   # ΙΔΙΟΣ κώδικας, νέο πρόβλημα
+print(beta)
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import matplotlib.pyplot as plt
+g = [-5 + 10*i/200 for i in range(201)]
+fit = [beta[0] + beta[1]*x + beta[2]*x**2 for x in g]
+plt.scatter(xs, ys, s=12, alpha=0.6, label='δεδομένα')
+plt.plot(g, fit, 'tab:red', label='προσαρμογή')
+plt.legend(); plt.title('Ελάχιστα τετράγωνα')
+plt.show()
+```
+:::
+
+## Κουαρτέτο του Anscombe (1973)
+
+Τέσσερα σύνολα · **ίδιος** μ.ο., διασπορά, συσχέτιση, ευθεία ελαχίστων τετραγώνων:
+
+```{pyodide}
+#| autorun: true
+import matplotlib.pyplot as plt
+
+xc = [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5]
+Q = {
+ 'I':   (xc, [8.04,6.95,7.58,8.81,8.33,9.96,7.24,4.26,10.84,4.82,5.68]),
+ 'II':  (xc, [9.14,8.14,8.74,8.77,9.26,8.10,6.13,3.10,9.13,7.26,4.74]),
+ 'III': (xc, [7.46,6.77,12.74,7.11,7.81,8.84,6.08,5.39,8.15,6.42,5.73]),
+ 'IV':  ([8,8,8,8,8,8,8,19,8,8,8],
+         [6.58,5.76,7.71,8.84,8.47,7.04,5.25,12.50,5.56,7.91,6.89]),
+}
+fig, ax = plt.subplots(2, 2, figsize=(7, 6))
+for a, (name, (xs, ys)) in zip([ax[0][0], ax[0][1], ax[1][0], ax[1][1]], Q.items()):
+    a.scatter(xs, ys)
+    a.plot([2, 20], [4, 13], 'tab:red')   # y = 3 + 0.5x
+    a.set_title(name); a.set_xlim(2, 20); a.set_ylim(2, 14)
+plt.tight_layout(); plt.show()
+```
+
+::: {.fragment}
+Ίδια νούμερα, τέσσερις ιστορίες. **Πάντα** σχεδιάζουμε τα δεδομένα.
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- Πίνακες ως λίστες λιστών: πρόσθεση, πολλαπλασιασμός, ανάστροφος, ορίζουσα
+- Αλγόριθμος απαλοιφής Gauss για γραμμικά συστήματα
+- Αναγωγή προβλήματος σε ήδη γνωστό — επαναχρησιμοποίηση κώδικα
+- Κουαρτέτο του Anscombe: ίδια στατιστικά ≠ ίδια δεδομένα — πάντα σχεδιάζουμε
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week8.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)

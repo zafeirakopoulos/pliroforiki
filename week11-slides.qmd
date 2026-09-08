@@ -1,0 +1,156 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 11"
+subtitle: "Ευκλείδειος Αλγόριθμος, Ακριβής Υπολογισμός, Συνεχή Κλάσματα"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Ο αλγόριθμος του Ευκλείδη
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def gcd(x, y):
+    if y == 0:
+        return x
+    return gcd(y, x % y)
+
+print(gcd(48, 18))
+print(gcd(1071, 462))
+```
+:::
+
+::: {.fragment}
+```
+gcd(1071, 462) → gcd(462, 147) → gcd(147, 21) → gcd(21, 0) = 21
+```
+Κάθε βήμα: `(x, y) → (y, x % y)`. Γεωμετρικά: μεγαλύτερο τετράγωνο που στρώνει ένα `a × b` ορθογώνιο.
+:::
+
+::: {.fragment}
+`math.gcd()` υπάρχει έτοιμο — αλλά χρειαζόμαστε τη δική μας εκδοχή για **παραλλαγές**.
+:::
+
+## Επεκτεταμένος Ευκλείδειος
+
+Υπολογίζει επιπλέον συντελεστές $x,y$ με $ax+by=\gcd(a,b)$, βήμα-βήμα:
+
+```{.python code-line-numbers="1-2|3|4|5"}
+def extended_gcd(a, b):
+    if b == 0:
+        return a, 1, 0
+    g, x1, y1 = extended_gcd(b, a % b)
+    x, y = y1, x1 - (a // b) * y1
+    return g, x, y
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def extended_gcd(a, b):
+    if b == 0:
+        return a, 1, 0
+    g, x1, y1 = extended_gcd(b, a % b)
+    x, y = y1, x1 - (a // b) * y1
+    return g, x, y
+
+a, b = 240, 46
+g, x, y = extended_gcd(a, b)
+print(f'{a}*{x} + {b}*{y} = {a*x + b*y}')   # = gcd(a,b)
+```
+:::
+
+::: {.fragment}
+Υπολογίζει επιπλέον συντελεστές μαζί με τον ΜΚΔ.
+:::
+
+## Ακριβής (συμβολικός) υπολογισμός
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import math
+from fractions import Fraction
+
+big1, big2 = math.factorial(30), math.factorial(25)
+print('ΜΚΔ:', gcd(big1, big2))   # απόλυτα ακριβές
+
+print(Fraction(1, 3) + Fraction(1, 6))   # 1/2 -- ακριβώς
+print(0.1 + 0.2)                          # η γνωστή ατέλεια της float
+```
+:::
+
+::: {.fragment}
+Απεριόριστοι ακέραιοι + `Fraction`: καμία στρογγυλοποίηση, ποτέ.
+:::
+
+## Συνεχή κλάσματα ≈ Ευκλείδειος αλγόριθμος
+
+Ίδιος βρόχος με τον `gcd`, απλώς καταγράφουμε το πηλίκο σε κάθε βήμα:
+
+```{.python code-line-numbers="1-2|3|4-5|6|7"}
+def continued_fraction(p, q):
+    coeffs = []
+    while q != 0:
+        a = p // q
+        coeffs.append(a)
+        p, q = q, p - a * q     # ίδιο μοτίβο με τον gcd!
+    return coeffs
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def continued_fraction(p, q):
+    coeffs = []
+    while q != 0:
+        a = p // q
+        coeffs.append(a)
+        p, q = q, p - a * q     # ίδιο μοτίβο με τον gcd!
+    return coeffs
+
+print(continued_fraction(415, 93))     # [4, 2, 6, 7]
+```
+:::
+
+::: {.fragment}
+Ίδιος αλγόριθμος, απλώς καταγράφουμε το πηλίκο σε κάθε βήμα.
+:::
+
+## Οκνηρή αποτίμηση με γεννήτριες
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def sqrt2_continued_fraction():
+    yield 1
+    while True:
+        yield 2   # [1; 2, 2, 2, ...] -- άπειρο, περιοδικό
+
+gen = sqrt2_continued_fraction()
+print([next(gen) for _ in range(10)])
+```
+:::
+
+::: {.fragment}
+Άπειρη ακολουθία → παράγουμε όρους **κατ' απαίτηση**, μόνο όσους χρειαζόμαστε.
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- Αλγόριθμος Ευκλείδη, επεκτεταμένη εκδοχή
+- Ακριβής (συμβολικός) υπολογισμός: απεριόριστοι ακέραιοι, `fractions`
+- Αλγόριθμος σχεδόν πανομοιότυπος με τον Ευκλείδειο — ίδια λογική, άλλη καταγραφή
+- Οκνηρή αποτίμηση (lazy evaluation) με γεννήτριες
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week11.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)

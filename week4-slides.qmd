@@ -1,0 +1,289 @@
+---
+title: "Πληροφορική Ι — Εβδομάδα 4"
+subtitle: "Ο Βρόχος For και Λίστες"
+lang: el
+format:
+  live-revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+webr:
+  show-startup-message: false
+---
+
+## Η εντολή `for` και `range`
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+for num in range(1, 10, 2):
+    print(num, end=' ')
+print()
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+N = 5   # ένθετα for -- δισδιάστατα μοτίβα
+for i in range(N):
+    for j in range(i + 1):
+        print('*', end='')
+    print()
+```
+:::
+
+## `break` και `continue`
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def is_prime(n):
+    if n < 2:
+        return False
+    for k in range(2, n):
+        if n % k == 0:
+            return False
+    return True
+
+for candidate in range(100, 200):
+    if is_prime(candidate):
+        print('Πρώτος βρέθηκε:', candidate)
+        break   # δεν χρειάζεται να συνεχίσουμε
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+for n in range(10):
+    if n % 3 != 0:
+        continue
+    print(n, end=' ')
+```
+:::
+
+# Λίστες και Πλειάδες
+
+## Δημιουργία και πρόσβαση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+values = [2, -4, 6, -8, 10]
+
+for x in values:
+    print(x, end=' ')
+print()
+
+print(values[-1])     # αρνητικοί δείκτες: από το τέλος
+print(values[1:4])    # τεμαχισμός
+print(values[::-1])   # αντιστροφή
+```
+:::
+
+## Λίστες με κατανόηση
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+squares = [x ** 2 for x in range(1, 11)]
+print(squares)
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+evens_squared = [x ** 2 for x in range(1, 11) if x % 2 == 0]
+print(evens_squared)
+
+total = sum(x ** 2 for x in range(1, 11))   # generator expression -- lazy
+print(total)
+```
+:::
+
+## Μεταβλητότητα και αντίγραφα
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+list_a = [1, 2, 3]
+list_b = list_a          # ΟΧΙ αντίγραφο -- ίδια λίστα, δύο ονόματα
+list_c = list_a[:]       # πραγματικό αντίγραφο
+
+list_a[0] = 99
+print(list_a, list_b, list_c)
+print(list_a is list_b, list_a is list_c)
+```
+:::
+
+::: {.fragment}
+::: {.callout-important}
+`list2 = list1` **δεν** αντιγράφει. Χρησιμοποιήστε `list1[:]` ή `list(list1)`.
+:::
+:::
+
+## Δισδιάστατες λίστες
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+grid = [[2, 4, 6], [1, 3, 5], [11, 12, 13]]
+print(grid[2][1])     # γραμμή 2, στήλη 1
+print(sum(sum(row) for row in grid))
+```
+:::
+
+## Πλειάδες (tuples)
+
+Αμετάβλητες· τις ορίζει το **κόμμα**, όχι οι παρενθέσεις.
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+t = 1, 2, 3           # packing -- χωρίς παρενθέσεις
+one = (5,)            # ένα στοιχείο -- ΠΡΟΣΟΧΗ στο κόμμα
+print(t, type(one))
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+x, y = (3, -2)        # unpacking
+a, b = 10, 20
+a, b = b, a           # ανταλλαγή τιμών
+print(x, y, a, b)
+
+for i, c in enumerate(['α', 'β', 'γ']):   # enumerate -> (θέση, τιμή)
+    print(i, c)
+```
+:::
+
+## f-strings και λίστες
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+nums = [3, 1, 4, 1, 5]
+print(' | '.join(f'{n:02d}' for n in nums))
+```
+:::
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+grades = [('Άννα', 18.5), ('Βασίλης', 9.0), ('Γιώργος', 14.25)]
+for name, grade in grades:
+    print(f'{name:<10}{grade:>7.2f}')
+```
+:::
+
+## Ταξινόμηση με επιλογή
+
+Βρίσκει το ελάχιστο του υπόλοιπου τμήματος, γραμμή προς γραμμή:
+
+```{.python code-line-numbers="1|2|3|4-6|7"}
+def selection_sort(v):
+    for i in range(len(v) - 1):
+        min_index = i
+        for j in range(i + 1, len(v)):
+            if v[j] < v[min_index]:
+                min_index = j
+        v[i], v[min_index] = v[min_index], v[i]
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def selection_sort(v):
+    for i in range(len(v) - 1):
+        min_index = i
+        for j in range(i + 1, len(v)):
+            if v[j] < v[min_index]:
+                min_index = j
+        v[i], v[min_index] = v[min_index], v[i]
+
+data = [5, 3, 8, 1, 4, 5, 7, 6]
+selection_sort(data)
+print(data)
+```
+:::
+
+## Γραμμική αναζήτηση σε λίστα
+
+Σάρωση στοιχείο-στοιχείο· `return` μόλις βρεθεί. Σε **οποιαδήποτε** λίστα:
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+def linear_search(v, key):
+    for i in range(len(v)):
+        if v[i] == key:
+            return i        # βρέθηκε -- σταματάμε αμέσως
+    return -1               # δεν βρέθηκε
+
+data = [15, 8, 42, 4, 16, 23, 100]
+print(linear_search(data, 16))
+```
+:::
+
+::: {.fragment}
+Η **δυαδική αναζήτηση** (ταξινομημένη λίστα, μισό διάστημα κάθε φορά) ταιριάζει με τον `while` — Εβδομάδα 5.
+:::
+
+# Πρώτοι Αριθμοί
+
+## Έλεγχος πρώτων & κόσκινο Ερατοσθένη
+
+Βήμα-βήμα: αρχικοποίηση, σβήσε πολλαπλάσια, συγκέντρωσε:
+
+```{.python code-line-numbers="1-3|4-7|8"}
+def sieve_of_eratosthenes(N):
+    is_candidate = [True] * (N + 1)
+    is_candidate[0] = is_candidate[1] = False
+    for i in range(2, math.isqrt(N) + 1):
+        if is_candidate[i]:
+            for multiple in range(i * i, N + 1, i):
+                is_candidate[multiple] = False
+    return [n for n in range(N + 1) if is_candidate[n]]
+```
+
+::: {.fragment}
+```{pyodide}
+#| autorun: true
+import math
+
+def sieve_of_eratosthenes(N):
+    is_candidate = [True] * (N + 1)
+    is_candidate[0] = is_candidate[1] = False
+    for i in range(2, math.isqrt(N) + 1):
+        if is_candidate[i]:
+            for multiple in range(i * i, N + 1, i):
+                is_candidate[multiple] = False
+    return [n for n in range(N + 1) if is_candidate[n]]
+
+print(sieve_of_eratosthenes(50))
+```
+:::
+
+::: {.fragment}
+Ελέγχουμε υποψήφιους πρώτους μόνο μέχρι $\sqrt{N}$.
+:::
+
+## Σύνοψη
+
+::: {.incremental}
+- `for`, `range`, ένθετοι βρόχοι, `break`/`continue`
+- Λίστες: δημιουργία, πρόσβαση, τεμαχισμός, μεταβλητότητα/αντίγραφα
+- Λίστες με κατανόηση, δισδιάστατες λίστες
+- Πλειάδες: το κόμμα, packing/unpacking, ανταλλαγή τιμών, `enumerate`/`zip`
+- f-strings + λίστες: `str.join`, στοιχισμένα πινακάκια
+- Ταξινόμηση με επιλογή, γραμμική αναζήτηση (δυαδική → Εβδομάδα 5)
+- Έλεγχος πρώτων, κόσκινο του Ερατοσθένη
+:::
+
+##
+
+[⤺ Πλήρεις σημειώσεις](week4.html) &nbsp;·&nbsp; [Πρόγραμμα μαθήματος](main.html)
