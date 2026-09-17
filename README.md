@@ -11,26 +11,40 @@ Published at <https://zafeirakopoulos.github.io/pliroforiki/>.
 
 Two branches, two different things:
 
-| Branch | Holds | Checked out as |
+| Branch | Holds | Who writes it |
 | --- | --- | --- |
-| `main` | the `.qmd` sources | the repository root |
-| `gh-pages` | the rendered HTML | the `pliroforiki/` subdirectory |
+| `main` | the `.qmd` sources | you |
+| `gh-pages` | the rendered HTML that GitHub Pages serves | GitHub Actions, never by hand |
 
 Sources live at the root: `main.qmd`, `week1.qmd` … `week13.qmd` for the notes,
 and `week1-slides.qmd` … `week13-slides.qmd` for the matching decks. Each file
 carries its own `format:` block; `_quarto.yml` only wires up shared branding and
 the output directory.
 
-## Prerequisites
+## Publishing
 
-Two requirements are easy to get wrong, and neither fails with an obvious
-message. Get both right before you try to render.
+Push to `main`. That is the whole procedure.
+
+Every push triggers the **Publish site** workflow
+(`.github/workflows/publish.yml`), which renders the site on GitHub and replaces
+the contents of `gh-pages` with the result. The live site updates a minute or two
+after the workflow finishes. Progress and any errors are under the repository's
+**Actions** tab; a failed build leaves the live site untouched.
+
+To republish without changing anything, run the workflow by hand from the
+Actions tab (**Run workflow**).
+
+Nothing needs to be installed locally to publish.
+
+## Previewing locally (optional)
+
+To see pages as you write them, before pushing, install Quarto and a Jupyter
+kernel. Two requirements are easy to get wrong, and neither fails with an
+obvious message.
 
 ### 1. Quarto 1.8.25 specifically
 
-Use the same version the published site was built with. Rendering with a
-different version rewrites boilerplate across every generated page, turning a
-one-line edit into a diff over the whole site.
+Use the version the workflow pins, so the preview matches what gets published.
 
 Check what the live site currently uses:
 
@@ -77,36 +91,17 @@ Then point Quarto at it via `QUARTO_PYTHON` (see below).
 
 R is **not** required, despite `quarto check` reporting it as missing.
 
-## Building
+### 3. Preview
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
 export QUARTO_PYTHON="$HOME/.local/opt/quarto-venv/bin/python"
 
-quarto render     # build everything into _site/
 quarto preview    # serve with live reload while writing
 ```
 
-## Publishing
-
-`deploy.sh` renders the site and mirrors `_site/` into `pliroforiki/`, which must
-be a checkout of `gh-pages`. On a fresh clone that directory does not exist yet —
-create it once:
-
-```bash
-git worktree add pliroforiki gh-pages
-```
-
-Then, for each release:
-
-```bash
-./deploy.sh
-cd pliroforiki && git add -A && git commit -m render && git push
-cd .. && git push          # and push the sources to main
-```
-
-Sources and rendered output are pushed separately. Pushing only `main` leaves the
-live site stale.
+`quarto render` builds into `_site/`, which is ignored by git. A local render is
+only ever a preview: the published site is always the one GitHub Actions builds.
 
 ## Notes for contributors
 
@@ -114,12 +109,15 @@ live site stale.
 heading text, so retitling a section silently breaks any link to its old
 anchor — syllabus links, eclass posts, bookmarks.
 
-**Expect stylesheet churn between machines.** Quarto's SASS bundler emits the
-same declarations in a different order on different machines, which changes the
-bootstrap file's content-hash and touches every generated page. The stylesheets
-are equivalent and there is no visual difference; the diff simply flips back and
-forth depending on who rendered last. Review the `.html` content changes and
-ignore the `bootstrap-*.min.css` renames.
+**Expect a bootstrap filename change in `gh-pages` diffs.** Quarto's SASS
+bundler emits the same declarations in a different order on different machines,
+which changes the bootstrap stylesheet's content-hash and touches every generated
+page. The stylesheets are equivalent and there is no visual difference. Since
+every build now runs on the same GitHub runner image, this should appear only
+when that image or Quarto changes, not on every publish.
+
+**Changing the Quarto version** means editing `version:` in
+`.github/workflows/publish.yml`. Expect the next publish to touch every page.
 
 **Keep gitignore patterns anchored.** An unanchored `resources/` once matched
 `_extensions/r-wasm/live/resources/` as well as the top-level PDF directory,

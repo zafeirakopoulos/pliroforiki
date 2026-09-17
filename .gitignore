@@ -2,9 +2,6 @@
 _site/
 .quarto/
 
-# The deploy repo (its own git repo; holds only rendered HTML)
-pliroforiki/
-
 # Per-document rendered asset folders
 *_files/
 
